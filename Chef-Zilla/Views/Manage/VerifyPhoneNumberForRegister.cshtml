@@ -1,0 +1,94 @@
+﻿@model Chef_Zilla.Models.VerifyPhoneNumberForRegisterViewModel
+
+@{
+    ViewBag.Title = "VerifyPhoneNumberForRegister";
+}
+
+<div class="container-fluid">
+    <div class="row fixed-top">
+        <div class="col-md-3 d-none d-md-block ">
+            <img style="width: 70%" class="img-fluid" src="~/Images/Group 2.png" alt="">
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class="row d-flex align-items-center mt-5">
+        <div class="col-md-6 col-sm-10 offset-sm-1 offset-md-0 text-center animated pulse">
+            <img style="width: 60%;" src="~/Images/6459.jpg" alt="">
+        </div>
+        <br>
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <div class="row text-center animated rubberBand mt-4">
+                    <div class="col-md-12">
+                        <h1 class="font-weight-bold">Verify Your Phone Number</h1>
+                    </div>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row animated bounceIn mt-1">
+                        <div class="md-form col-md-8 offset-md-2 col-sm-8 offset-sm-2 col-8 offset-2">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger text-left" })
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "border-bottom: 1.2px solid #b3b3b3; " } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "ml-3 verificationCodeLabel", @style = "color: #b30000;" })
+                        </div>
+                    </div>
+                    @Html.HiddenFor(model => model.UserId)
+                    @Html.HiddenFor(model => model.PhoneNumber)
+                    <div class="row text-center mt-3 animated fadeIn">
+                        <div class="col-md-12">
+                            <input type="submit" name="command" value="Verify" class="buttonCss" />
+                        </div>
+                    </div>
+                }
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row text-center animated fadeIn">
+                        <div class="col-md-12 mb-5">
+                            @Html.HiddenFor(model => model.UserId)
+                            @Html.HiddenFor(model => model.PhoneNumber)
+                            <p class="color my-4">Haven't got the code yet?</p>
+                            <input type="submit" name="command" value="Resend" class="buttonCss" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row fixed-bottom">
+        <div class="container-fluid px-0">
+            <div class="row no-gutters d-none d-md-block">
+                <div class="col-md-12">
+                    <img style="width: 15%;" class="float-right" src="~/Images/Group 1.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Code").focus(function () {
+                $(".verificationCodeLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $('#Code').blur(function () {
+                if (!$(this).val()) {
+                    $(".verificationCodeLabel").animate({ "top": '5px' }, 100);
+                }
+            })
+        });
+    </script>
+    @Styles.Render("~/Animation/css")
+    @Scripts.Render("~/bundles/jqueryval")
+}
