@@ -32,6 +32,10 @@ namespace Chef_Zilla.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<ExtraIngredient> ExtraIngredients { get; set; }
+         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

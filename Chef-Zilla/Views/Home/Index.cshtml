@@ -2,7 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 
+
+
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
+
+
 
 <div>
     <img class="slider" src="~/Images/Slider.png" alt="">
@@ -128,7 +132,7 @@
             </div>
         </div>
         <div class="text-center mt-5">
-            <button class="buttonCss">View All</button>
+            <a href="@Url.Action("Index", "FeaturedItem")" class="btn text-white buttonCss">View All</a>
         </div>
     </div>
 </div>

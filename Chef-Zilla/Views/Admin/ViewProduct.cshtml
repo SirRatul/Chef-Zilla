@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "ViewProduct";
+}
+
+<h2>ViewProduct</h2>
+
+@model Chef_Zilla.Models.Product
+
+@{
+    ViewBag.Title = "Product";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                <div class="row">
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group ml-lg-2">
+                            @Html.LabelFor(model => model.ProductType, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <select class="form-control custom-select" name="ProductType" id="ProductType" style="border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" disabled="disabled">
+                                <option value="@Model.ProductType" selected="selected">@Model.ProductType</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.ProductType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group mb-3">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "productNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    @Html.TextBox("ProductImageFile", "", new { type = "file" })
+                                    @Html.ValidationMessageFor(model => model.ProductImageFile, "", new { @class = "text-danger" })
+                                    @*<input type="file" class="custom-file-input" id="inputGroupFile04">
+                                <label class="custom-file-label" for="inputGroupFile04">Choose file</label>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group mb-3">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.PrepareTime, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.PrepareTime, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.PrepareTime, htmlAttributes: new { @class = "prepareTimeLabel position-absolute", @style = "color: #b30000;;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group mb-3">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "productPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+                </div>
+
+                for (var i = 0; i < @Model.IngredientName.Count; i++)
+                {
+                    <div class="row">
+                        <div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("IngredientName", @Model.IngredientName[i], new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.IngredientName, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.IngredientName, htmlAttributes: new { @class = "ingredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                            </div>
+                        </div>
+                        <div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("IngredientQuantity", @Model.IngredientQuantity[i], new { @class = "form-control", style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.IngredientQuantity, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new { @class = "ingredientQuantityLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="row">
+                    <div class="col-10 offset-1 mt-5">
+                        <h2>Extra Ingredient</h2>
+                    </div>
+                </div>
+
+                for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+                {
+                    <div class="row">
+                        <div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("ExtraIngredientName", @Model.ExtraIngredientName[i], new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.ExtraIngredientName, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new { @class = "extraIngredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                            </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4 mt-5">
+                            <div class="col-md-12">
+                                @Html.TextBox("ExtraIngredientPrice", @Model.ExtraIngredientPrice[i], new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.ExtraIngredientPrice, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new { @class = "extraIngredientPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#ProductName").focus(function () {
+                $(".productNameLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#PrepareTime").focus(function () {
+                $(".prepareTimeLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#ProductPrice").focus(function () {
+                $(".productPriceLabel").animate({ "top": '-25px' }, 100);
+            });
+
+
+            $("#IngredientName").focus(function () {
+                $(".ingredientNameLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#IngredientQuantity").focus(function () {
+                $(".ingredientQuantityLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#ExtraIngredientName").focus(function () {
+                $(".extraIngredientNameLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#ExtraIngredientPrice").focus(function () {
+                $(".extraIngredientPriceLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $('#ProductName').blur(function () {
+                if (!$(this).val()) {
+                    $(".productNameLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#PrepareTime').blur(function () {
+                if (!$(this).val()) {
+                    $(".prepareTimeLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#ProductPrice').blur(function () {
+                if (!$(this).val()) {
+                    $(".productPriceLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#IngredientName').blur(function () {
+                if (!$(this).val()) {
+                    $(".ingredientNameLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#IngredientQuantity').blur(function () {
+                if (!$(this).val()) {
+                    $(".ingredientQuantityLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#ExtraIngredientName').blur(function () {
+                if (!$(this).val()) {
+                    $(".extraIngredientNameLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#ExtraIngredientPrice').blur(function () {
+                if (!$(this).val()) {
+                    $(".extraIngredientPriceLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            if (document.getElementById("ProductName").value) {
+                $(".productNameLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("PrepareTime").value) {
+                $(".prepareTimeLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("ProductPrice").value) {
+                $(".productPriceLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("IngredientName").value) {
+                $(".ingredientNameLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("IngredientQuantity").value) {
+                $(".ingredientQuantityLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("ExtraIngredientName").value) {
+                $(".extraIngredientNameLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("ExtraIngredientPrice").value) {
+                $(".extraIngredientPriceLabel").animate({ "top": '-25px' }, 100);
+            }
+        });
+    </script>
+    @*@Styles.Render("~/Animation/css")*@
+    @Scripts.Render("~/bundles/jqueryval")
+}

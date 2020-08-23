@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+@using (Html.BeginForm("AdminLogOff", "Account", FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Logout" class="btn btn-primary" />
+}

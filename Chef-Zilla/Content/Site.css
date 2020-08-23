@@ -151,3 +151,36 @@ h2 {
     margin: 0;
     padding: 0;
 }
+
+.pagination .page-item {
+    font-size: 1rem;
+    color: #b30000;
+    margin-left: 20px;
+    border: 1.5px solid grey;
+}
+
+table.table thead th {
+    border: 2px solid;
+}
+
+table.table th, table.table td {
+    border: 2px solid grey;
+    /* padding-top: 1.1rem; */
+    /* padding-bottom: 1rem; */
+}
+
+table.table th, table.table td, li {
+    font-size: 20px;
+    color: grey
+    /* padding-top: 1.1rem; */
+    /* padding-bottom: 1rem; */
+}
+
+.pagination > li > a {
+    color: #b30000;
+    margin-left: 20px;
+    border: 1.5px solid grey;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}

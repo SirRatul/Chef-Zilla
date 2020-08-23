@@ -1,0 +1,468 @@
+﻿@model Chef_Zilla.Models.Product
+
+@{
+    ViewBag.Title = "Product";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body">
+            @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                {
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="alert alert-warning alert-dismissible show" role="alert">
+                                @Html.ValidationSummary(true, "")
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group ml-lg-2">
+                            @Html.LabelFor(model => model.ProductType, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownListFor(model => model.ProductType, new List<SelectListItem>
+                            {
+                                new SelectListItem() {Text = "Featured", Value = "Featured"},
+                                new SelectListItem() {Text = "General", Value = "General"}}, new { @class = "form-control custom-select", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" })
+                            @Html.ValidationMessageFor(model => model.ProductType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group mb-3">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" } })
+                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "productNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    @Html.TextBox("ProductImageFile", "", new { type = "file", @accept = "image/x-png,image/gif,image/jpeg" })
+                                    @Html.ValidationMessageFor(model => model.ProductImageFile, "", new { @class = "text-danger" })
+                                    <img id="ProductImageFileShow" src="#" style="width: 240px; height: 150px;" alt="your image" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group mb-3">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.PrepareTime, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" } })
+                                @Html.ValidationMessageFor(model => model.PrepareTime, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.PrepareTime, htmlAttributes: new { @class = "prepareTimeLabel position-absolute", @style = "color: #b30000;;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+                    <div class="col-4 offset-1 mt-5">
+                        <div class="form-group mb-3">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" } })
+                                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "productPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                        </div>
+                    </div>
+                </div>
+                <div class="input_fields_wrap">
+                    <div class="row">
+                        <div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("IngredientName", null, new { @class = "form-control ingredient1", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                                    @Html.ValidationMessageFor(model => model.IngredientName, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.IngredientName, htmlAttributes: new { @class = "ingredientNameLabel1 position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                            </div>
+                        </div>
+                        <div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("IngredientQuantity", null, new { @class = "form-control", style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                                    @Html.ValidationMessageFor(model => model.IngredientQuantity, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new { @class = "ingredientQuantityLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                            </div>
+                        </div>
+                        <button class="mt-5 mb-3 add_field_button bg-danger border-0" id="ingredientAddButton1">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                        <button class="mt-5 mb-3 remove_field_button bg-danger border-0 d-none" id="ingredientRemoveButton1">
+                            <i class="fas fa-minus-circle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1 mt-5">
+                        <h2>Extra Ingredient</h2>
+                    </div>
+                </div>
+
+                <div class="extra_input_fields_wrap">
+                    <div class="row">
+                        <div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("ExtraIngredientName", null, new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                                    @Html.ValidationMessageFor(model => model.ExtraIngredientName, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new { @class = "extraIngredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                            </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4 mt-5">
+                            <div class="col-md-12">
+                                @Html.TextBox("ExtraIngredientPrice", null, new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                                @Html.ValidationMessageFor(model => model.ExtraIngredientPrice, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new { @class = "extraIngredientPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
+                        </div>
+                        <button class="mt-5 mb-3 add_extra_field_button bg-danger border-0">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                    <div class="row text-center my-5">
+                        <div class="col-12">
+                            <div class="text-center mt-5">
+                                <input type="submit" value="Add Product" class="buttonCss" style="border: 1px solid white; background-color: #b30000; color: white; margin: 0 auto; padding: 7px" />
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+        </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+            var extrawrapper = $(".extra_input_fields_wrap"); //Fields wrapper
+            var add_button = $(".add_field_button"); //Add button ID
+            var remove_button = $(".remove_field_button"); //Add button ID
+            var add_extra_button = $(".add_extra_field_button"); //Add button ID
+
+
+            var x = 1; //initlal text box count
+            var y = 1; //initlal text box count
+            $(add_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                var n = `<div class="row"><div class="col-4 offset-1 mt-5">
+                                <div class="form-group mb-3">
+                                    <div class="col-md-12">
+                                        @Html.TextBox("IngredientName", null, new {@class = "form-control ingredient${(x+1)}", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                        @Html.ValidationMessageFor(model => model.IngredientName, "", new {@class = "text-danger"})
+                                    </div>
+                                    @Html.LabelFor(model => model.IngredientName, htmlAttributes: new {@class = "ingredientNameLabel${(x+1)} position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                                </div>
+                            </div>
+                            <div class="col-4 offset-1 mt-5">
+                                <div class="form-group mb-3">
+                                    <div class="col-md-12">
+                                        @Html.TextBox("IngredientQuantity", null, new {@class = "form-control", style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                        @Html.ValidationMessageFor(model => model.IngredientQuantity, "", new {@class = "text-danger"})
+                                    </div>
+                                    @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new {@class = "ingredientQuantityLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                                </div>
+                            </div>
+                            <button class="mt-5 mb-3 add_field_button_inside bg-danger border-0" id="ingredientAddButton${(x + 1)}">
+                                <i class="fas fa-plus-circle nav-icon"></i>
+                            </button>
+                            <button class="mt-5 mb-3 remove_field bg-danger border-0">
+                                <i class="fas fa-minus-circle nav-icon"></i>
+                            </button></div>`;
+                x++; //text box increment
+                $(wrapper).append(n); // add input boxes.
+                console.log($('.input_fields_wrap').length);
+                document.getElementById("ingredientAddButton1").classList.add("d-none");
+                document.getElementById("ingredientRemoveButton1").classList.add("d-block");
+            });
+
+            $(remove_button).click(function(e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+                console.log('Before X:' + x);
+                x--;
+                console.log('After X:' + x);
+                console.log($('.input_fields_wrap').length);
+            });
+
+            $(add_extra_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                var m = `<div class="row"><div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("ExtraIngredientName", null, new {@class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                    @Html.ValidationMessageFor(model => model.ExtraIngredientName, "", new {@class = "text-danger"})
+                                </div>
+                                @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new {@class = "extraIngredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                            </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4 mt-5">
+                            <div class="col-md-12">
+                                @Html.TextBox("ExtraIngredientPrice", null, new {@class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                @Html.ValidationMessageFor(model => model.ExtraIngredientPrice, "", new {@class = "text-danger"})
+                            </div>
+                            @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new {@class = "extraIngredientPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                        </div>
+                        <button class="mt-5 mb-3 add_extra_field_button_inside bg-danger border-0">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+            <button class="mt-5 mb-3 remove__extra_field bg-danger border-0">
+                                <i class="fas fa-minus-circle nav-icon"></i>
+                            </button></div>`;
+                y++; //text box increment
+                $(extrawrapper).append(m); // add input boxes.
+                console.log($('.extra_input_fields_wrap').length);
+
+            });
+
+            $(wrapper).on("click",
+                ".add_field_button_inside",
+                function(e) { //user click on remove text
+                    e.preventDefault();
+                    x++;
+                    if (x >= 3) {
+                        for (var i = 2; i < x; i++) {
+                            console.log('I:' + i);
+                            document.getElementById("ingredientAddButton"+i).classList.add("d-none");
+
+                        }
+                    }
+                    var n = `<div class="row"><div class="col-4 offset-1 mt-5">
+                                <div class="form-group mb-3">
+                                    <div class="col-md-12">
+                                        @Html.TextBox("IngredientName", null, new {@class = "form-control ingredient${x}", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                        @Html.ValidationMessageFor(model => model.IngredientName, "", new {@class = "text-danger"})
+                                    </div>
+                                    @Html.LabelFor(model => model.IngredientName, htmlAttributes: new {@class = "ingredientNameLabel${x} position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                                </div>
+                            </div>
+                            <div class="col-4 offset-1 mt-5">
+                                <div class="form-group mb-3">
+                                    <div class="col-md-12">
+                                        @Html.TextBox("IngredientQuantity", null, new {@class = "form-control", style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                        @Html.ValidationMessageFor(model => model.IngredientQuantity, "", new {@class = "text-danger"})
+                                    </div>
+                                    @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new {@class = "ingredientQuantityLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                                </div>
+                            </div>
+                            <button class="mt-5 mb-3 add_field_button_inside bg-danger border-0" id="ingredientAddButton${x}">
+                                <i class="fas fa-plus-circle nav-icon"></i>
+                            </button>
+                            <button class="mt-5 mb-3 remove_field bg-danger border-0">
+                                <i class="fas fa-minus-circle nav-icon"></i>
+                            </button></div>`;
+                    $(wrapper).append(n); // add input boxes.
+                    console.log($('.input_fields_wrap').length);
+                });
+
+            $(wrapper).on("click",
+                ".remove_field",
+                function(e) { //user click on remove text
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                    console.log('Remove field' + x);
+                    x--;
+                    console.log('Remove field' + x);
+                    console.log($('.input_fields_wrap').length);
+                });
+
+            $(extrawrapper).on("click",
+                ".add_extra_field_button_inside",
+                function(e) { //user click on remove text
+                    e.preventDefault();
+                    y++;
+                    var m = `<div class="row"><div class="col-4 offset-1 mt-5">
+                            <div class="form-group mb-3">
+                                <div class="col-md-12">
+                                    @Html.TextBox("ExtraIngredientName", null, new {@class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                    @Html.ValidationMessageFor(model => model.ExtraIngredientName, "", new {@class = "text-danger"})
+                                </div>
+                                @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new {@class = "extraIngredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                            </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4 mt-5">
+                            <div class="col-md-12">
+                                @Html.TextBox("ExtraIngredientPrice", null, new {@class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text"})
+                                @Html.ValidationMessageFor(model => model.ExtraIngredientPrice, "", new {@class = "text-danger"})
+                            </div>
+                            @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new {@class = "extraIngredientPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px"})
+                        </div>
+                        <button class="mt-5 mb-3 add_extra_field_button_inside bg-danger border-0">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+            <button class="mt-5 mb-3 remove__extra_field bg-danger border-0">
+                                <i class="fas fa-minus-circle nav-icon"></i>
+                            </button></div>`;
+                    $(extrawrapper).append(m); // add input boxes.
+                    console.log($('.extra_input_fields_wrap').length);
+                });
+
+            $(extrawrapper).on("click",
+                ".remove__extra_field",
+                function(e) { //user click on remove text
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                    y--;
+                    console.log($('.extra_input_fields_wrap').length);
+                });
+
+            $("#ProductImageFile").change(function() {
+                readURL(this);
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#ProductImageFileShow').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+
+
+            $("#ProductName").focus(function() {
+                $(".productNameLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#PrepareTime").focus(function() {
+                $(".prepareTimeLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#ProductPrice").focus(function() {
+                $(".productPriceLabel").animate({ "top": '-25px' }, 100);
+            });
+
+
+            $("#IngredientName").focus(function() {
+                $(".ingredientNameLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#IngredientQuantity").focus(function() {
+                $(".ingredientQuantityLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#ExtraIngredientName").focus(function() {
+                $(".extraIngredientNameLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $("#ExtraIngredientPrice").focus(function() {
+                $(".extraIngredientPriceLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $('#ProductName').blur(function() {
+                if (!$(this).val()) {
+                    $(".productNameLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#PrepareTime').blur(function() {
+                if (!$(this).val()) {
+                    $(".prepareTimeLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#ProductPrice').blur(function() {
+                if (!$(this).val()) {
+                    $(".productPriceLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#IngredientName').blur(function() {
+                if (!$(this).val()) {
+                    $(".ingredientNameLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#IngredientQuantity').blur(function() {
+                if (!$(this).val()) {
+                    $(".ingredientQuantityLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#ExtraIngredientName').blur(function() {
+                if (!$(this).val()) {
+                    $(".extraIngredientNameLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            $('#ExtraIngredientPrice').blur(function() {
+                if (!$(this).val()) {
+                    $(".extraIngredientPriceLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            if (document.getElementById("ProductName").value) {
+                $(".productNameLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("PrepareTime").value) {
+                $(".prepareTimeLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("ProductPrice").value) {
+                $(".productPriceLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("IngredientName").value) {
+                $(".ingredientNameLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("IngredientQuantity").value) {
+                $(".ingredientQuantityLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("ExtraIngredientName").value) {
+                $(".extraIngredientNameLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("ExtraIngredientPrice").value) {
+                $(".extraIngredientPriceLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            @*for (let i = 0; i < x; i++) {
+                $(".ingredient" + (i + 1)).focus(function () {
+                    $(".ingredientNameLabel" + (i + 1)).animate({ "top": '-25px' }, 100);
+                });
+                $('.ingredient' + (i + 1)).blur(function () {
+                    if (!$(this).val()) {
+                        $(".ingredientNameLabel" + (i + 1)).animate({ "top": '5px' }, 100);
+                    }
+                });
+                if (document.getElementsByClassName("ingredient" + (i + 1)).value) {
+                    $(".ingredientNameLabel" + (i + 1)).animate({ "top": '-25px' }, 100);
+                }
+            }*@
+        });
+    </script>
+    @*@Styles.Render("~/Animation/css")*@
+    @Scripts.Render("~/bundles/jqueryval")
+}

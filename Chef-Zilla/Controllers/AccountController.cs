@@ -77,7 +77,7 @@ namespace Chef_Zilla.Controllers
                 return View(model);
             }
 
-            var user = _context.Users.Single(u => u.PhoneNumber.Equals(model.Number));
+            var user = _context.Users.SingleOrDefault(u => u.PhoneNumber.Equals("+88"+model.Number));
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
@@ -92,10 +92,17 @@ namespace Chef_Zilla.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            //01894102103
+            //RjmA@8094
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    var roles = await UserManager.GetRolesAsync(user.Id);
+                    if (roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -168,7 +175,7 @@ namespace Chef_Zilla.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Number, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = "+88" + model.Number, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -179,17 +186,22 @@ namespace Chef_Zilla.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    var code = await UserManager.GenerateChangePhoneNumberTokenAsync(user.Id, model.Number);
+                    //Temp code
+                    /*var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+                    await UserManager.AddToRoleAsync(user.Id, "Admin");*/
+                    var code = await UserManager.GenerateChangePhoneNumberTokenAsync(user.Id, "+88" + model.Number);
                     if (UserManager.SmsService != null)
                     {
                         var message = new IdentityMessage
                         {
-                            Destination = model.Number,
+                            Destination = "+88" + model.Number,
                             Body = "Your verifcation code for registration is: " + code
                         };
                         await UserManager.SmsService.SendAsync(message);
                     }
-                    return RedirectToAction("VerifyPhoneNumberForRegister", new RouteValueDictionary(new { controller = "Manage", UserId = user.Id, PhoneNumber = model.Number }));
+                    return RedirectToAction("VerifyPhoneNumberForRegister", new RouteValueDictionary(new { controller = "Manage", UserId = user.Id, PhoneNumber = "+88" + model.Number }));
                 }
                 AddErrors(result);
             }
@@ -228,30 +240,31 @@ namespace Chef_Zilla.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Users.Single(u => u.PhoneNumber.Equals(model.Number));
+                var user = _context.Users.SingleOrDefault(u => u.PhoneNumber.Equals("+88" + model.Number));
                 if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    ModelState.AddModelError("", "There is no user account associated with this phone");
+                    return View(model);
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var code = await UserManager.GenerateChangePhoneNumberTokenAsync(user.Id, model.Number);
+                var code = await UserManager.GenerateChangePhoneNumberTokenAsync(user.Id, "+88" + model.Number);
                 // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 if (UserManager.SmsService != null)
                 {
                     var message = new IdentityMessage
                     {
-                        Destination = model.Number,
+                        Destination = "+88" + model.Number,
                         Body = "Your verifcation code for registration is: " + code
                     };
                     await UserManager.SmsService.SendAsync(message);
                 }
                 //return RedirectToAction("ForgotPasswordConfirmation", "Account");
-                return RedirectToAction("ForgotPasswordConfirmation", new RouteValueDictionary(new { controller = "Account", UserId = user.Id, PhoneNumber = model.Number }));
+                return RedirectToAction("ForgotPasswordConfirmation", new RouteValueDictionary(new { controller = "Account", UserId = user.Id, PhoneNumber = "+88" + model.Number }));
             }
 
             // If we got this far, something failed, redisplay form
@@ -263,7 +276,8 @@ namespace Chef_Zilla.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation(string userId, string phoneNumber)
         {
-            return phoneNumber == null ? View("Error") : View(new ForgotPasswordConfirmationViewModel { UserId = userId, PhoneNumber = phoneNumber });
+            //return userId == null || phoneNumber == null ? throw new HttpException(404, "Item Not Found") : View(new ForgotPasswordConfirmationViewModel { UserId = userId, PhoneNumber = phoneNumber });
+            return userId == null || phoneNumber == null ? View("Error") : View(new ForgotPasswordConfirmationViewModel { UserId = userId, PhoneNumber = phoneNumber });
         }
 
         [HttpPost]
@@ -333,11 +347,12 @@ namespace Chef_Zilla.Controllers
             {
                 return View(model);
             }
-            var user = _context.Users.Single(u => u.PhoneNumber.Equals(model.PhoneNumber));
+            var user = _context.Users.SingleOrDefault(u => u.PhoneNumber.Equals(model.PhoneNumber));
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                ModelState.AddModelError("", "There is no user account associated with this phone");
+                return View(model);
             }
             //var result = await UserManager.AddPasswordAsync(user.Id, model.Password);
             try
@@ -496,6 +511,14 @@ namespace Chef_Zilla.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login", "Account");
         }
 
         //

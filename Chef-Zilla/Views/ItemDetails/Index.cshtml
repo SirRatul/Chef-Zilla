@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewBag.Title = @Model.ProductName;
+}
+
+@Html.Partial("~/Views/Shared/_NavBar.cshtml")
+
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <div class="row">
+                    @*<img style="width: 100%;" src="~/Images/burger.png" alt="">*@
+                    <img style="width: 100%;" src="@Url.Content(Model.ProductImage)" alt="">
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-3 col-sm-3 col-3">
+                        <p style="font-size: 22px; color: grey; margin-left: -15px;">Quantity:</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-3">
+                        <input type="number" class="form-control" id="quantity" value="1" min="1">
+                    </div>
+                    <div class="col-md-7"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-size: 22px; color: grey; margin-left: -15px;">Package Include:</p>
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <ul>
+                            <li>Ingredients</li>
+                            <li>Detailed Recipe</li>
+                            <li>Serving Materials</li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2">
+                        <h5 style=" color: grey; margin-left: -15px;">Price:</h5>
+                    </div>
+
+                    <div class="col-10">
+                        @*<h5>120 BDT</h5>*@
+                        <h5 id="totalPrice">@Model.ProductPrice BDT</h5>
+                        <h5 class="d-none" id="actualPrice">@Model.ProductPrice</h5>
+                        <input type="hidden" id="extraIngredientPriceUpdate" value="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            @*<h2 class="font-weight-bold">Hamburger with Egg and Beef</h2>*@
+            <h2 class="font-weight-bold">@Model.ProductName</h2>
+            @*<p class="font-weight-bold text-muted my-4"> Ready In: 30 mins</p>*@
+            <p class="font-weight-bold text-muted my-4"> Ready In: @Model.PrepareTime</p>
+
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 70%;">Ingredients</th>
+                        <th class="justify-content-center">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul style="list-style-type: none;">
+                                @for (var i = 0; i < @Model.IngredientName.Count; i++)
+                                {
+                                    <li>@Model.IngredientName[i]</li>
+
+                                }
+                                @*<li>Egg</li>
+                                    <li>teaspoon mustard(regular or Dijon</li>
+                                    <li>teaspoon Worcestershire sauce</li>
+                                    <li>small onion , finely grated</li>
+                                    <li>clove garlic, minced</li>
+                                    <li>teaspoon salt</li>
+                                    <li>teaspoon pepper</li>
+                                    <li>lb medium ground beef</li>*@
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none;">
+                                @for (var i = 0; i < @Model.IngredientQuantity.Count; i++)
+                                {
+                                    <li>@Model.IngredientQuantity[i]</li>
+
+                                }
+                                @*<li>1</li>
+                                    <li>1</li>
+                                    <li>1</li>
+                                    <li>1</li>
+                                    <li>1</li>
+                                    <li>1/2</li>
+                                    <li>1/2</li>
+                                    <li>1</li>*@
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5>Extra Add:</h5>
+            <input type="hidden" id="extraIngredientNumber" value="@Model.ExtraIngredientName.Count">
+
+            @for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+            {
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input-lg" type="checkbox" value="" id="extraIngredient@(i+1)">
+                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
+                                @Model.ExtraIngredientName[i]
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="extraIngredientQuantity@(i+1)" value="1" min="1" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this, @(i+1));this.oldvalue = this.value;this.Identification=@(i+1);">
+                        @*<input type="text" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" />*@
+                    </div>
+                    <div class="col-3">
+                        <h4>+@Model.ExtraIngredientPrice[i] BDT</h4>
+                        <input type="hidden" id="extraIngredientPrice@(i+1)" value="@Model.ExtraIngredientPrice[i]">
+                    </div>
+                </div>
+
+            }
+
+            @*<div class="row">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input-lg" type="checkbox" value="" id="defaultCheck1">
+                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
+                                Egg
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
+                    </div>
+                    <div class="col-3">
+                        <h4>+8 BDT</h4>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input-lg" type="checkbox" value="" id="defaultCheck1">
+                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
+                                teaspoon pepper
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
+                    </div>
+                    <div class="col-3">
+                        <h4>+2 BDT</h4>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input-lg" type="checkbox" value="" id="defaultCheck1">
+                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
+                                lb medium ground beef
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
+                    </div>
+                    <div class="col-3">
+                        <h4>+30 BDT</h4>
+                    </div>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+
+<div class="text-center my-5">
+    <button class="buttonCss">Add To Cart</button>
+</div>
+
+@Html.Partial("~/Views/Shared/_Footer.cshtml")
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var extraIngredientNumber = document.getElementById("extraIngredientNumber").value;
+            for (let i = 0; i < extraIngredientNumber; i++) {
+                document.getElementById('extraIngredient' + (i + 1)).addEventListener('change',
+                    (event) => {
+                        if (event.target.checked) {
+                            @*alert('1st for checked');*@
+                            document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(document.getElementById("extraIngredientQuantity" + (i + 1)).value) * parseInt(document.getElementById("extraIngredientPrice" + (i + 1)).value));
+                            document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                            @*console.log("Extra Ingredient Quantity of Item " + (i + 1) + " = " + document.getElementById("extraIngredientQuantity" + (i + 1)).value);*@
+                            @*console.log("Extra Ingredient Price Of Item " + (i + 1) + "= " + document.getElementById("extraIngredientPrice" + (i + 1)).value);*@
+                        } else {
+                            @*alert('1st for not checked');*@
+                            @*console.log('I:' + (i+1));*@
+                            document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) - (parseInt(document.getElementById("extraIngredientQuantity" + (i + 1)).value) * parseInt(document.getElementById("extraIngredientPrice" + (i + 1)).value));
+                            document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                            @*console.log("Uncheck Extra Ingredient Quantity of Item " + (i + 1) + " = " + document.getElementById("extraIngredientQuantity" + (i + 1)).value);*@
+                            @*console.log("Uncheck Extra Ingredient Price Of Item " + (i + 1) + "= " + document.getElementById("extraIngredientPrice" + (i + 1)).value);*@
+                        }
+                    });
+            }
+            document.getElementById("quantity").addEventListener('input',
+                function (e) {
+                    @*console.log('Actual Value Without Extra Price:' + (parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)));*@
+                    @*console.log('Extra Price:' + parseInt(document.getElementById("extraIngredientPriceUpdate").value));*@
+                    document.getElementById("totalPrice").innerHTML = ((parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                });
+            });
+            function onChangeTest(textbox, Identification) {
+                @*alert("Value is " + textbox.value + "\n" + "Old Value is " + textbox.oldvalue + "\n" + "Id is " + Identification);*@
+                if (document.getElementById('extraIngredient' + (Identification)).checked) {
+                    @*alert("2nd for checked");*@
+                    document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(textbox.value) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value)) - (parseInt(textbox.oldvalue) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value));
+                    document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                    document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
+                } else {
+                    @*alert("2nd for not checked");*@
+                    document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
+                }
+            }
+    </script>
+}

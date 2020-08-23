@@ -51,35 +51,45 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    <div class="row">
-                        <div class="col-md-6 col-sm-8 offset-sm-2 offset-md-3 col-8 offset-2 mt-1 animated bounceIn mb-4">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger text-left" })
+                    if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                    {
+                        <div class="row">
+                            <div class="col-md-6 col-sm-8 offset-sm-2 offset-md-3 col-8 offset-2 mt-1 animated bounceIn">
+                                <div class="alert alert-warning alert-dismissible show" role="alert">
+                                    @Html.ValidationSummary(true, "")
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    <div class="md-form col-md-6 col-sm-8 offset-sm-2 offset-md-3 col-8 offset-2 mt-1 animated bounceIn">
-                        @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", @style = "border-bottom: 1.2px solid #b3b3b3; " } })
-                        @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
-                        @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "ml-3 phoneNumberLabel", @style = "color: #b30000;" })
+                    }
+                    <div class="row">
+                        <div class="md-form col-md-6 col-sm-8 offset-sm-2 offset-md-3 col-8 offset-2 mt-1 animated bounceIn">
+                            @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", @style = "border-bottom: 1.2px solid #b3b3b3; " } })
+                            @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "ml-3 phoneNumberLabel", @style = "color: #b30000;" })
+                        </div>
+                        <div class="md-form col-md-6 col-sm-8 offset-sm-2 offset-md-3 col-8 offset-2 mt-n2 animated bounceIn">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @style = "border-bottom: 1.2px solid #b3b3b3; " } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "ml-3 passwordLabel", @style = "color: #b30000;" })
+                        </div>
                     </div>
-                    <div class="md-form col-md-6 col-sm-8 offset-sm-2 offset-md-3 col-8 offset-2 mt-n2 animated bounceIn">
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @style = "border-bottom: 1.2px solid #b3b3b3; " } })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "ml-3 passwordLabel", @style = "color: #b30000;" })
+                    <div class="row mt-n3">
+                        <div class="col-md-12 animated pulse">
+                            <a href="@Url.Action("ForgotPassword", "Account")"><p style="text-align:center; color:darkblue ">Forgot Password?</p></a>
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-n3">
-                    <div class="col-md-12 animated pulse">
-                        <a href="@Url.Action("ForgotPassword", "Account")"><p style="text-align:center; color:darkblue ">Forgot Password?</p></a>
+                    <div class="row text-center my-1">
+                        <div class="col-md-12 animated fadeIn">
+                            <input type="submit" value="Login" class="buttonCss text-center" />
+                        </div>
+                        <div class="col-md-12 animated fadeIn">
+                            <p class="color my-1">Don't you have an account ?</p>
+                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn buttonCss" })
+                        </div>
                     </div>
-                </div>
-                <div class="row text-center my-1">
-                    <div class="col-md-12 animated fadeIn">
-                        <input type="submit" value="Login" class="buttonCss text-center" />
-                    </div>
-                    <div class="col-md-12 animated fadeIn">
-                        <p class="color my-1">Don't you have an account ?</p>
-                        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn buttonCss" })
-                    </div>
-                </div>
                 }
                 <br>
                 <br>
@@ -104,6 +114,7 @@
             $("#Number").focus(function () {
                 $(".phoneNumberLabel").animate({ "top": '-25px' }, 100);
             });
+            
             $("#Password").focus(function () {
                 $(".passwordLabel").animate({ "top": '-25px' }, 100);
             });
@@ -119,8 +130,18 @@
                     $(".passwordLabel").animate({ "top": '5px' }, 100);
                 }
             })
-            if ("@TempData["message"]" != null)
-                $('#infoValidationSummary').modal('show')
+
+            if (document.getElementById("Number").value) {
+                $(".phoneNumberLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if (document.getElementById("Password").value) {
+                $(".phoneNumberLabel").animate({ "top": '-25px' }, 100);
+            }
+
+            if ("@TempData["message"]" != null) {
+                $('#infoValidationSummary').modal('show');
+            }
         });
     </script>
     @Styles.Render("~/Animation/css")
