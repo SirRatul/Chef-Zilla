@@ -156,7 +156,8 @@
                         <p style="font-size: 18px; color: #808080; text-align: justify">We will take care of your regular food routine. Just make a diet plan. Your ingredients with detailed recipe will be at your door at right time.Just follow the instructions and prepare your food in a short time period.Be a professionalchef to your family with our service.</p>
                     </div>
                     <div class="col-md-12 text-center mt-5">
-                        <button class="buttonCss">Make My Diet Plan</button>
+                        <a href="@Url.Action("Index", "FoodPlan")" class="btn text-white buttonCss">Make My Diet Plan</a>
+                        @*<button class="buttonCss">Make My Diet Plan</button>*@
                     </div>
                 </div>
             </div>
@@ -175,9 +176,10 @@
             <div class="col-lg-5">
                 <h1 class="text-light pt-5">Build Your Own Box</h1><br>
                 <p>Customize your menu with our available recipe. You can customize any item adjusting your food interest. Suppose you want to add more calories in your ordered item . Just edit the ingredient list and submit.</p>
-                <div class=" text-center">
+                <div class="text-center">
                     <br>
-                    <button class="boxButton">Build My Box</button>
+                    <a href="@Url.Action("Create", "Box")" class="btn text-white boxButton">Build My Box</a>
+                    @*<button class="boxButton">Build My Box</button>*@
                 </div>
             </div>
             <div class="col-lg-7">

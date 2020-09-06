@@ -100,8 +100,6 @@ h2 {
     width: 75%;
 }
 
-
-
 .formInput {
     border: none;
     border-radius: 0px;
@@ -183,4 +181,26 @@ table.table th, table.table td, li {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
+}
+
+.days {
+    border: 1px solid grey;
+    border-radius: 50%;
+    padding: 15px;
+    color: #b30000;
+}
+
+input[type=checkbox]:checked + label.days {
+    background: #C5D4C4!important;
+}
+
+input:focus {
+    box-shadow: none!important;
+}
+
+.buttonCssBlue {
+    color: white !important;
+    background-color: #000237 !important;
+    padding: 5px 25px 5px 25px !important;
+    border: none !important;
 }

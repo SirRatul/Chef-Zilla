@@ -74,37 +74,6 @@
                 </div>
             </div>
         }
-        @*<h2>@Model</h2>*@
-
-        @*<div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 4001</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 400</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 400</p>
-                    </div>
-                </div>
-            </div>*@
     </div>
 
     <div class="row justify-content-center mt-5">
@@ -112,90 +81,6 @@
             @Html.PagedListPager(Model, page => Url.Action("Index", "FeaturedItem", new { page, search = Request.QueryString["search"] }))
         </nav>
     </div>
-
-    @*@Html.PagedListPager(Model, page => Url.Action("Index", "FeaturedItem", new { page, search = Request.QueryString["search"] }))*@
-
-    @*@Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
-
-
-
-
-    @*<div class="row">
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 4001</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 400</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 400</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 4001</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 400</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <img class="card-img-top" src="~/Images/Cake.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Strawberry Chocolate Cake</h5>
-                        <p class="color font-weight-bold">BDT: 400</p>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-    @*<div class="row justify-content-center mt-5">
-        <nav aria-label="...">
-            <ul class="pagination pagination-md ">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-            </ul>
-        </nav>
-    </div>*@
 </div>
 
 

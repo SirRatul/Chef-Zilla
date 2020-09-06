@@ -1,0 +1,176 @@
+﻿@using Microsoft.AspNet.Identity
+@model Chef_Zilla.ViewModels.BoxCreateViewModel
+
+@{
+    ViewBag.Title = "Box Create";
+}
+
+@Html.Partial("~/Views/Shared/_NavBar.cshtml")
+
+@{
+    List<int> ProductId = (List<int>)(Session["productId"]);
+    List<string> ProductName = (List<string>)Session["productName"];
+    List<int> ProductQuantity = (List<int>)Session["productQuantity"];
+    List<int> ProductPrice = (List<int>)Session["productPrice"];
+    List<int> ExtraIngredientId = (List<int>)Session["extraIngredientId"];
+    List<string> ExtraIngredientQuantity = (List<string>)Session["extraIngredientQuantity"];
+    var totalPrice = 0;
+    if (Session["productPrice"] != null)
+    {
+        foreach (var item in ProductPrice)
+        {
+            totalPrice = totalPrice + item;
+        }
+    }
+}
+
+<br>
+<br>
+<br>
+<br>
+<div class="container-fluid mt-5">
+    <div class="row box text-center">
+        <div class="col-12">
+            <img style="width: 70%;" src="~/Images/Group 41.png" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row text-center">
+
+        <div class="col-12">
+            <h4 class="font-weight-bold ">Create Food Box</h4>
+        </div>
+
+    </div>
+    @using (Html.BeginForm("Create", "Box", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row ml-5 mb-3">
+            <div class="md-form col-md-3 animated bounceIn">
+                @Html.EditorFor(model => model.BoxName, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3;" } })
+                @Html.ValidationMessageFor(model => model.BoxName, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.BoxName, htmlAttributes: new { @class = "control-label ml-2 boxLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
+            </div>
+        </div>
+        <input type="text" class="form-control d-none" name="UserId" id="UserId" value="@User.Identity.GetUserId()" readonly="readonly" />
+        <div class="row ml-5">
+            <div class="col-4">
+                <h5 class="font-weight-bold">Your Selected Foods</h5>
+            </div>
+            <div class="col-4">
+                <h5 class="font-weight-bold text-center">Quantity</h5>
+            </div>
+            <div class="col-4">
+                <h5 class="font-weight-bold text-center">Price</h5>
+            </div>
+        </div>
+        if (Session["productId"] != null)
+        {
+            for (int i = 0; i < ProductId.Count; i++)
+            {
+                <div class="row ml-5 mt-5">
+                    <div class="col-4">
+                        <a href="@Url.Action("RemoveList", "Box", new {productId = ProductId[i], productName = ProductName[i], productQuantity = ProductQuantity[i], productPrice = ProductPrice[i]})">
+                            <i style="color: indianred;" class="fas fa-times mr-2"></i>
+                        </a>
+                        <a href="@Url.Action("ItemView", "Box", new {id = ProductId[i]})">
+                            <span style="color: grey; font-weight: 400;">@ProductName[i]</span>
+                        </a>
+                    </div>
+                    <div class="col-4 text-center">
+                        <h5 style="color: grey;font-weight: 400;">@ProductQuantity[i]</h5>
+                    </div>
+                    <div class="col-4 text-center">
+                        <h5 style="color: grey;font-weight: 400;">@ProductPrice[i]</h5>
+                    </div>
+                </div>
+            }
+        }
+        if (Session["productId"] != null)
+        {
+            <div class="row ml-5 mt-5">
+                <div class="col-3 offset-9">
+                    <h5 class="font-weight-bold">Total: @totalPrice Taka</h5>
+                </div>
+            </div>
+        }
+        <div class="row text-center">
+            <div class="col-12 mt-5">
+                <a href="@Url.Action("Index", "FeaturedItem")" class="btn buttonCss text-white p-2">Continue Adding Items</a>
+            </div>
+            <div class="col-12 mt-5">
+                <button type="submit" class="buttonCss">Create</button>
+            </div>
+        </div>
+    }
+</div>
+@Html.Partial("~/Views/Shared/_Footer.cshtml")
+@*@using (Html.BeginForm("Create", "Box", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.BoxName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BoxName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BoxName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" class="form-control" name="UserId" id="UserId" value="@User.Identity.GetUserId()" readonly="readonly" />
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (Session["productId"] != null)
+            {
+                for (int i = 0; i < ProductId.Count; i++)
+                {
+                    <div class="col-12">
+                        <a href="@Url.Action("RemoveList", "Box", new {productId = ProductId[i], productName = ProductName[i], productQuantity = ProductQuantity[i], productPrice = ProductPrice[i]})" className="btn btn-danger">
+                            <i class="fas fa-times-circle text-danger"></i>
+                        </a>
+                        <a href="@Url.Action("ItemView", "Box", new {id = ProductId[i]})">
+                            <p>@ProductName[i]</p>
+                        </a>
+                        <p>@ProductQuantity[i]</p>
+                        <p>@ProductPrice[i]</p>
+                    </div>
+                }
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#BoxName").focus(function () {
+                $(".boxLabel").animate({ "top": '-25px' }, 100);
+            });
+
+            $('#BoxName').blur(function () {
+                if (!$(this).val()) {
+                    $(".boxLabel").animate({ "top": '5px' }, 100);
+                }
+            });
+
+            if (document.getElementById("BoxName").value) {
+                $(".boxLabel").animate({ "top": '-25px' }, 100);
+            }
+        });
+    </script>
+    @*@Styles.Render("~/Animation/css")*@
+    @Scripts.Render("~/bundles/jqueryval")
+}

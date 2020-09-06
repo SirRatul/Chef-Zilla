@@ -96,7 +96,10 @@ namespace Chef_Zilla.Controllers
             {
                 return View(model);
             }
-            string productFileName = Path.GetFileName(model.ProductImageFile.FileName);
+            //string productFileName = Path.GetFileName(model.ProductImageFile.FileName);
+            string productFileName = model.ProductName;
+            string extension = Path.GetExtension(model.ProductImageFile.FileName);
+            productFileName = productFileName + extension;
             model.ProductImageFile.SaveAs(Path.Combine(Server.MapPath("~/Images/Product/"), productFileName));
             //model.ProductImageFile.SaveAs(Path.Combine(Server.MapPath("~/Images/Product/"), productFile));
             //if (model.ProductImageFile != null)
@@ -159,9 +162,12 @@ namespace Chef_Zilla.Controllers
 
             if (model.ProductImageFile != null)
             {
-                string productFileName = Path.GetFileName(model.ProductImageFile.FileName);
+                string productFileName = model.ProductName;
+                string extension = Path.GetExtension(model.ProductImageFile.FileName);
+                productFileName = productFileName + extension;
                 model.ProductImageFile.SaveAs(Path.Combine(Server.MapPath("~/Images/Product/"), productFileName));
                 product.ProductImage = "~/Images/Product/" + productFileName;
+                model.ProductImage = "~/Images/Product/" + productFileName;
             }
             product.ProductType = model.ProductType;
             product.ProductName = model.ProductName;
@@ -194,10 +200,13 @@ namespace Chef_Zilla.Controllers
 
             if (ingredient.Count != model.IngredientName.Count)
             {
+                for (int j = 0; j < ingredient.Count; j++)
+                {
+                    _context.Ingredients.Remove(ingredient[j]);
+                    _context.SaveChanges();
+                }
                 for (int i = 0; i < model.IngredientName.Count; i++)
                 {
-                    _context.Ingredients.RemoveRange(ingredient);
-                    _context.SaveChanges();
                     Ingredient updatedIngredient = new Ingredient();
                     updatedIngredient.IngredientName = model.IngredientName[i];
                     updatedIngredient.IngredientQuantity = model.IngredientQuantity[i];
@@ -222,10 +231,13 @@ namespace Chef_Zilla.Controllers
 
             if (extraIngredient.Count != model.ExtraIngredientName.Count)
             {
+                for (int j = 0; j < extraIngredient.Count; j++)
+                {
+                    _context.ExtraIngredients.Remove(extraIngredient[j]);
+                    _context.SaveChanges();
+                }
                 for (int i = 0; i < model.ExtraIngredientName.Count; i++)
                 {
-                    _context.ExtraIngredients.RemoveRange(extraIngredient);
-                    _context.SaveChanges();
                     ExtraIngredient updatedExtraIngredient = new ExtraIngredient();
                     updatedExtraIngredient.ExtraIngredientName = model.ExtraIngredientName[i];
                     updatedExtraIngredient.ExtraIngredientPrice = model.ExtraIngredientPrice[i];

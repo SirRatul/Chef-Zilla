@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "My Food Plan";
+}
+@Html.Partial("~/Views/Shared/_NavBar.cshtml")
+<br>
+<br>
+<br>
+@if (TempData["message"] != null)
+{
+    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@TempData["message"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-10 offset-md-1 ">
+            <img class="img-fluid" src="~/Images/Group 38.png" alt="">
+        </div>
+    </div>
+
+    <div class="row text-center mt-5">
+        <div class="col-6 offset-3">
+            <img style="width: 80%" src="~/Images/Group 39.png" alt="">
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-12 mt-5">
+            <h3 class="font-weight-bold">Build your customized box and save for your routine delivery.</h3>
+        </div>
+        <a href="@Url.Action("Create", "Box")" class="btn buttonCss mx-auto mt-4 text-white">
+            Build My Box
+        </a>
+        @*<button class="buttonCss mx-auto mt-4">Build My Box</button>*@
+    </div>
+</div>
+<div class="container">
+    <div class="row text-center mt-5">
+        <div class="col-12">
+            <h2 class="font-weight-bold">My Available Box</h2>
+        </div>
+    </div>
+    <div class="row">
+        @for (var i = 0; i < @Model.Boxes.Count; i++)
+        {
+            <div class="col-md-4 text-center mt-5">
+                <img style="width: 70%;" src="~/Images/gift.png" alt="">
+                <a href="@Url.Action("Details", "Box", new {id = @Model.Boxes[i].BoxID})">
+                    <h5 class="font-weight-bold">@Model.Boxes[i].BoxName</h5>
+                </a>
+                @using (Html.BeginForm("RedirectToCreateRoutine", "FoodPlan", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                    {
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="alert alert-warning alert-dismissible show" role="alert">
+                                    @Html.ValidationSummary(true, "")
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <input type="text" class="d-none" name="boxId" value="@Model.Boxes[i].BoxID" readonly="readonly" />
+                    <button type="submit" class="buttonCss mx-auto mt-4">Add To Food Plan</button>
+                }
+                @*<button class="buttonCss mx-auto mt-4">Add to food plan</button>*@
+            </div>
+        }
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container mt-5">
+    <div class="row text-center mt-5">
+        <div class="col-12">
+            <h2 class="font-weight-bold">My Food Plan</h2>
+        </div>
+    </div>
+    <div class="row">
+        @for (var i = 0; i < @Model.RoutineID.Count; i++)
+        {
+            <div class="col-md-4 text-center mt-5">
+                <img style="width: 70%;" src="~/Images/calenderD.png" alt="">
+                <a href="@Url.Action("Details", "Routine", new {id = @Model.RoutineID[i]})">
+                    <h5 class="font-weight-bold">@Model.RoutineName[i]</h5>
+                </a>
+                <p class="color">Type: @Model.RoutineType[i]</p>
+                <p class="color mt-n3">Box: @Model.BoxName[i]</p>
+            </div>
+        }
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/_Footer.cshtml")
+@*@for (var i = 0; i < @Model.Boxes.Count; i++)
+    {
+        <a href="@Url.Action("Details", "Box", new {id = @Model.Boxes[i].BoxID})">
+            @Model.Boxes[i].BoxName
+        </a>
+        using (Html.BeginForm("RedirectToCreateRoutine", "FoodPlan", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+            {
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <div class="alert alert-warning alert-dismissible show" role="alert">
+                            @Html.ValidationSummary(true, "")
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            <input type="text" class="d-none" name="boxId" value="@Model.Boxes[i].BoxID" readonly="readonly" />
+            <button type="submit" class="buttonCss">Add To Food Plan</button>
+        }
+    }
+
+    @for (var i = 0; i < @Model.RoutineID.Count; i++)
+    {
+        <p>@Model.RoutineID[i]</p>
+        <p>@Model.RoutineName[i]</p>
+        <p>@Model.RoutineType[i]</p>
+        <p>@Model.BoxName[i]</p>
+    }*@
+
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        if ("@TempData["message"]" != null) {
+            $('#infoValidationSummary').modal('show');
+        }
+    });
+    </script>
+}

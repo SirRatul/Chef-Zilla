@@ -11,6 +11,62 @@
     ViewBag.Title = "Product";
 }
 
+<div class="row cloneIngredient">
+    <div class="col-4 offset-1 mt-5">
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.IngredientName, htmlAttributes: new { @class = "ingredientNameLabel ml-2", @style = "color: #b30000;" })
+            <div class="col-md-12">
+                @Html.TextBox("IngredientName", "", new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                @Html.ValidationMessageFor(model => model.IngredientName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-4 offset-1 mt-5">
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new { @class = "ingredientQuantityLabel ml-2", @style = "color: #b30000;" })
+            <div class="col-md-12">
+                @Html.TextBox("IngredientQuantity", "", new { @class = "form-control", style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                @Html.ValidationMessageFor(model => model.IngredientQuantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @*<button class="mt-5 mb-3 add_ingredient_field_button bg-danger border-0">
+            <i class="fas fa-plus-circle"></i>
+        </button>*@
+    <i class="fas fa-plus-circle add_ingredient_field_button text-danger" style="margin-top: 5rem; font-size: 2vw"></i>
+    @*<button class="mt-5 mb-3 remove_ingredient_field_button bg-danger border-0 d-none">
+            <i class="fas fa-minus-circle"></i>
+        </button>*@
+    <i class="fas fa-minus-circle remove_ingredient_field_button text-danger d-none" style="margin-top: 5rem; font-size: 2vw"></i>
+</div>
+<div class="row cloneExtraIngredient">
+    <div class="col-4 offset-1 mt-5">
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new { @class = "extraIngredientNameLabel ml-2", @style = "color: #b30000;" })
+            <div class="col-md-12">
+                @Html.TextBox("ExtraIngredientName", "", new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+                @Html.ValidationMessageFor(model => model.ExtraIngredientName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-1">
+    </div>
+    <div class="col-4 mt-5">
+        @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new { @class = "extraIngredientPriceLabel ml-2", @style = "color: #b30000;" })
+        <div class="col-md-12">
+            @Html.TextBox("ExtraIngredientPrice", "", new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
+            @Html.ValidationMessageFor(model => model.ExtraIngredientPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<button class="mt-5 mb-3 add_extra_ingredient_field_button bg-danger border-0">
+            <i class="fas fa-plus-circle"></i>
+        </button>*@
+    <i class="fas fa-plus-circle add_extra_ingredient_field_button text-danger" style="margin-top: 5rem; font-size: 2vw"></i>
+    @*<button class="mt-5 mb-3 remove_extra_ingredient_field_button bg-danger border-0 d-none">
+            <i class="fas fa-minus-circle"></i>
+        </button>*@
+    <i class="fas fa-minus-circle remove_extra_ingredient_field_button text-danger d-none" style="margin-top: 5rem; font-size: 2vw"></i>
+</div>
 <section class="content">
     <div class="container-fluid">
         <div class="card-body">
@@ -30,7 +86,7 @@
                         </div>
                     </div>
                 }
-                @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" , type = "hidden" } })
+                @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", type = "hidden" } })
                 <div class="row">
                     <div class="col-4 offset-1 mt-5">
                         <div class="form-group ml-lg-2">
@@ -64,11 +120,11 @@
                         <div class="input-group">
                             <div class="input-group">
                                 <div class="custom-file">
-                                    @Html.TextBox("ProductImageFile", Model.ProductImage, new { type = "file" })
+                                    @Html.TextBox("ProductImageFile", null, new { @type = "file" })
                                     @Html.ValidationMessageFor(model => model.ProductImageFile, "", new { @class = "text-danger" })
                                     <img id="ProductImageFileShow" src="@Url.Content(Model.ProductImage)" style="width: 240px; height: 150px;" alt="your image" />
                                     @*<input type="file" class="custom-file-input" id="inputGroupFile04">
-        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>*@
+                                <label class="custom-file-label" for="inputGroupFile04">Choose file</label>*@
                                 </div>
                             </div>
                         </div>
@@ -96,30 +152,51 @@
                     </div>
                 </div>
 
-                for (var i = 0; i < @Model.IngredientName.Count; i++)
-                {
+                
+
+                <div class="ingredient_input_fields_wrap">
+                    @for (var i = 0; i < @Model.IngredientName.Count; i++)
+                    {
                     <div class="row">
                         <div class="col-4 offset-1 mt-5">
                             <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.IngredientName, htmlAttributes: new { @class = "ingredientNameLabel ml-2", @style = "color: #b30000;" })
                                 <div class="col-md-12">
                                     @Html.TextBox("IngredientName", @Model.IngredientName[i], new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
                                     @Html.ValidationMessageFor(model => model.IngredientName, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.IngredientName, htmlAttributes: new { @class = "ingredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
                             </div>
                         </div>
                         <div class="col-4 offset-1 mt-5">
                             <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new { @class = "ingredientQuantityLabel ml-2", @style = "color: #b30000;" })
                                 <div class="col-md-12">
                                     @Html.TextBox("IngredientQuantity", @Model.IngredientQuantity[i], new { @class = "form-control", style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
                                     @Html.ValidationMessageFor(model => model.IngredientQuantity, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.IngredientQuantity, htmlAttributes: new { @class = "ingredientQuantityLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
                             </div>
                         </div>
-                    </div>
-                }
 
+                        @*<button class="@(i == Model.IngredientName.Count - 1 ? "mt-5 mb-3 add_ingredient_field_button bg-danger border-0 d-block":"mt-5 mb-3 add_ingredient_field_button bg-danger border-0 d-none")">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>*@
+                        @*<i class="@(i == Model.IngredientName.Count - 1 ? "fas fa-plus-circle add_ingredient_field_button text-danger d-block":"fas fa-plus-circle add_ingredient_field_button text-danger d-none")" style="margin-top: 5rem; font-size: 2vw"></i>*@
+                        @*<button class="mt-5 mb-3 remove_ingredient_field_button bg-danger border-0 d-block">
+                            <i class="fas fa-minus-circle"></i>
+                        </button>*@
+                        @*<i class="fas fa-minus-circle remove_ingredient_field_button text-danger d-block" style="margin-top: 5rem; font-size: 2vw"></i>*@
+                        @if (@Model.IngredientName.Count == 0)
+                        {
+                            <i class="@(i == Model.IngredientName.Count - 1 ? "fas fa-plus-circle add_ingredient_field_button text-danger d-block":"fas fa-plus-circle add_ingredient_field_button text-danger d-none")" style="margin-top: 5rem; font-size: 2vw"></i>
+                        }
+                        else
+                        {
+                            <i class="@(i == Model.IngredientName.Count - 1 ? "fas fa-plus-circle add_ingredient_field_button text-danger d-block":"fas fa-plus-circle add_ingredient_field_button text-danger d-none")" style="margin-top: 5rem; font-size: 2vw"></i>
+                            <i class="fas fa-minus-circle remove_ingredient_field_button text-danger d-block" style="margin-top: 5rem; font-size: 2vw"></i>
+                        }
+                    </div>
+                    }
+                </div>
 
                 <div class="row">
                     <div class="col-10 offset-1 mt-5">
@@ -127,29 +204,51 @@
                     </div>
                 </div>
 
-                for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
-                {
+                
+
+                <div class="extra_ingredient_input_fields_wrap">
+                    @for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+                    {
                     <div class="row">
                         <div class="col-4 offset-1 mt-5">
                             <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new { @class = "extraIngredientNameLabel ml-2", @style = "color: #b30000;" })
                                 <div class="col-md-12">
                                     @Html.TextBox("ExtraIngredientName", @Model.ExtraIngredientName[i], new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
                                     @Html.ValidationMessageFor(model => model.ExtraIngredientName, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.ExtraIngredientName, htmlAttributes: new { @class = "extraIngredientNameLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
                             </div>
                         </div>
                         <div class="col-1">
                         </div>
                         <div class="col-4 mt-5">
+                            @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new { @class = "extraIngredientPriceLabel ml-2", @style = "color: #b30000;" })
                             <div class="col-md-12">
                                 @Html.TextBox("ExtraIngredientPrice", @Model.ExtraIngredientPrice[i], new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold", @type = "text" })
                                 @Html.ValidationMessageFor(model => model.ExtraIngredientPrice, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.ExtraIngredientPrice, htmlAttributes: new { @class = "extraIngredientPriceLabel position-absolute", @style = "color: #b30000;left: 25px; top: 5px" })
                         </div>
+                        @*<button class="@(i == Model.ExtraIngredientName.Count - 1 ? "mt-5 mb-3 add_extra_ingredient_field_button bg-danger border-0 d-block":"mt-5 mb-3 add_extra_ingredient_field_button bg-danger border-0 d-none")">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>*@
+                        @*<i class="@(i == Model.ExtraIngredientName.Count - 1 ? "fas fa-plus-circle add_extra_ingredient_field_button text-danger d-block":"fas fa-plus-circle add_extra_ingredient_field_button text-danger d-none")" style="margin-top: 5rem; font-size: 2vw"></i>*@
+                        @*<button class="mt-5 mb-3 remove_extra_ingredient_field_button bg-danger border-0 d-block">
+                            <i class="fas fa-minus-circle"></i>
+                        </button>*@
+                        @*<i class="fas fa-minus-circle remove_extra_ingredient_field_button text-danger d-block" style="margin-top: 5rem; font-size: 2vw"></i>*@
+                        @if (@Model.ExtraIngredientName.Count == 0)
+                        {
+                            <i class="@(i == Model.ExtraIngredientName.Count - 1 ? "fas fa-plus-circle add_extra_ingredient_field_button text-danger d-block":"fas fa-plus-circle add_extra_ingredient_field_button text-danger d-none")" style="margin-top: 5rem; font-size: 2vw"></i>
+                        }
+                        else
+                        {
+                            <i class="@(i == Model.ExtraIngredientName.Count - 1 ? "fas fa-plus-circle add_extra_ingredient_field_button text-danger d-block":"fas fa-plus-circle add_extra_ingredient_field_button text-danger d-none")" style="margin-top: 5rem; font-size: 2vw"></i>
+                            <i class="fas fa-minus-circle remove_extra_ingredient_field_button text-danger d-block" style="margin-top: 5rem; font-size: 2vw"></i>
+                        }
                     </div>
-                }
+                    }
+                </div>
+
                 <div class="row text-center my-5">
                     <div class="col-12">
                         <div class="text-center mt-5">
@@ -159,12 +258,117 @@
                 </div>
             }
         </div>
-    </div>
+            </div>
 </section>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
+
+            @*$(".add_ingredient_field_button").click(function () {
+                $(".cloneIngredient").clone(true).insertBefore(".ingredient_input_fields_wrap > div:last-child");
+                $(".ingredient_input_fields_wrap > .cloneIngredient").removeClass("cloneIngredient");
+                for (var i = 1; i < $(".ingredient_input_fields_wrap > .row").length; i++) {
+                    console.log('I' + i);
+                    document.getElementsByClassName('add_ingredient_field_button')[i].classList.add('d-none');
+                    document.getElementsByClassName('remove_ingredient_field_button')[i].classList.add('d-block');
+                }
+                var x = document.getElementsByClassName("add_ingredient_field_button");
+                console.log('Length X:' + x.length);
+                document.getElementsByClassName('remove_ingredient_field_button')[$(".ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                return false;
+            });*@
+
+            $(".add_ingredient_field_button").click(function () {
+                $(".cloneIngredient").clone(true).insertAfter(".ingredient_input_fields_wrap > div:last-child");
+                $(".ingredient_input_fields_wrap > .cloneIngredient").removeClass("cloneIngredient");
+                console.log('Adding Length:' + $(".ingredient_input_fields_wrap > .row").length);
+                for (var i = 1; i < $(".ingredient_input_fields_wrap > .row").length; i++) {
+                    console.log(i);
+                    document.getElementsByClassName('add_ingredient_field_button')[i].classList.add('d-none');
+                    document.getElementsByClassName('add_ingredient_field_button')[i].classList.remove('d-block');
+                    document.getElementsByClassName('remove_ingredient_field_button')[i].classList.add('d-block');
+                }
+                document.getElementsByClassName('remove_ingredient_field_button')[$(".ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                return false;
+            });
+
+            @*$(document).on('click',
+                '.remove_ingredient_field_button',
+                function () {
+                    $(this).parent().remove();
+                    document.getElementsByClassName('add_ingredient_field_button')[$(".ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                    var x = document.getElementsByClassName("remove_ingredient_field_button");
+                    console.log('Length X:' + x.length);
+                    if (x.length === 2) {
+                        console.log('If');
+                        document.getElementsByClassName('remove_ingredient_field_button')[1].classList.remove('d-block');
+                    }
+                });*@
+
+            $(document).on('click',
+                '.remove_ingredient_field_button',
+                function () {
+                    $(this).parent().remove();
+                    console.log('Removing Length:' + $(".ingredient_input_fields_wrap > .row").length);
+                    document.getElementsByClassName('add_ingredient_field_button')[$(".ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                    if ($(".ingredient_input_fields_wrap > .row").length === 1) {
+                        console.log('If');
+                        document.getElementsByClassName('remove_ingredient_field_button')[1].classList.remove('d-block');
+                        document.getElementsByClassName('remove_ingredient_field_button')[1].classList.add('d-none');
+                    }
+                });
+
+            @*$(".add_extra_ingredient_field_button").click(function () {
+                $(".cloneExtraIngredient").clone(true).insertBefore(".extra_ingredient_input_fields_wrap > div:last-child");
+                $(".extra_ingredient_input_fields_wrap > .cloneExtraIngredient").removeClass("cloneExtraIngredient");
+                for (var i = 1; i < $(".extra_ingredient_input_fields_wrap > .row").length; i++) {
+                    console.log('I' + i);
+                    document.getElementsByClassName('add_extra_ingredient_field_button')[i].classList.add('d-none');
+                    document.getElementsByClassName('remove_extra_ingredient_field_button')[i].classList.add('d-block');
+                }
+                document.getElementsByClassName('remove_extra_ingredient_field_button')[$(".extra_ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                return false;
+            });*@
+
+            $(".add_extra_ingredient_field_button").click(function () {
+                $(".cloneExtraIngredient").clone(true).insertAfter(".extra_ingredient_input_fields_wrap > div:last-child");
+                $(".extra_ingredient_input_fields_wrap > .cloneExtraIngredient").removeClass("cloneExtraIngredient");
+                console.log('Adding Length:' + $(".extra_ingredient_input_fields_wrap > .row").length);
+                for (var i = 1; i < $(".extra_ingredient_input_fields_wrap > .row").length; i++) {
+                    console.log(i);
+                    document.getElementsByClassName('add_extra_ingredient_field_button')[i].classList.add('d-none');
+                    document.getElementsByClassName('add_extra_ingredient_field_button')[i].classList.remove('d-block');
+                    document.getElementsByClassName('remove_extra_ingredient_field_button')[i].classList.add('d-block');
+                }
+                document.getElementsByClassName('remove_extra_ingredient_field_button')[$(".extra_ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                return false;
+            });
+
+            @*$(document).on('click',
+                '.remove_extra_ingredient_field_button',
+                function () {
+                    $(this).parent().remove();
+                    document.getElementsByClassName('add_extra_ingredient_field_button')[$(".extra_ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                    var x = document.getElementsByClassName("remove_extra_ingredient_field_button");
+                    if (x.length === 2) {
+                        document.getElementsByClassName('remove_extra_ingredient_field_button')[1].classList.remove('d-block');
+                    }
+                });*@
+
+            $(document).on('click',
+                '.remove_extra_ingredient_field_button',
+                function () {
+                    $(this).parent().remove();
+                    console.log('Removing Length:' + $(".extra_ingredient_input_fields_wrap > .row").length);
+                    document.getElementsByClassName('add_extra_ingredient_field_button')[$(".extra_ingredient_input_fields_wrap > .row").length].classList.add('d-block');
+                    if ($(".extra_ingredient_input_fields_wrap > .row").length === 1) {
+                        console.log('If');
+                        document.getElementsByClassName('remove_extra_ingredient_field_button')[1].classList.remove('d-block');
+                        document.getElementsByClassName('remove_extra_ingredient_field_button')[1].classList.add('d-none');
+                    }
+                });
+
             $("#ProductImageFile").change(function() {
                 readURL(this);
             });

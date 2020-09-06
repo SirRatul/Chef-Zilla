@@ -35,7 +35,12 @@ namespace Chef_Zilla.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<ExtraIngredient> ExtraIngredients { get; set; }
-         
+        public DbSet<Box> Boxes { get; set; }
+        public DbSet<BoxProduct> BoxProducts { get; set; }
+        public DbSet<BoxExtraItem> BoxExtraItems { get; set; }
+        public DbSet<Routine> Routines { get; set; }
+        public DbSet<RoutineSchedule> RoutineSchedules { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "Box Details";
+}
+@Html.Partial("~/Views/Shared/_NavBar.cshtml")
+@{
+    var totalPrice = 0;
+    foreach (var item in @Model.TotalPrice)
+    {
+        totalPrice = totalPrice + item;
+    }
+}
+@if (TempData["message"] != null)
+{
+    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@TempData["message"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="container-fluid mt-5">
+    <div class="row box text-center">
+        <div class="col-12">
+            <img style="width: 70%;" src="~/Images/Group 43.png" alt="">
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container mt-5">
+    <div class="row ml-5 ">
+        <div class="col-12 text-center">
+            <h3 class="font-weight-bold ">Your Food Box</h3>
+        </div>
+        <div class="col-12 my-5">
+            <h5 style="font-weight: 400; margin">Box Name: @Model.BoxName</h5>
+        </div>
+    </div>
+
+    <div class="row ml-5 mt-5">
+        <div class="col-4">
+            <h5 class="font-weight-bold">Your Selected Foods</h5>
+        </div>
+        <div class="col-4">
+            <h5 class="font-weight-bold text-center">Quantity</h5>
+        </div>
+        <div class="col-4">
+            <h5 class="font-weight-bold text-center">Price</h5>
+        </div>
+    </div>
+
+    @for (int i = 0; i < Model.ProductID.Count; i++)
+    {
+        <div class="row ml-5 mt-5">
+            <div class="col-4">
+                <a href="@Url.Action("RemoveProductFromBox", "Box", new {productId = Model.ProductID[i], boxId = Model.BoxID})" className="btn btn-danger">
+                    <i style="color: indianred;" class="fas fa-times mr-2"></i>
+                </a>
+                <a href="@Url.Action("ItemDetails", "Box", new {@boxId = @Model.BoxID, @productId = @Model.ProductID[i]})">
+                    <span style="color: grey; font-weight: 400;">@Model.ProductName[i]</span>
+                </a>
+            </div>
+            <div class="col-4 text-center">
+                <h5 style="color: grey;font-weight: 400;">@Model.ProductQuantity[i]</h5>
+            </div>
+            <div class="col-4 text-center">
+                <h5 style="color: grey;font-weight: 400;">@Model.TotalPrice[i]</h5>
+            </div>
+        </div>
+    }
+
+    <div class="row ml-5 mt-5">
+        <div class="col-3 offset-9">
+            <h5 class="font-weight-bold">Total: @totalPrice Taka</h5>
+        </div>
+    </div>
+
+    <div class="row text-center my-5">
+        <div class="col-6 mt-5">
+            <a href="@Url.Action("DeleteBox", "Box", new {@boxId = @Model.BoxID})" class="btn buttonCss text-white">
+                Delete Box
+            </a>
+            @*<button class="buttonCss ">Delete Box</button>*@
+        </div>
+
+        <div class="col-6 mt-5">
+            @using (Html.BeginForm("RedirectToCreateRoutine", "FoodPlan", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                {
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="alert alert-warning alert-dismissible show" role="alert">
+                                @Html.ValidationSummary(true, "")
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <input type="text" class="d-none" name="boxId" value="@Model.BoxID" readonly="readonly" />
+                <button type="submit" class="buttonCss">Add To Food Plan</button>
+            }
+            @*<button class="buttonCss ">Add to Food Plan</button>*@
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+@Html.Partial("~/Views/Shared/_Footer.cshtml")
+@*<p>Box Name: @Model.BoxName</p>
+    @for (int i = 0; i < Model.ProductID.Count; i++)
+    {
+        <a href="@Url.Action("RemoveProductFromBox", "Box", new {productId = Model.ProductID[i], boxId = Model.BoxID})" className="btn btn-danger">
+            <i class="fas fa-times-circle text-danger"></i>
+        </a>
+        <a href="@Url.Action("ItemDetails", "Box", new {@boxId = @Model.BoxID, @productId = @Model.ProductID[i]})">
+            @Model.ProductName[i]
+        </a>
+        <p>@Model.ProductQuantity[i]</p>
+        <p>@Model.TotalPrice[i]</p>
+    }
+    <a href="@Url.Action("DeleteBox", "Box", new {@boxId = @Model.BoxID})">
+        Delete
+    </a>
+    @using (Html.BeginForm("RedirectToCreateRoutine", "FoodPlan", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+        {
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <div class="alert alert-warning alert-dismissible show" role="alert">
+                        @Html.ValidationSummary(true, "")
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        <input type="text" class="d-none" name="boxId" value="@Model.BoxID" readonly="readonly" />
+        <button type="submit" class="buttonCss">Add To Food Plan</button>
+    }*@
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if ("@TempData["message"]" != null) {
+                $('#infoValidationSummary').modal('show');
+            }
+        });
+    </script>
+}

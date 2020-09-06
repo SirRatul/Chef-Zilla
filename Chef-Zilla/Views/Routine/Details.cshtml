@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "Routine Details";
+}
+@Html.Partial("~/Views/Shared/_NavBar.cshtml")
+@if (TempData["message"] != null)
+{
+    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@TempData["message"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br>
+<br>
+<br>
+<div class="container-fluid mt-5">
+    <div class="row box text-center">
+        <div class="col-12">
+            <img style="width: 80%;" src="~/Images/Group 42.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row text-center">
+        <div class="col-12">
+            <h4 class="font-weight-bold">Your Food Plan</h4>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-11 offset-md-1">
+            <p class="color" style="font-size: 22px; font-weight:400;">Routine name: @Model.RoutineName</p>
+            <p class="color mt-3" style="font-size: 15px; font-weight:400;">Food box: @Model.BoxName</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Routine Type: @Model.RoutineType</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Delivery Days:</p>
+            @if (Model.RoutineType == "Weekly")
+            {
+                <div class="container-fluid">
+                    <div class="row mt-4">
+                        <div class="col-1">
+                            @if (Model.DeliveryDay.Contains("Saturday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday" checked="checked" disabled="disabled">
+                                <label class="days" for="Saturday">Sa</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday" disabled="disabled">
+                                <label class="days" for="Saturday">Sa</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Sunday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday" checked="checked" disabled="disabled">
+                                <label class="days" for="Sunday">Su</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday" disabled="disabled">
+                                <label class="days" for="Sunday">Su</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Monday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday" checked="checked" disabled="disabled">
+                                <label class="days" for="Monday">Mo</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday" disabled="disabled">
+                                <label class="days" for="Monday">Mo</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Tuesday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday" checked="checked" disabled="disabled">
+                                <label class="days" for="Tuesday">Tu</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday" disabled="disabled">
+                                <label class="days" for="Tuesday">Tu</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Wednesday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday" checked="checked" disabled="disabled">
+                                <label class="days" for="Wednesday">We</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday" disabled="disabled">
+                                <label class="days" for="Wednesday">We</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Thursday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday" checked="checked" disabled="disabled">
+                                <label class="days" for="Thursday">Th</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday" disabled="disabled">
+                                <label class="days" for="Thursday">Th</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Friday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday" checked="checked" disabled="disabled">
+                                <label class="days" for="Friday">Fr</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday" disabled="disabled">
+                                <label class="days" for="Friday">Fr</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.RoutineType == "Monthly")
+            {
+                <p>@Model.DeliveryDate</p>
+            }
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row mt-5">
+        <div class="col-md-11 offset-md-1">
+            <p class="color" style="font-size: 22px; font-weight:bold;">Invoice Information</p>
+            <p class="color mt-3" style="font-size: 15px; font-weight:400;">@Model.CustomerName</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Email: @Model.CustomerEmail</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Phone: @Model.CustomerPhone</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Address: @Model.DeliveryAddress</p>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row mt-3">
+        <div class="col-md-11 offset-md-1">
+            <p class="color" style="font-size: 22px; font-weight:bold;">Delivery completed</p>
+        </div>
+        <div class="col-md-11 offset-md-1">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 mt-5">
+                        <img style="width: 90%;" src="~/Images/Group 29.png" alt="">
+                        <p class="color mt-3" style="font-weight: 400">Fri day: 14 August, 2020</p>
+                        <p class="mt-n3 ml-5" style="font-weight: bold; color: #b3b300;">Delivered</p>
+                    </div>
+
+                    <div class="col-md-4 mt-5">
+                        <img style="width: 90%;" src="~/Images/Group 29.png" alt="">
+                        <p class="color mt-3" style="font-weight: 400">Fri day: 14 August, 2020</p>
+                        <p class="mt-n3 ml-5" style="font-weight: bold; color: #b3b300;">Delivered</p>
+                    </div>
+
+                    <div class="col-md-4 mt-5">
+                        <img style="width: 90%;" src="~/Images/Group 29.png" alt="">
+                        <p class="color mt-3" style="font-weight: 400">Fri day: 14 August, 2020</p>
+                        <p class="mt-n3 ml-5" style="font-weight: bold; color: #b3b300;">Delivered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row mt-3">
+        <div class="col-md-11 offset-md-1">
+            <p class="color" style="font-size: 22px; font-weight:bold;">Upcoming Delivery</p>
+        </div>
+        <div class="col-md-11 offset-md-1">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 mt-5">
+                        <img style="width: 90%;" src="~/Images/Group 29.png" alt="">
+                        <p class="color mt-3" style="font-weight: 400">Fri day: 14 August, 2020</p>
+                        <p class="mt-n3 ml-5" style="font-weight: bold; color: grey;">Processing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 text-center">
+        <div class="col-md-6">
+            @if (Model.RoutineStatus == "Active")
+            {
+                <a href="@Url.Action("PauseRoutine", "Routine", new {@routineId = @Model.RoutineID})" class="btn buttonCss text-white">
+                    Pause Plan
+                </a>
+            }
+            @if (Model.RoutineStatus == "Pause")
+            {
+                <a href="@Url.Action("ActivateRoutine", "Routine", new {@routineId = @Model.RoutineID})" class="btn buttonCss text-white">
+                    Active Plan
+                </a>
+            }
+            @*<button class="buttonCss">Pause Plan</button>*@
+        </div>
+        <div class="col-md-6">
+            <a href="@Url.Action("DeleteRoutine", "Routine", new {@routineId = @Model.RoutineID})" class="btn buttonCssBlue">
+                Delete Plan
+            </a>
+            @*<button class="buttonCssBlue">Delete Plan</button>*@
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+@Html.Partial("~/Views/Shared/_Footer.cshtml")
+@*<p>@Model.RoutineID</p>
+    <p>@Model.RoutineName</p>
+    <p>@Model.BoxName</p>
+    <p>@Model.RoutineType</p>
+    @if (Model.RoutineType == "Weekly")
+    {
+        <p>@Model.DeliveryDay</p>
+        <div class="form-group" id="deliveryWeekDiv">
+            @if (Model.DeliveryDay.Contains("Saturday"))
+            {
+                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday" checked="checked" disabled="disabled">
+                <label class="days" for="Saturday">Sa</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday" disabled="disabled">
+                <label class="days" for="Saturday">Sa</label>
+            }
+            @if (Model.DeliveryDay.Contains("Sunday"))
+            {
+                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday" checked="checked" disabled="disabled">
+                <label class="days" for="Sunday">Su</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday" disabled="disabled">
+                <label class="days" for="Sunday">Su</label>
+            }
+            @if (Model.DeliveryDay.Contains("Monday"))
+            {
+                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday" checked="checked" disabled="disabled">
+                <label class="days" for="Monday">Mo</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday" disabled="disabled">
+                <label class="days" for="Monday">Mo</label>
+            }
+            @if (Model.DeliveryDay.Contains("Tuesday"))
+            {
+                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday" checked="checked" disabled="disabled">
+                <label class="days" for="Tuesday">Tu</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday" disabled="disabled">
+                <label class="days" for="Tuesday">Tu</label>
+            }
+            @if (Model.DeliveryDay.Contains("Wednesday"))
+            {
+                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday" checked="checked" disabled="disabled">
+                <label class="days" for="Wednesday">We</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday" disabled="disabled">
+                <label class="days" for="Wednesday">We</label>
+            }
+            @if (Model.DeliveryDay.Contains("Thursday"))
+            {
+                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday" checked="checked" disabled="disabled">
+                <label class="days" for="Thursday">Th</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday" disabled="disabled">
+                <label class="days" for="Thursday">Th</label>
+            }
+            @if (Model.DeliveryDay.Contains("Friday"))
+            {
+                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday" checked="checked" disabled="disabled">
+                <label class="days" for="Friday">Fr</label>
+            }
+            else
+            {
+                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday" disabled="disabled">
+                <label class="days" for="Friday">Fr</label>
+            }
+        </div>
+    }
+    @if (Model.RoutineType == "Monthly")
+    {
+        <p>@Model.DeliveryDate</p>
+    }
+    <p>@Model.CustomerName</p>
+    <p>@Model.CustomerEmail</p>
+    <p>@Model.CustomerPhone</p>
+    <p>@Model.DeliveryAddress</p>
+    @if (Model.RoutineStatus == "Active")
+    {
+        <a href="@Url.Action("PauseRoutine", "Routine", new {@routineId = @Model.RoutineID})">
+            Pause
+        </a>
+    }
+    @if (Model.RoutineStatus == "Pause")
+    {
+        <a href="@Url.Action("ActivateRoutine", "Routine", new {@routineId = @Model.RoutineID})">
+            Active
+        </a>
+    }
+    <a href="@Url.Action("DeleteRoutine", "Routine", new {@routineId = @Model.RoutineID})">
+        Delete
+    </a>*@
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if ("@TempData["message"]" != null) {
+                $('#infoValidationSummary').modal('show');
+            }
+        });
+    </script>
+}

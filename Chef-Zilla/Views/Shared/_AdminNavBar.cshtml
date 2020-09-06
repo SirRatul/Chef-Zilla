@@ -158,9 +158,9 @@
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        <aside style="background: #b30000;"  class="main-sidebar elevation-4">
+        <aside style="background: #b30000;" class="main-sidebar elevation-4">
             <!-- Brand Logo -->
-            <a href="@Url.Action("Dashboard", "Admin")"  class="brand-link">
+            <a href="@Url.Action("Dashboard", "Admin")" class="brand-link">
                 <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
                 <span class="brand-text font-weight-light text-light">AdminLTE 3</span>
@@ -174,7 +174,7 @@
                         <img src="~/dist/img/user2-160x160.jpg" class="img-circle elevation-2 mt-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="@Url.Action("Dashboard", "Admin")"  class="h5 d-block text-light">Ratul</a>
+                        <a href="@Url.Action("Dashboard", "Admin")" class="h5 d-block text-light">Ratul</a>
                         <div class="panel-body mt-n2">
                             <div class="row">
                                 <span class="col-2"><span class="dot"></span></span>
@@ -190,7 +190,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
-                            <a href="@Url.Action("Dashboard", "Admin")" class="nav-link text-light active">
+                            <a href="@Url.Action("Dashboard", "Admin")" class="nav-link text-light">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -208,7 +208,7 @@
 
 
                         <li class="nav-item has-treeview">
-                            <a href="@Url.Action("AllProduct", "Admin")"  class="nav-link text-light">
+                            <a href="@Url.Action("AllProduct", "Admin")" class="nav-link text-light">
                                 <i class="fas fa-border-all nav-icon"></i>
                                 <p>All Items</p>
                             </a>
@@ -266,10 +266,29 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
 
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/Site.js"></script>
+    @section Scripts {
+        <script>
+        $(document).ready(function() {
+            var url = window.location;
+            console.log('Url'+url);
+            @*var element = $('ul.nav-sidebar a').filter(function() {
+                    return this.href == url || url.href.indexOf(this.href) == 0; }).parent().addClass('active');
+                if (element.is('li')) {
+                    element.addClass('active').parent().parent('li').addClass('active');
+                }*@
 
-  
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+            @*var element = $('ul.nav-sidebar a').filter(function () {
+                return this.href === url || url.href.indexOf(this.href) === 0;
+            });
+            console.log('Element'+element);
+            $(element).parentsUntil('ul.nav-sidebar', 'li').addClass('active');*@
+        });
+        </script>
+    }
 
-@RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
+
 </body>
 </html>

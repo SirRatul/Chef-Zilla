@@ -1,24 +1,39 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = @Model.ProductName;
 }
-
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
-
-
 <br>
 <br>
 <br>
 <br>
-
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
             <div class="container-fluid">
                 <div class="row">
-                    @*<img style="width: 100%;" src="~/Images/burger.png" alt="">*@
                     <img style="width: 100%;" src="@Url.Content(Model.ProductImage)" alt="">
                 </div>
+                @if (TempData["message"] != null)
+                {
+                    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@TempData["message"]</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <div class="row mt-4">
                     <div class="col-md-3 col-sm-3 col-3">
                         <p style="font-size: 22px; color: grey; margin-left: -15px;">Quantity:</p>
@@ -28,30 +43,23 @@
                     </div>
                     <div class="col-md-7"></div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-4">
                         <p style="font-size: 22px; color: grey; margin-left: -15px;">Package Include:</p>
                     </div>
-
                     <div class="col-md-8">
-
                         <ul>
                             <li>Ingredients</li>
                             <li>Detailed Recipe</li>
                             <li>Serving Materials</li>
                         </ul>
-
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-2">
                         <h5 style=" color: grey; margin-left: -15px;">Price:</h5>
                     </div>
-
                     <div class="col-10">
-                        @*<h5>120 BDT</h5>*@
                         <h5 id="totalPrice">@Model.ProductPrice BDT</h5>
                         <h5 class="d-none" id="actualPrice">@Model.ProductPrice</h5>
                         <input type="hidden" id="extraIngredientPriceUpdate" value="0">
@@ -59,14 +67,9 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
-            @*<h2 class="font-weight-bold">Hamburger with Egg and Beef</h2>*@
             <h2 class="font-weight-bold">@Model.ProductName</h2>
-            @*<p class="font-weight-bold text-muted my-4"> Ready In: 30 mins</p>*@
             <p class="font-weight-bold text-muted my-4"> Ready In: @Model.PrepareTime</p>
-
-
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -83,14 +86,6 @@
                                     <li>@Model.IngredientName[i]</li>
 
                                 }
-                                @*<li>Egg</li>
-                                    <li>teaspoon mustard(regular or Dijon</li>
-                                    <li>teaspoon Worcestershire sauce</li>
-                                    <li>small onion , finely grated</li>
-                                    <li>clove garlic, minced</li>
-                                    <li>teaspoon salt</li>
-                                    <li>teaspoon pepper</li>
-                                    <li>lb medium ground beef</li>*@
                             </ul>
                         </td>
                         <td>
@@ -100,14 +95,6 @@
                                     <li>@Model.IngredientQuantity[i]</li>
 
                                 }
-                                @*<li>1</li>
-                                    <li>1</li>
-                                    <li>1</li>
-                                    <li>1</li>
-                                    <li>1</li>
-                                    <li>1/2</li>
-                                    <li>1/2</li>
-                                    <li>1</li>*@
                             </ul>
                         </td>
                     </tr>
@@ -128,10 +115,8 @@
                             </label>
                         </div>
                     </div>
-
                     <div class="col-3">
-                        <input type="number" class="form-control" id="extraIngredientQuantity@(i+1)" value="1" min="1" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this, @(i+1));this.oldvalue = this.value;this.Identification=@(i+1);">
-                        @*<input type="text" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" />*@
+                        <input type="number" class="form-control" id="extraIngredientQuantity@(i+1)" value="1" min="1" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this, @(i+1), @Model.ExtraIngredientId[i]);this.oldvalue = this.value;this.Identification=@(i+1);">
                     </div>
                     <div class="col-3">
                         <h4>+@Model.ExtraIngredientPrice[i] BDT</h4>
@@ -140,72 +125,200 @@
                 </div>
 
             }
-
-            @*<div class="row">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input-lg" type="checkbox" value="" id="defaultCheck1">
-                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
-                                Egg
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
-                    </div>
-                    <div class="col-3">
-                        <h4>+8 BDT</h4>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input-lg" type="checkbox" value="" id="defaultCheck1">
-                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
-                                teaspoon pepper
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
-                    </div>
-                    <div class="col-3">
-                        <h4>+2 BDT</h4>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input-lg" type="checkbox" value="" id="defaultCheck1">
-                            <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
-                                lb medium ground beef
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
-                    </div>
-                    <div class="col-3">
-                        <h4>+30 BDT</h4>
-                    </div>
-                </div>*@
-
         </div>
     </div>
 </div>
-
-
-<div class="text-center my-5">
-    <button class="buttonCss">Add To Cart</button>
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-4 mt-5">
+            <button class="buttonCss">Add To Cart</button>
+        </div>
+        <div class="col-md-4 mt-5">
+            @using (Html.BeginForm("AddBox", "ItemDetails", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                {
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="alert alert-warning alert-dismissible show" role="alert">
+                                @Html.ValidationSummary(true, "")
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
+                <input type="text" class="d-none" name="productName" value="@Model.ProductName" readonly="readonly" />
+                <input type="text" class="d-none" name="productQuantity" value="1" readonly="readonly" />
+                <input type="text" class="d-none" name="productPrice" value="@Model.ProductPrice" readonly="readonly" />
+                for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+                {
+                    <input type="text" class="d-none" name="extraIngredientId" value="@Model.ExtraIngredientId[i]" readonly="readonly" />
+                    @Html.CheckBox("extraIngredientNumber", new { @value = @Model.ExtraIngredientId[i] + " 1", @class = "d-none" })
+                }
+                <button type="submit" class="buttonCss">Add To Box</button>
+            }
+        </div>
+        <div class="col-md-4 mt-5">
+            <button class="buttonCss">Add To Wish List</button>
+        </div>
+    </div>
 </div>
+<div class="container-fluid">
+    <div class="row mt-5 text-center">
+        <div class="col-12">
+            <h5 class="font-weight-bold">Rating and Reviews of @Model.ProductName</h5>
+        </div>
+    </div>
 
+    <div class="row mt-5 text-center">
+        <div class="col-12">
+            <h1 class="font-weight-bold ">4/5</h1>
+        </div>
+    </div>
+
+    <div class="row mt-5 text-center">
+        <div class="col-6 offset-3">
+            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+            <img style="width: 10%;" src="~/Images/grey-star.png" alt="">
+        </div>
+    </div>
+
+    <div class="row mt-5 mx-5">
+        <div class="col-12">
+            <h5 class="font-weight-bold">Product Reviews</h5>
+        </div>
+    </div>
+
+    <div class="row mx-5">
+        <div class="col-md-3 col-xl-2 col-sm-5 mt-5">
+            <h5 class="font-weight-bold d-inline mr-4">Your Rating:</h5>
+        </div>
+        <div class="col-md-9 col-xl-10 col-sm-7 mt-5">
+            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
+            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
+            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
+            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
+            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
+        </div>
+    </div>
+
+    <div class="row m-5">
+        <div class="col-12">
+            <h5 class="font-weight-bold">Product Reviews:</h5>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-5 text-center">
+            <button class="buttonCss">Submit</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row ml-5">
+        <div class="col-md-12">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+        </div>
+        <div class="col-md-12 mt-3">
+            <h5>By Samsul Islam Ratul</h5>
+            <p style="color: grey">22 august , 2020 : 8:00 PM</p>
+            <p>The Product i have got is just awesome and received in time . Overall good service and quality . Thanks</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row ml-5">
+        <div class="col-md-12">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+        </div>
+        <div class="col-md-12 mt-3">
+            <h5>By Samsul Islam Ratul</h5>
+            <p style="color: grey">22 august , 2020 : 8:00 PM</p>
+            <p>The Product i have got is just awesome and received in time . Overall good service and quality . Thanks</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row ml-5">
+        <div class="col-md-12">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+        </div>
+        <div class="col-md-12 mt-3">
+            <h5>By Samsul Islam Ratul</h5>
+            <p style="color: grey">22 august , 2020 : 8:00 PM</p>
+            <p>The Product i have got is just awesome and received in time . Overall good service and quality . Thanks</p>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+@*<div class="col-12">
+        <div class="col-4">
+            <div class="text-center my-5">
+                <button class="buttonCss">Add To Cart</button>
+            </div>
+        </div>
+        <div class="col-4">
+            @using (Html.BeginForm("AddBox", "ItemDetails", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                {
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="alert alert-warning alert-dismissible show" role="alert">
+                                @Html.ValidationSummary(true, "")
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
+                <input type="text" class="d-none" name="productName" value="@Model.ProductName" readonly="readonly" />
+                <input type="text" class="d-none" name="productQuantity" value="1" readonly="readonly" />
+                <input type="text" class="d-none" name="productPrice" value="@Model.ProductPrice" readonly="readonly" />
+                for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+                {
+                    <input type="text" class="d-none" name="extraIngredientId" value="@Model.ExtraIngredientId[i]" readonly="readonly" />
+                    @Html.CheckBox("extraIngredientNumber", new { @value = @Model.ExtraIngredientId[i] + " 1", @class = "d-none" })
+                }
+                <div class="text-center my-5">
+                    <button type="submit" class="buttonCss">Add To Box</button>
+                </div>
+            }
+        </div>
+    </div>*@
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
-
 @section Scripts {
     <script>
         $(document).ready(function() {
@@ -217,6 +330,20 @@
                             @*alert('1st for checked');*@
                             document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(document.getElementById("extraIngredientQuantity" + (i + 1)).value) * parseInt(document.getElementById("extraIngredientPrice" + (i + 1)).value));
                             document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                            document.getElementsByName("productPrice")[0].value = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
+                            var extraIngredientId = document.getElementsByName("extraIngredientId")
+                            [i].value;
+                            var quantityNumber = document.getElementById("extraIngredientQuantity" + (i + 1)).value;
+                            if (i === 0) {
+                                document.getElementsByName("extraIngredientNumber")[i].checked = "event.target.checked";
+                                document.getElementsByName("extraIngredientNumber")[i].value = extraIngredientId + " " + quantityNumber;
+                            } else if (i === 1) {
+                                document.getElementsByName("extraIngredientNumber")[i + 1].checked = event.target.checked;
+                                document.getElementsByName("extraIngredientNumber")[i + 1].value = extraIngredientId + " " + quantityNumber;
+                            } else {
+                                document.getElementsByName("extraIngredientNumber")[i * 2].checked = event.target.checked;
+                                document.getElementsByName("extraIngredientNumber")[i * 2].value = extraIngredientId + " " + quantityNumber;
+                            }
                             @*console.log("Extra Ingredient Quantity of Item " + (i + 1) + " = " + document.getElementById("extraIngredientQuantity" + (i + 1)).value);*@
                             @*console.log("Extra Ingredient Price Of Item " + (i + 1) + "= " + document.getElementById("extraIngredientPrice" + (i + 1)).value);*@
                         } else {
@@ -224,29 +351,53 @@
                             @*console.log('I:' + (i+1));*@
                             document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) - (parseInt(document.getElementById("extraIngredientQuantity" + (i + 1)).value) * parseInt(document.getElementById("extraIngredientPrice" + (i + 1)).value));
                             document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                            document.getElementsByName("productPrice")[0].value = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
+                            if (i === 0) {
+                                document.getElementsByName("extraIngredientNumber")[i].checked = false;
+                            } else if (i === 1) {
+                                document.getElementsByName("extraIngredientNumber")[i + 1].checked = false;
+                            } else {
+                                document.getElementsByName("extraIngredientNumber")[i * 2].checked = false;
+                            }
                             @*console.log("Uncheck Extra Ingredient Quantity of Item " + (i + 1) + " = " + document.getElementById("extraIngredientQuantity" + (i + 1)).value);*@
                             @*console.log("Uncheck Extra Ingredient Price Of Item " + (i + 1) + "= " + document.getElementById("extraIngredientPrice" + (i + 1)).value);*@
                         }
                     });
             }
             document.getElementById("quantity").addEventListener('input',
-                function (e) {
+                function(e) {
                     @*console.log('Actual Value Without Extra Price:' + (parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)));*@
                     @*console.log('Extra Price:' + parseInt(document.getElementById("extraIngredientPriceUpdate").value));*@
                     document.getElementById("totalPrice").innerHTML = ((parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                    document.getElementsByName("productPrice")[0].value = ((parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
+                    document.getElementsByName("productQuantity")[0].value = e.target.value;
                 });
-            });
-            function onChangeTest(textbox, Identification) {
-                @*alert("Value is " + textbox.value + "\n" + "Old Value is " + textbox.oldvalue + "\n" + "Id is " + Identification);*@
-                if (document.getElementById('extraIngredient' + (Identification)).checked) {
-                    @*alert("2nd for checked");*@
-                    document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(textbox.value) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value)) - (parseInt(textbox.oldvalue) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value));
-                    document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
-                    document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
+        });
+
+        function onChangeTest(textbox, Identification, Id) {
+            @*alert("Value is " + textbox.value + "\n" + "Old Value is " + textbox.oldvalue + "\n" + "Identification is " + Identification + "\n" + "Id is " + Id);*@
+            if (document.getElementById('extraIngredient' + (Identification)).checked) {
+                @*alert("2nd for checked");*@
+                document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(textbox.value) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value)) - (parseInt(textbox.oldvalue) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value));
+                document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
+                document.getElementsByName("productPrice")[0].value = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
+                document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
+
+                if ((Identification - 1) === 0) {
+                    document.getElementsByName("extraIngredientNumber")[(Identification - 1)].value = Id + " " + textbox.value;
+                } else if ((Identification - 1) === 1) {
+                    document.getElementsByName("extraIngredientNumber")[(Identification - 1) + 1].value = Id + " " + textbox.value;
                 } else {
-                    @*alert("2nd for not checked");*@
-                    document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
+                    document.getElementsByName("extraIngredientNumber")[(Identification - 1) * 2].value = Id + " " + textbox.value;
                 }
+            } else {
+                @*alert("2nd for not checked");*@
+                document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
             }
+        }
+
+        if ("@TempData["message"]" != null) {
+            $('#infoValidationSummary').modal('show');
+        }
     </script>
 }
