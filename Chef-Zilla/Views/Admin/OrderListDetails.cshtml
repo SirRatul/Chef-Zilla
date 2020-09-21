@@ -1,0 +1,325 @@
+﻿@model Chef_Zilla.ViewModels.AdminOrderDetailsViewModels
+
+@{
+    ViewBag.Title = "OrderListDetails";
+}
+
+<h2>OrderListDetails</h2>
+
+<p>@Model.OrderId</p>
+<p>@Model.UserName</p>
+@for (int i = 0; i < @Model.ProductId.Count; i++)
+{
+
+    <p>@Model.ProductName[i]</p>
+    <p>@Model.ProductQuantity[i]</p>
+    <p>@Model.ProductTotalPrice[i]</p>
+}
+
+
+<p>@Model.finalTotalPrice</p>
+<p>@Model.dateTime</p>
+<p>@Model.status</p>
+<p>@Model.type</p>
+<p>@Model.Address</p>
+<p>@Model.phn</p>
+<p>@Model.Email</p>
+<div class="container mt-5">
+    <div class="row ml-5 ">
+
+        <div class="col-12">
+            <h4 class="font-weight-bold ">Order ID: @Model.OrderId</h4>
+            <h4 class="font-weight-bold ">Order Type: @Model.type</h4>
+            <h4 class="font-weight-bold ">Order Time: @Model.dateTime</h4>
+        </div>
+
+
+    </div>
+
+    <div class="row ml-5 mt-5">
+        <div class="col-4">
+            <h5 class="font-weight-bold">Item Name</h5>
+        </div>
+        <div class="col-4">
+            <h5 class="font-weight-bold text-center">Quantity</h5>
+        </div>
+        <div class="col-4">
+            <h5 class="font-weight-bold text-center">Price</h5>
+        </div>
+    </div>
+
+
+    @for (int i = 0; i < @Model.ProductId.Count; i++)
+    {
+        <div class="row ml-5 mt-5">
+            <div class="col-4">
+                <i style="color: indianred;" class="fas fa-times mr-2"></i>
+                <span style="color: grey; font-weight: 400;">@Model.ProductName[i]</span>
+            </div>
+            <div class="col-4 text-center">
+                <h5 style="color: grey;font-weight: 400;">@Model.ProductQuantity[i]</h5>
+            </div>
+            <div class="col-4 text-center">
+                <h5 style="color: grey;font-weight: 400;">@Model.ProductTotalPrice[i]</h5>
+            </div>
+
+
+        </div>
+    }
+
+    
+    <div class="row ml-5 mt-5">
+        <div class="col-4">
+            <i style="color: indianred;" class="fas fa-times mr-2"></i>
+            <span style="color: grey; font-weight: 400;">Beef Burger</span>
+        </div>
+        <div class="col-4 text-center">
+            <h5 style="color: grey;font-weight: 400;">1</h5>
+        </div>
+        <div class="col-4 text-center">
+            <h5 style="color: grey;font-weight: 400;">90</h5>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-3 offset-md-9 col-12 text-center">
+            <h5 class="font-weight-bold te">Total: @Model.finalTotalPrice</h5>
+        </div>
+        <div class="col-md-3 offset-md-9 col-12 text-center">
+            <h5 class="font-weight-bold">Payment Status: COD</h5>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<br>
+<br>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <h4>Bills To</h4>
+                    </div>
+
+                    <div class="col-12">
+                        <p style="font-weight: 700;">@Model.UserName</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 500; color:dimgray">@Model.Address</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 500; color:dimgray">@Model.phn</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 500; color:dimgray">@Model.Email</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 mt-5">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <h4>Order From</h4>
+                    </div>
+
+                    <div class="col-12">
+                        <p style="font-weight: 700;">Chef-Zilla Official store</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 500; color:dimgray">Address: Modhubag , Dhaka, 1230</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 500; color:dimgray"> Phone: 017521424853</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 500; color:dimgray"> Email: Support.cafe-zilla@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12  text-center">
+            <h4 class="font-weight-bold">Order Status</h4>
+        </div>
+
+    </div>
+
+    <div class="row mt-5 text-center">
+        <!--
+                    <div class="col-sm-12 col-md-2 offset-md-1 mt-5">
+                        <span class="statusCircle img-fluid ">Pending</span>
+                        <span class="line d-none"></span>
+                    </div>
+
+                    <div class="col-sm-12 col-md-2 mt-5">
+                        <span class="statusCircle img-fluid">Confirmed</span>
+                    </div>
+                    <div class="col-sm-12 col-md-2 mt-5">
+                        <span class="statusCircle img-fluid">Picked</span>
+                    </div>
+                    <div class="col-sm-12 col-md-2 mt-5">
+                        <span class="statusCircleDisable img-fluid">Shipped</span>
+                    </div>
+                    <div class="col-sm-12 col-md-2 mt-5">
+                        <span class="statusCircleDisable img-fluid">Delivered</span>
+                    </div>
+        -->
+
+        <div class="row col-md-12">
+            @using (Html.BeginForm("OrderStatusUpdate", "Admin", FormMethod.Post))
+            {
+                <h5 class="font-weight-bold ml-3">Your status:</h5>
+
+                @*<ul class="orderStatus2">
+                    <li class="statusOrder2 active" data-value="pending">pending</li>
+                    <li class="statusOrder2 active" data-value="confirmed">confirmed</li>
+                    <li class="statusOrder2 active" data-value="picked">picked</li>
+                    <li class="statusOrder2 active" data-value="shipped">shipped</li>
+                    <li class="statusOrder2 active" data-value="delivered">delivered</li>
+                </ul>
+                <input name="status" id="statusValue2" />*@
+
+
+                @*<span style="color:#FFDF00; margin-left:20px;">
+                    <i class="statusOrder far fa-star" data-value="1" aria-hidden="true"></i>
+                    <i class="statusOrder far fa-star" data-value="2" aria-hidden="true"></i>
+                    <i class="statusOrder far fa-star" data-value="3" aria-hidden="true"></i>
+                    <i class="statusOrder far fa-star" data-value="4" aria-hidden="true"></i>
+                    <i class="statusOrder far fa-star" data-value="5" aria-hidden="true"></i>
+                </span>*@
+
+                <div class="col-12">
+
+                    <ul class="orderStatusUl">
+                        <li class="orderLIST listPink" data-value="pending">pending</li>
+                        <li class="orderLIST listWhite"data-value="confirmed">confirmed</li>
+                        <li class="orderLIST listWhite"data-value="picked">picked</li>
+                        <li class="orderLIST listWhite"data-value="shipped">shipped</li>
+                        <li class="orderLIST listWhite"data-value="delivered">delivered</li>
+                    </ul>
+                    <input name="status" id="statusValue" />
+
+                </div>
+
+                
+
+                <input name="orderID" value="@Model.OrderId" />
+
+                <div class="row col-md-12 justify-content-center">
+                    @*<a href="@Url.Action("OrderListDetails", "Admin", new { id = Model.OrderId })" className="btn btn-success">
+                    <input type="submit" value="Submit" class="buttonCss" />
+                </a>*@
+
+                    <input type="submit" value="Submit" class="buttonCss" />
+
+
+                    @*<a href="@Url.Action("Index", "Review")">
+                    <input type="submit" value="Submit" class="buttonCss" />
+
+                </a>*@
+
+                </div>
+            }
+
+            @*<div class="col-12">
+
+                <ul class="orderStatusUl">
+                    <li class="listPink">pending</li>
+                    <li class="listPink">confirmed</li>
+                    <li class="listPink">picked</li>
+                    <li class="listWhite">shipped</li>
+                    <li class="listWhite">delivered</li>
+                </ul>
+
+
+            </div>*@
+
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="row text-center mt-5">
+            <div class="col-12">
+                <button class="buttonCss ">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    @section Scripts {
+        <script>
+            $(".orderLIST").hover(function () {
+
+                $(".orderLIST").addClass("listWhite").removeClass("listPink");
+                $(this).addClass("listPink").removeClass("listWhite");
+                $(this).prevAll(".orderLIST").addClass("listPink").removeClass("listWhite");
+            });
+
+            $(".orderLIST").click(function () {
+                //debugger;
+                var orderStatusValue = $(this).attr("data-value");
+
+                $("#statusValue").val(orderStatusValue);
+            });
+            /////////////////////////
+
+            $(".statusOrder").hover(function () {
+
+                $(".statusOrder").addClass("far").removeClass("fas");
+                $(this).addClass("fas").removeClass("far");
+                $(this).prevAll(".statusOrder").addClass("fas").removeClass("far");
+            });
+
+            $(".statusOrder").click(function () {
+                //debugger;
+                var starValue = $(this).attr("data-value");
+
+                $("#statusValue").val(starValue);
+            });
+
+               /////////////////////////////////////////
+
+            $(".statusOrder2").hover(function () {
+
+                $(".statusOrder2").addClass("statusOrder2").removeClass("active");
+                $(this).addClass("active").removeClass("statusOrder2");
+                $(this).prevAll(".statusOrder2").addClass("active").removeClass("statusOrder2");
+            });
+
+            $(".statusOrder2").click(function () {
+                //debugger;
+                var starValue = $(this).attr("data-value");
+
+                $("#statusValue2").val(starValue);
+            });
+
+        </script>
+
+        @Styles.Render("~/OrderDetails/css")
+    }

@@ -12,7 +12,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    @*<link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">*@
     <!-- iCheck -->
     <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
@@ -188,7 +188,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+         with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
                             <a href="@Url.Action("Dashboard", "Admin")" class="nav-link text-light">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -211,6 +211,13 @@
                             <a href="@Url.Action("AllProduct", "Admin")" class="nav-link text-light">
                                 <i class="fas fa-border-all nav-icon"></i>
                                 <p>All Items</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="@Url.Action("OrderList", "Admin")" class="nav-link text-light">
+                                <i class="fas fa-border-all nav-icon"></i>
+                                <p>Order List</p>
                             </a>
                         </li>
 
@@ -240,7 +247,7 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>$.widget.bridge('uibutton', $.ui.button)</script>
     <!-- Bootstrap 4 -->
-    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
     <!-- ChartJS -->
     <script src="~/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->

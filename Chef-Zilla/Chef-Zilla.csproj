@@ -192,12 +192,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\FeaturedItemController.cs" />
     <Compile Include="Controllers\FoodPlanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemDetailsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\RoutineController.cs" />
+    <Compile Include="Controllers\WishListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,27 +223,141 @@
     <Compile Include="Migrations\202009021313122_RoutineModelCreate.designer.cs">
       <DependentUpon>202009021313122_RoutineModelCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009071459242_WishList.cs" />
+    <Compile Include="Migrations\202009071459242_WishList.designer.cs">
+      <DependentUpon>202009071459242_WishList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009131815141_Cart.cs" />
+    <Compile Include="Migrations\202009131815141_Cart.designer.cs">
+      <DependentUpon>202009131815141_Cart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009131817064_CartProduct.cs" />
+    <Compile Include="Migrations\202009131817064_CartProduct.designer.cs">
+      <DependentUpon>202009131817064_CartProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009131819592_CartProductExtraItem.cs" />
+    <Compile Include="Migrations\202009131819592_CartProductExtraItem.designer.cs">
+      <DependentUpon>202009131819592_CartProductExtraItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009131932308_changeUserIdtypeToCart.cs" />
+    <Compile Include="Migrations\202009131932308_changeUserIdtypeToCart.designer.cs">
+      <DependentUpon>202009131932308_changeUserIdtypeToCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009131954466_addattributeToCart.cs" />
+    <Compile Include="Migrations\202009131954466_addattributeToCart.designer.cs">
+      <DependentUpon>202009131954466_addattributeToCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009132002103_pricetypechangeToCart.cs" />
+    <Compile Include="Migrations\202009132002103_pricetypechangeToCart.designer.cs">
+      <DependentUpon>202009132002103_pricetypechangeToCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009132009221_UserIdtypechangeToCart.cs" />
+    <Compile Include="Migrations\202009132009221_UserIdtypechangeToCart.designer.cs">
+      <DependentUpon>202009132009221_UserIdtypechangeToCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009140755262_changeToCartProductExtraItem.cs" />
+    <Compile Include="Migrations\202009140755262_changeToCartProductExtraItem.designer.cs">
+      <DependentUpon>202009140755262_changeToCartProductExtraItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009152038231_Order.cs" />
+    <Compile Include="Migrations\202009152038231_Order.designer.cs">
+      <DependentUpon>202009152038231_Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009152052074_addAddressToOrder.cs" />
+    <Compile Include="Migrations\202009152052074_addAddressToOrder.designer.cs">
+      <DependentUpon>202009152052074_addAddressToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009160041280_addTotalItemToOrder.cs" />
+    <Compile Include="Migrations\202009160041280_addTotalItemToOrder.designer.cs">
+      <DependentUpon>202009160041280_addTotalItemToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161055317_Review.cs" />
+    <Compile Include="Migrations\202009161055317_Review.designer.cs">
+      <DependentUpon>202009161055317_Review.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161622468_OrderProductExtraItem.cs" />
+    <Compile Include="Migrations\202009161622468_OrderProductExtraItem.designer.cs">
+      <DependentUpon>202009161622468_OrderProductExtraItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161643476_changeCartIDTypeToOrderProductExtraItem.cs" />
+    <Compile Include="Migrations\202009161643476_changeCartIDTypeToOrderProductExtraItem.designer.cs">
+      <DependentUpon>202009161643476_changeCartIDTypeToOrderProductExtraItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161655262_changeOrderIdTypeToOrderProductExtraItem.cs" />
+    <Compile Include="Migrations\202009161655262_changeOrderIdTypeToOrderProductExtraItem.designer.cs">
+      <DependentUpon>202009161655262_changeOrderIdTypeToOrderProductExtraItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161659237_OrderProduct.cs" />
+    <Compile Include="Migrations\202009161659237_OrderProduct.designer.cs">
+      <DependentUpon>202009161659237_OrderProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161741018_changeToOrderProduct.cs" />
+    <Compile Include="Migrations\202009161741018_changeToOrderProduct.designer.cs">
+      <DependentUpon>202009161741018_changeToOrderProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009170959569_changeToReview.cs" />
+    <Compile Include="Migrations\202009170959569_changeToReview.designer.cs">
+      <DependentUpon>202009170959569_changeToReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009180956070_changeToReveiw.cs" />
+    <Compile Include="Migrations\202009180956070_changeToReveiw.designer.cs">
+      <DependentUpon>202009180956070_changeToReveiw.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181150232_changeToOrder.cs" />
+    <Compile Include="Migrations\202009181150232_changeToOrder.designer.cs">
+      <DependentUpon>202009181150232_changeToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181221335_changeToOrder1.cs" />
+    <Compile Include="Migrations\202009181221335_changeToOrder1.designer.cs">
+      <DependentUpon>202009181221335_changeToOrder1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009181306117_changeToReview1.cs" />
+    <Compile Include="Migrations\202009181306117_changeToReview1.designer.cs">
+      <DependentUpon>202009181306117_changeToReview1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009191706157_addToOrder.cs" />
+    <Compile Include="Migrations\202009191706157_addToOrder.designer.cs">
+      <DependentUpon>202009191706157_addToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009201507293_addToOrderProducts.cs" />
+    <Compile Include="Migrations\202009201507293_addToOrderProducts.designer.cs">
+      <DependentUpon>202009201507293_addToOrderProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Box.cs" />
     <Compile Include="Models\BoxExtraItem.cs" />
     <Compile Include="Models\BoxProduct.cs" />
+    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\CartProduct.cs" />
+    <Compile Include="Models\CartProductExtraItem.cs" />
     <Compile Include="Models\ExtraIngredient.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Ingredient .cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderProduct.cs" />
+    <Compile Include="Models\OrderProductExtraItem.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Routine.cs" />
     <Compile Include="Models\RoutineSchedule.cs" />
+    <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AdminOrderDetailsViewModels.cs" />
+    <Compile Include="ViewModels\AdminOrderListViewModel.cs" />
     <Compile Include="ViewModels\BoxCreateViewModel.cs" />
     <Compile Include="ViewModels\BoxDetailsViewModel.cs" />
     <Compile Include="ViewModels\BoxItemViewModel.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\FoodPlanViewModel.cs" />
     <Compile Include="ViewModels\ItemDetailsViewModels.cs" />
+    <Compile Include="ViewModels\ReviewViewModel.cs" />
     <Compile Include="ViewModels\RoutineCreateViewModel.cs" />
     <Compile Include="ViewModels\RoutineDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ViewOrederListViewModel.cs" />
+    <Compile Include="ViewModels\WishListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build\config\postcss.config.js" />
@@ -279,6 +397,7 @@
     <Content Include="Content\mdb.lite.css" />
     <Content Include="Content\mdb.lite.min.css" />
     <Content Include="Content\mdb.min.css" />
+    <Content Include="Content\OrderDetails.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -2574,6 +2693,16 @@
     <Content Include="Views\Box\Details.cshtml" />
     <Content Include="Views\Box\ItemDetails.cshtml" />
     <Content Include="Views\Routine\Details.cshtml" />
+    <Content Include="Views\WishList\Details.cshtml" />
+    <Content Include="Views\Cart\ViewCart.cshtml" />
+    <Content Include="Views\Order\View.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\FinalOrder.cshtml" />
+    <Content Include="Views\Order\AddOrder.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Order\ViewOrderList.cshtml" />
+    <Content Include="Views\Admin\OrderList.cshtml" />
+    <Content Include="Views\Admin\OrderListDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2600,6 +2729,81 @@
     <EmbeddedResource Include="Migrations\202008301316054_BoxModelCreate.resx" />
     <EmbeddedResource Include="Migrations\202009021313122_RoutineModelCreate.resx">
       <DependentUpon>202009021313122_RoutineModelCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009071459242_WishList.resx">
+      <DependentUpon>202009071459242_WishList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009131815141_Cart.resx">
+      <DependentUpon>202009131815141_Cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009131817064_CartProduct.resx">
+      <DependentUpon>202009131817064_CartProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009131819592_CartProductExtraItem.resx">
+      <DependentUpon>202009131819592_CartProductExtraItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009131932308_changeUserIdtypeToCart.resx">
+      <DependentUpon>202009131932308_changeUserIdtypeToCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009131954466_addattributeToCart.resx">
+      <DependentUpon>202009131954466_addattributeToCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009132002103_pricetypechangeToCart.resx">
+      <DependentUpon>202009132002103_pricetypechangeToCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009132009221_UserIdtypechangeToCart.resx">
+      <DependentUpon>202009132009221_UserIdtypechangeToCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009140755262_changeToCartProductExtraItem.resx">
+      <DependentUpon>202009140755262_changeToCartProductExtraItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009152038231_Order.resx">
+      <DependentUpon>202009152038231_Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009152052074_addAddressToOrder.resx">
+      <DependentUpon>202009152052074_addAddressToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009160041280_addTotalItemToOrder.resx">
+      <DependentUpon>202009160041280_addTotalItemToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161055317_Review.resx">
+      <DependentUpon>202009161055317_Review.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161622468_OrderProductExtraItem.resx">
+      <DependentUpon>202009161622468_OrderProductExtraItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161643476_changeCartIDTypeToOrderProductExtraItem.resx">
+      <DependentUpon>202009161643476_changeCartIDTypeToOrderProductExtraItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161655262_changeOrderIdTypeToOrderProductExtraItem.resx">
+      <DependentUpon>202009161655262_changeOrderIdTypeToOrderProductExtraItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161659237_OrderProduct.resx">
+      <DependentUpon>202009161659237_OrderProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161741018_changeToOrderProduct.resx">
+      <DependentUpon>202009161741018_changeToOrderProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009170959569_changeToReview.resx">
+      <DependentUpon>202009170959569_changeToReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009180956070_changeToReveiw.resx">
+      <DependentUpon>202009180956070_changeToReveiw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181150232_changeToOrder.resx">
+      <DependentUpon>202009181150232_changeToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181221335_changeToOrder1.resx">
+      <DependentUpon>202009181221335_changeToOrder1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009181306117_changeToReview1.resx">
+      <DependentUpon>202009181306117_changeToReview1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009191706157_addToOrder.resx">
+      <DependentUpon>202009191706157_addToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009201507293_addToOrderProducts.resx">
+      <DependentUpon>202009201507293_addToOrderProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
+using Chef_Zilla.ViewModels;
 
 namespace Chef_Zilla.Controllers
 {
@@ -30,6 +31,142 @@ namespace Chef_Zilla.Controllers
         public ActionResult AddProduct()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult OrderStatusUpdate(int orderID, string status)
+        {
+            var order = _context.Orders.Where(m => m.OrderId == orderID).ToList();
+            order[0].status = status;
+
+            _context.SaveChanges();
+            //AdminOrderDetailsViewModels adminOrderDetailsViewModels = new AdminOrderDetailsViewModels();
+
+            //adminOrderDetailsViewModels.OrderId = orderID;
+
+            //return View(adminOrderDetailsViewModels);
+            return RedirectToAction("OrderList", "Admin");
+        }
+        public ActionResult OrderListDetails( int id )
+        {
+            AdminOrderDetailsViewModels adminOrderDetailsViewModels = new AdminOrderDetailsViewModels();
+
+
+            List<string> ProductName = new List<string>();
+            List<int> ProductQuantity = new List<int>();
+            List<int> ProductPrice = new List<int>();
+            List<string> username = new List<string>();
+
+
+            adminOrderDetailsViewModels.OrderId = id;
+
+
+            var orderUserId = _context.Orders.Where(m => m.OrderId == id).Select(m => m.UserId).ToList();
+            var oneUserID = orderUserId[0];
+
+            
+            var orderProductId = _context.OrderProducts.Where(m => m.OrderId == id).Select(m => m.ProductID).ToList();
+            adminOrderDetailsViewModels.ProductId = orderProductId;
+
+            foreach (var item in orderProductId)
+            {
+                var productName = _context.Products.Where(m => m.ProductID == item).Select(m => m.ProductName).ToList();
+                ProductName.Add(productName[0]);
+
+            }
+            adminOrderDetailsViewModels.ProductName = ProductName;
+
+            foreach (var item in orderProductId)
+            {
+                var orderProductquantity = _context.OrderProducts.Where(m => m.ProductID == item).Select(m => m.ProductQuantity).ToList();
+                ProductQuantity.Add(orderProductquantity[0]);
+
+                var orderProductPrice = _context.Products.Where(m => m.ProductID == item).Select(m => m.ProductPrice).ToList();
+                ProductPrice.Add(Convert.ToInt32(orderProductPrice[0])* orderProductquantity[0]);
+
+            }
+            adminOrderDetailsViewModels.ProductQuantity = ProductQuantity;
+            adminOrderDetailsViewModels.ProductTotalPrice = ProductPrice;
+
+            
+
+            //var totalPrice = _context.Orders.Where(m => m.OrderId == id).Select(m => m.finalTotalPrice).ToList();
+
+            //adminOrderDetailsViewModels.finalTotalPrice = totalPrice[0];
+
+            var totalPrice = _context.Orders.Where(m => m.OrderId == id).Select(m => m.finalTotalPrice).ToList();
+            adminOrderDetailsViewModels.finalTotalPrice = totalPrice[0];
+
+            var status = _context.Orders.Where(m => m.OrderId == id).Select(m => m.status).ToList();
+            adminOrderDetailsViewModels.status = status[0];
+
+            foreach (var item in orderUserId)
+            {
+                var firstName = _context.Users.Where(m => m.Id == item).Select(m => m.FirstName).ToList();
+                var lastName = _context.Users.Where(m => m.Id == item).Select(m => m.LastName).ToList();
+
+                username.Add(firstName[0] + " " + lastName[0]);
+            }
+
+            
+            adminOrderDetailsViewModels.UserName = username[0];
+
+            var address = _context.Orders.Where(m => m.OrderId == id).Select(m => m.Address).ToList();
+            adminOrderDetailsViewModels.Address = address[0];
+
+            var dateTime = _context.Orders.Where(m => m.OrderId == id).Select(m => m.dateTime).ToList();
+            adminOrderDetailsViewModels.dateTime = dateTime[0];
+
+            var type = _context.Orders.Where(m => m.OrderId == id).Select(m => m.Type).ToList();
+            adminOrderDetailsViewModels.type = type[0];
+
+            var UserPhn = _context.Users.Where(m => m.Id == oneUserID).Select(m => m.PhoneNumber).ToList();
+            adminOrderDetailsViewModels.phn = UserPhn[0].Remove(0,3);
+
+            var UserEmail = _context.Users.Where(m => m.Id == oneUserID).Select(m => m.Email).ToList();
+            adminOrderDetailsViewModels.Email = UserEmail[0];
+
+
+
+
+
+            return View(adminOrderDetailsViewModels);
+        }
+
+        public ActionResult OrderList()
+        {
+            var adminOrderListViewModel = new AdminOrderListViewModel();
+
+            List<string> userName = new List<string>();
+
+            var orderList = _context.Orders.ToList();
+
+            var orderListId = _context.Orders.Select(m => m.OrderId).ToList();
+            var orderListUserId = _context.Orders.Select(m => m.UserId).ToList();
+            var finaltotalPrice = _context.Orders.Select(m => m.finalTotalPrice).ToList();
+            var dateTime = _context.Orders.Select(m => m.dateTime).ToList();
+            var Status = _context.Orders.Select(m => m.status).ToList();
+            var type = _context.Orders.Select(m => m.Type).ToList();
+
+            //var cartId = _context.Carts.Where(m => m.UserId == userId).Select(x => x.CartID).ToList();
+            adminOrderListViewModel.OrderId = orderListId;
+            //adminOrderListViewModel.UserId = orderListUserId;
+
+            foreach (var item in orderListUserId)
+            {
+                var firstName = _context.Users.Where(m => m.Id == item).Select(m => m.FirstName).ToList();
+                var lastName = _context.Users.Where(m => m.Id == item).Select(m => m.LastName).ToList();
+
+                userName.Add(firstName[0] + " "+lastName[0]);
+            }
+
+            adminOrderListViewModel.UserName = userName;
+            adminOrderListViewModel.finalTotalPrice = finaltotalPrice;
+            adminOrderListViewModel.dateTime = dateTime;
+            adminOrderListViewModel.status = Status;
+            adminOrderListViewModel.Type = type;
+
+            return View(adminOrderListViewModel);
         }
 
         public ActionResult ViewProduct(int id)

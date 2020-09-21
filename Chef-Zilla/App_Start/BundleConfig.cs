@@ -41,6 +41,9 @@ namespace Chef_Zilla
                       "~/Content/Site.css",
                       "~/Scripts/mdb.min.js"));
 
+            bundles.Add(new StyleBundle("~/OrderDetails/css").Include(
+                     "~/Content/OrderDetails.css"));
+
             var fontFamilySansPro =
                 "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback";
 

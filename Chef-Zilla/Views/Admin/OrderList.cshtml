@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "OrderList";
+}
+
+<h2>OrderList</h2>
+@*@for (int i = 0; i < Model.OrderId.Count; i++)
+    {
+        <p>@Model.OrderId[i]</p>
+        <p>@Model.UserName[i]</p>
+        <p>@Model.finalTotalPrice[i]</p>
+        <p>@Model.dateTime[i]</p>
+        <p>@Model.status[i]</p>
+        <p>@Model.Type[i]</p>
+    }*@
+@*<table id="example2" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Order No</th>
+            <th>Type</th>
+            <th>Customer</th>
+            <th>Order Time</th>
+            <th>Price</th>
+            <th>Order Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.OrderId.Count; i++)
+        {
+            <tr>
+                <td>@Model.OrderId[i]</td>
+                <td>@Model.Type[i]</td>
+                <td>@Model.UserName[i]</td>
+                <td>@Model.dateTime[i]</td>
+                <td>@Model.finalTotalPrice[i]</td>
+                <td>@Model.status[i]</td>
+                <td>
+                    <a className="btn btn-success">
+                        <i class="fas fa-eye text-success"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+<div class="container">
+    <div class="row">
+        <table style="border: 1px solid grey;" class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Order No.</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Order Time</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Order Status</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.OrderId.Count; i++)
+                {
+                <tr class="table-danger">
+                    <th scope="row">@Model.OrderId[i]</th>
+                    <td>@Model.Type[i]</td>
+                    <td>@Model.UserName[i]</td>
+                    <td>@Model.dateTime[i]</td>
+                    <td>@Model.finalTotalPrice[i]</td>
+                    <td>@Model.status[i]</td>
+                    <td class="text-center text-danger ">
+                        <a href="@Url.Action("OrderListDetails", "Admin", new { id = Model.OrderId[i] })" className="btn btn-success">
+                            <i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    
+                    @*<td class="text-center text-danger "><i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i></td>*@
+                </tr>
+                }
+                </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "FinalOrder";
+}
+
+<h2>FinalOrder</h2>
+
+
+
+
+@for (var i = 0; i < @Model.ProductID.Count; i++)
+{
+    <p>@Model.ProductID[i]</p>
+}
+
+@*{@if (@Model.extraIngrediantID.Count > 0)
+    {
+        for (var i = 0; i < @Model.extraIngrediantID.Count; i++)
+        {
+            <p>@Model.extraIngrediantID[i]</p>
+        }
+    }
+
+    else if (@Model.extraIngrediantQuantity.Count > 0)
+    {
+        for (var i = 0; i < @Model.extraIngrediantQuantity.Count; i++)
+        {
+            <p>@Model.extraIngrediantQuantity[i]</p>
+        }
+    }
+    }*@
+
+@for (var i = 0; i < @Model.extraIngrediantID.Count; i++)
+{
+    <p>@Model.extraIngrediantID[i]</p>
+}
+
+@for (var i = 0; i < @Model.extraIngrediantQuantity.Count; i++)
+{
+    <p>@Model.extraIngrediantQuantity[i]</p>
+}
+
+
+<h4>
+    Total Item = @Model.ProductID.Count;
+</h4>
+
+<h4>
+    Total Price = @Model.FinalTotalPrice;
+</h4>
+
+
+
+
+
+<div class="row col-md-12 justify-content-center">
+
+    @using (Html.BeginForm("AddOrder", "Order", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+        {
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <div class="alert alert-warning alert-dismissible show" role="alert">
+                        @Html.ValidationSummary(true, "")
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        for (var i = 0; i < @Model.ProductID.Count; i++)
+        {
+            <input type="text" class="form-control" id="ProductId" name="ProductId" value="@Model.ProductID[i]" readonly="readonly" />
+        }
+
+        for (var i = 0; i < @Model.extraIngrediantID.Count; i++)
+        {
+
+            <input type="text" class="form-control" id="extraIngrediantID" name="extraIngrediantID" value="@Model.extraIngrediantID[i]" readonly="readonly" />
+        }
+
+        for (var i = 0; i < @Model.extraIngrediantQuantity.Count; i++)
+        {
+
+            <input type="text" class="form-control" id="extraIngrediantQuantity" name="extraIngrediantQuantity" value="@Model.extraIngrediantQuantity[i]" readonly="readonly" />
+        }
+
+        <input type="text" class="form-control" id="TotalItem" name="TotalItem" value="@Model.ProductID.Count" readonly="readonly" />
+
+        <input type="text" class="form-control" id="FinalTotalPrice" name="FinalTotalPrice" value="@Model.FinalTotalPrice" readonly="readonly" />
+
+        <input type="text" class="form-control" id="address" name="address" value="@Model.Address" readonly="readonly" />
+
+        <input type="text" class="form-control" id="dateTime" name="dateTime" value="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" placeholder="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" />
+
+        <div class="row col-md-12 justify-content-center">
+
+            <a href="@Url.Action("AddOrder", "Order")">
+                <input type="submit" value="Proceed" class="buttonCss" />
+
+            </a>
+
+        </div>
+
+
+    }
+
+
+
+</div>

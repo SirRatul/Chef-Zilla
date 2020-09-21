@@ -18,3 +18,63 @@
 .cloneExtraIngredient {
     display: none !important;
 }
+
+.table .thead-dark th {
+    color: #fff !important;
+    background-color: #b00b10 !important;
+}
+
+table.table thead th {
+    border: none !important;
+}
+
+table.table th, table.table td {
+    border: 0px solid grey !important;
+    padding-top: 1.1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.table-danger, .table-danger > td, .table-danger > th {
+    background-color: #eddadb !important;
+}
+
+table.table th, table.table td, li {
+    font-size: 20px !important;
+    color: #262525 !important /* padding-top: 1.1rem; */ /* padding-bottom: 1rem; */;
+    font-weight: 500 !important;
+}
+
+.buttonCss {
+    color: white;
+    background-color: #b30000;
+    padding: 5px 25px 5px 25px;
+    border: none;
+}
+
+h1 {
+    color: #b30000;
+}
+
+.color {
+    color: #b30000;
+}
+
+h2 {
+    color: #b30000;
+}
+
+.fp {
+    color: #b30000;
+}
+
+h4 {
+    color: #b30000;
+}
+
+h5 {
+    color: #b30000;
+}
+
+
+
+

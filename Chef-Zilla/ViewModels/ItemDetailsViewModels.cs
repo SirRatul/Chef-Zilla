@@ -19,5 +19,10 @@ namespace Chef_Zilla.ViewModels
         public List<int> ExtraIngredientId { get; set; }
         public List<string> ExtraIngredientName { get; set; }
         public List<string> ExtraIngredientPrice { get; set; }
+        public List<int> ReviewId { get; set; }
+        public List<string> ReviewerUserName { get; set; }
+        public List<int> Ratings { get; set; }
+        public List<string> ReviewText { get; set; }
+        public List<string> ReviewDateTime { get; set; }
     }
 }

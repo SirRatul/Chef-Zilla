@@ -1,7 +1,17 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+
+@{
     ViewBag.Title = @Model.ProductName;
 }
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
+@{ 
+    var totalRating = 0;
+    for (int i = 0; i < Model.ReviewId.Count; i++)
+    {
+        totalRating = totalRating + Model.Ratings[i];
+    }
+    var averageRating = Math.Ceiling(Convert.ToDouble(totalRating) / Convert.ToDouble(Model.ReviewId.Count));
+}
 <br>
 <br>
 <br>
@@ -130,44 +140,89 @@
 </div>
 <div class="container">
     <div class="row text-center">
-        <div class="col-md-4 mt-5">
-            <button class="buttonCss">Add To Cart</button>
-        </div>
-        <div class="col-md-4 mt-5">
+        <div class="col-md-8 mt-5">
+            @* code for add to cart*@
             @using (Html.BeginForm("AddBox", "ItemDetails", FormMethod.Post))
             {
-                @Html.AntiForgeryToken()
-                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
-                {
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <div class="alert alert-warning alert-dismissible show" role="alert">
-                                @Html.ValidationSummary(true, "")
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
+                <div class="row">
+
+                    <div class="col-md-6 mt-5">
+
+
+                        <input type="submit" name="command" value="Add To Cart" class="buttonCss" />
+
+                        <br />
+                        @*Link to go to cart view*@
+                        <a href="@Url.Action("ViewCart", "Cart")" class="btn btn-warning text-black ">View Cart</a>
+
+                        @*<button class="buttonCss">Add To Cart</button>*@
                     </div>
-                }
-                <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
-                <input type="text" class="d-none" name="productName" value="@Model.ProductName" readonly="readonly" />
-                <input type="text" class="d-none" name="productQuantity" value="1" readonly="readonly" />
-                <input type="text" class="d-none" name="productPrice" value="@Model.ProductPrice" readonly="readonly" />
-                for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
-                {
-                    <input type="text" class="d-none" name="extraIngredientId" value="@Model.ExtraIngredientId[i]" readonly="readonly" />
-                    @Html.CheckBox("extraIngredientNumber", new { @value = @Model.ExtraIngredientId[i] + " 1", @class = "d-none" })
-                }
-                <button type="submit" class="buttonCss">Add To Box</button>
-            }
+                    <div class="col-md-6 mt-5">
+
+                        @Html.AntiForgeryToken()
+                        @if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                        {
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div class="alert alert-warning alert-dismissible show" role="alert">
+                                        @Html.ValidationSummary(true, "")
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
+                        <input type="text" class="d-none" name="productName" value="@Model.ProductName" readonly="readonly" />
+                        <input type="text" class="d-none" name="productQuantity" value="1" readonly="readonly" />
+                        <input type="text" class="d-none" name="productPrice" value="@Model.ProductPrice" readonly="readonly" />
+                        @for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+                        {
+                            <input type="text" class="d-none" name="extraIngredientId" value="@Model.ExtraIngredientId[i]" readonly="readonly" />
+                            @Html.CheckBox("extraIngredientNumber", new { @value = @Model.ExtraIngredientId[i] + " 1", @class = "d-none" })
+                        }
+                        <input type="submit" name="command" value="Add To Box" class="buttonCss" />
+                    </div>
+                </div>
+             }
+
+             
+
         </div>
-        <div class="col-md-4 mt-5">
-            <button class="buttonCss">Add To Wish List</button>
-        </div>
+                <div class="col-md-4 mt-5">
+                    @*<button onclick="location.href='@Url.Action("Details", "WishList")'; return false;" class="buttonCss">Add To Wish List</button>*@
+
+                    @using (Html.BeginForm("Create", "WishList", FormMethod.Post))
+                    {
+                        <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
+
+                        <input type="text" class="d-none" name="UserId" id="userId" value="@User.Identity.GetUserId()" readonly="readonly" />
+
+                        <button type="submit" class="buttonCss">Add to Wish List</button>
+
+                    }
+
+                    <br />
+                    <br />
+
+                    <a href="@Url.Action("Details", "WishList")" class="btn btn-warning text-black ">View Wish List</a>
+
+                    @*<a href="@Url.Action("Details", "WishList")" class="btn text-white buttonCss">Add To Wish List</a>*@
+                </div>
+
+            </div>
     </div>
-</div>
 <div class="container-fluid">
+
+   
+
+    <div class="row col-md-12 justify-content-center">
+        <a href="@Url.Action("ViewOrderList", "Order")" class="btn btn-warning text-black ">View Order List</a>
+    </div>
+
+
+
     <div class="row mt-5 text-center">
         <div class="col-12">
             <h5 class="font-weight-bold">Rating and Reviews of @Model.ProductName</h5>
@@ -176,23 +231,31 @@
 
     <div class="row mt-5 text-center">
         <div class="col-12">
-            <h1 class="font-weight-bold ">4/5</h1>
+            <h1 class="font-weight-bold ">@averageRating/5</h1>
         </div>
     </div>
 
     <div class="row mt-5 text-center">
         <div class="col-6 offset-3">
-            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-            <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-            <img style="width: 10%;" src="~/Images/grey-star.png" alt="">
+            @for (var i = 0; i < averageRating; i++)
+            {
+                <i class=" fas fa-star" aria-hidden="true"></i>
+            }
+            @for (var i = 0; i < 5 - averageRating; i++)
+            {
+                <i class=" far fa-star" aria-hidden="true"></i>
+            }
+            @*<img style="width: 10%;" src="~/Images/green-star.png" alt="">
+                <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+                <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+                <img style="width: 10%;" src="~/Images/green-star.png" alt="">
+                <img style="width: 10%;" src="~/Images/grey-star.png" alt="">*@
         </div>
     </div>
 
     <div class="row mt-5 mx-5">
         <div class="col-12">
-            <h5 class="font-weight-bold">Product Reviews</h5>
+            <h3 class="font-weight-bold">Product Reviews</h3>
         </div>
     </div>
 
@@ -209,6 +272,63 @@
         </div>
     </div>
 
+    <br />
+    <br />
+    <br />
+
+
+    <div class="row col-md-12">
+
+        @*comment Form*@
+
+        @using (Html.BeginForm("Index", "Review", FormMethod.Post))
+        {
+            <div class="row col-md-12">
+
+                <h5 class="font-weight-bold ml-3">Your Rating:</h5>
+                <span style="color:#FFDF00; margin-left:20px;">
+                    <i class="ratingStar far fa-star" data-value="1" aria-hidden="true"></i>
+                    <i class="ratingStar far fa-star" data-value="2" aria-hidden="true"></i>
+                    <i class="ratingStar far fa-star" data-value="3" aria-hidden="true"></i>
+                    <i class="ratingStar far fa-star" data-value="4" aria-hidden="true"></i>
+                    <i class="ratingStar far fa-star" data-value="5" aria-hidden="true"></i>
+                </span>
+
+                <input name="Ratings" id="ratingsValue" />
+                <br />
+                <input class="ml-5" name="productId" id="productId" value="@Model.ProductID" />
+
+                @*<input type="text" class="form-control" id="dateTime" name="dateTime" value="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" placeholder="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" />*@
+
+
+
+                <div class="col-md-12">
+                    <h5 class="font-weight-bold">Product Reviews:</h5>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="form-control" name="reviewText" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row col-md-12 justify-content-center">
+                    <a href="@Url.Action("Index", "Review")">
+                        <input type="submit" value="Submit" class="buttonCss" />
+
+                    </a>
+                </div>
+
+            </div>
+
+
+        }
+
+    </div>
+
+
+
+
     <div class="row m-5">
         <div class="col-12">
             <h5 class="font-weight-bold">Product Reviews:</h5>
@@ -219,61 +339,50 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         </div>
+        <div class="row col-md-12 justify-content-center">
+            <a href="@Url.Action("Index", "Review")">
+                <input type="submit" value="Submit" class="buttonCss" />
 
-        <div class="col-md-12 mt-5 text-center">
-            <button class="buttonCss">Submit</button>
+            </a>
         </div>
+
     </div>
 </div>
+
+
+
 <div class="container-fluid">
-    <div class="row ml-5">
-        <div class="col-md-12">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-        </div>
-        <div class="col-md-12 mt-3">
-            <h5>By Samsul Islam Ratul</h5>
-            <p style="color: grey">22 august , 2020 : 8:00 PM</p>
-            <p>The Product i have got is just awesome and received in time . Overall good service and quality . Thanks</p>
-        </div>
-    </div>
 
-    <hr>
+    @for (var i = 0; i < Model.ReviewId.Count; i++)
+    {
+        for (var j = 0; j < Model.Ratings[i]; j++)
+        {
+            <i class=" fas fa-star" aria-hidden="true"></i>
+        }
+        for (var k = 0; k < 5 - Model.Ratings[i]; k++)
+        {
+            <i class=" far fa-star" aria-hidden="true"></i>
+        }
 
-    <div class="row ml-5">
-        <div class="col-md-12">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+        <div class="row ml-5">
+            <div class="col-md-12">
+                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+            </div>
+            <div class="col-md-12 mt-3">
+                <h5>By @Model.ReviewerUserName[i]</h5>
+                <p style="color: grey">@Model.ReviewDateTime[i]</p>
+                <p>@Model.ReviewText[i]</p>
+            </div>
         </div>
-        <div class="col-md-12 mt-3">
-            <h5>By Samsul Islam Ratul</h5>
-            <p style="color: grey">22 august , 2020 : 8:00 PM</p>
-            <p>The Product i have got is just awesome and received in time . Overall good service and quality . Thanks</p>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="row ml-5">
-        <div class="col-md-12">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-            <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-        </div>
-        <div class="col-md-12 mt-3">
-            <h5>By Samsul Islam Ratul</h5>
-            <p style="color: grey">22 august , 2020 : 8:00 PM</p>
-            <p>The Product i have got is just awesome and received in time . Overall good service and quality . Thanks</p>
-        </div>
-    </div>
+        if (i != Model.ReviewId.Count - 1)
+        {
+            <hr>
+        }
+    }
 </div>
 <br>
 <br>
@@ -321,6 +430,20 @@
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
 @section Scripts {
     <script>
+        $(".ratingStar").hover(function () {
+
+            $(".ratingStar").addClass("far").removeClass("fas");
+            $(this).addClass("fas").removeClass("far");
+            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+        });
+
+        $(".ratingStar").click(function () {
+            //debugger;
+            var starValue = $(this).attr("data-value"); 
+
+            $("#ratingsValue").val(starValue);
+        });
+
         $(document).ready(function() {
             var extraIngredientNumber = document.getElementById("extraIngredientNumber").value;
             for (let i = 0; i < extraIngredientNumber; i++) {

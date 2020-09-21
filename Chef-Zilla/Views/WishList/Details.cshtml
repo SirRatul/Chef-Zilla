@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 style="margin-bottom:70px;">Wishlist Details</h2>
+@if (TempData["message"] != null)
+{
+    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@TempData["message"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="row">
+    @for (var i = 0; i < @Model.ProductID.Count; i++)
+    {
+
+
+
+
+
+        <a href="@Url.Action("Index", "FeaturedItem", new { id = Model.ProductID[i] })">
+            <h4 class="d-none"> @Model.ProductID[i]</h4>
+        </a>
+
+        <div class="row col-10">
+            <a href="@Url.Action("Index", "FeaturedItem", new { id = Model.ProductID[i] })">
+                <h4 class="ml-5 font-weight-bold"> @Model.ProductName[i]</h4>
+                @*<h4 class="font-weight-bold"> @Model.WishListID[i]</h4>*@
+
+            </a>
+            <br />
+            <a href="@Url.Action("Delete", "WishList",new { wId = @Model.WishListID[i]})" style="color:red; text-decoration:none; margin-top:3px; margin-left:5px;">
+                <span aria-hidden="true">&times;</span>
+            </a>
+
+        </div>
+
+        
+        <br />
+        <h4  class="d-none"> @Model.WishListID[i]</h4>
+        //@Html.HiddenFor(@Model.WishListID[i])
+
+        
+
+
+        <br />
+
+
+    }
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if ("@TempData["message"]" != null) {
+            $('#infoValidationSummary').modal('show');
+        }
+    </script>
+}
+
+
+@* @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>WishList</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+
