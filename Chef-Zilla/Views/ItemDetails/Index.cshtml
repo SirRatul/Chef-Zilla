@@ -191,7 +191,7 @@
 
         </div>
                 <div class="col-md-4 mt-5">
-                    @*<button onclick="location.href='@Url.Action("Details", "WishList")'; return false;" class="buttonCss">Add To Wish List</button>*@
+                    
 
                     @using (Html.BeginForm("Create", "WishList", FormMethod.Post))
                     {
@@ -208,7 +208,7 @@
 
                     <a href="@Url.Action("Details", "WishList")" class="btn btn-warning text-black ">View Wish List</a>
 
-                    @*<a href="@Url.Action("Details", "WishList")" class="btn text-white buttonCss">Add To Wish List</a>*@
+                    
                 </div>
 
             </div>
@@ -236,7 +236,7 @@
     </div>
 
     <div class="row mt-5 text-center">
-        <div class="col-6 offset-3">
+        <div class="col-6 offset-3" style="color:#FFDF00; font-size:35px;">
             @for (var i = 0; i < averageRating; i++)
             {
                 <i class=" fas fa-star" aria-hidden="true"></i>
@@ -245,32 +245,17 @@
             {
                 <i class=" far fa-star" aria-hidden="true"></i>
             }
-            @*<img style="width: 10%;" src="~/Images/green-star.png" alt="">
-                <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-                <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-                <img style="width: 10%;" src="~/Images/green-star.png" alt="">
-                <img style="width: 10%;" src="~/Images/grey-star.png" alt="">*@
+           
         </div>
     </div>
 
     <div class="row mt-5 mx-5">
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h3 class="font-weight-bold">Product Reviews</h3>
         </div>
     </div>
 
-    <div class="row mx-5">
-        <div class="col-md-3 col-xl-2 col-sm-5 mt-5">
-            <h5 class="font-weight-bold d-inline mr-4">Your Rating:</h5>
-        </div>
-        <div class="col-md-9 col-xl-10 col-sm-7 mt-5">
-            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
-            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
-            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
-            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
-            <img class="d-inline " style="width: 40px;" src="~/Images/grey-star.png" alt="">
-        </div>
-    </div>
+    
 
     <br />
     <br />
@@ -285,8 +270,8 @@
         {
             <div class="row col-md-12">
 
-                <h5 class="font-weight-bold ml-3">Your Rating:</h5>
-                <span style="color:#FFDF00; margin-left:20px;">
+                <h5 class="font-weight-bold ml-3 mt-2">Your Rating:</h5>
+                <span style="color:#FFDF00; margin-left:20px; margin-bottom:5px; font-size:25px;">
                     <i class="ratingStar far fa-star" data-value="1" aria-hidden="true"></i>
                     <i class="ratingStar far fa-star" data-value="2" aria-hidden="true"></i>
                     <i class="ratingStar far fa-star" data-value="3" aria-hidden="true"></i>
@@ -294,11 +279,11 @@
                     <i class="ratingStar far fa-star" data-value="5" aria-hidden="true"></i>
                 </span>
 
-                <input name="Ratings" id="ratingsValue" />
+                <input class="d-none" name="Ratings" id="ratingsValue" />
                 <br />
-                <input class="ml-5" name="productId" id="productId" value="@Model.ProductID" />
+                <input class="ml-5 d-none" name="productId" id="productId" value="@Model.ProductID" />
 
-                @*<input type="text" class="form-control" id="dateTime" name="dateTime" value="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" placeholder="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" />*@
+                
 
 
 
@@ -312,7 +297,7 @@
                     </div>
                 </div>
 
-                <div class="row col-md-12 justify-content-center">
+                <div class="row col-md-12 text-center justify-content-center">
                     <a href="@Url.Action("Index", "Review")">
                         <input type="submit" value="Submit" class="buttonCss" />
 
@@ -329,22 +314,7 @@
 
 
 
-    <div class="row m-5">
-        <div class="col-12">
-            <h5 class="font-weight-bold">Product Reviews:</h5>
-        </div>
-
-        <div class="col-12">
-            <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="row col-md-12 justify-content-center">
-            <a href="@Url.Action("Index", "Review")">
-                <input type="submit" value="Submit" class="buttonCss" />
-
-            </a>
-        </div>
+    
 
     </div>
 </div>
@@ -355,22 +325,24 @@
 
     @for (var i = 0; i < Model.ReviewId.Count; i++)
     {
-        for (var j = 0; j < Model.Ratings[i]; j++)
-        {
-            <i class=" fas fa-star" aria-hidden="true"></i>
-        }
-        for (var k = 0; k < 5 - Model.Ratings[i]; k++)
-        {
-            <i class=" far fa-star" aria-hidden="true"></i>
-        }
+        
 
         <div class="row ml-5">
             <div class="col-md-12">
-                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
-                <img class="d-inline " style="width: 30px;" src="~/Images/green-star.png" alt="">
+                
+                <div class="float-left" style="color:#FFDF00; font-size:20px;">
+                    @for (var j = 0; j < Model.Ratings[i]; j++)
+                    {
+                        <i class=" fas fa-star" aria-hidden="true"></i>
+                    }
+                    @for (var k = 0; k < 5 - Model.Ratings[i]; k++)
+                    {
+                        <i class=" far fa-star" aria-hidden="true"></i>
+                    }
+                </div>
+                
+
+
             </div>
             <div class="col-md-12 mt-3">
                 <h5>By @Model.ReviewerUserName[i]</h5>

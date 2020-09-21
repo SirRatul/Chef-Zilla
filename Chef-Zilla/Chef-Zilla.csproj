@@ -2699,7 +2699,6 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\FinalOrder.cshtml" />
     <Content Include="Views\Order\AddOrder.cshtml" />
-    <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Order\ViewOrderList.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\OrderListDetails.cshtml" />

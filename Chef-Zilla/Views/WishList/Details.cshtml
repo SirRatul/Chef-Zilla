@@ -3,7 +3,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2 style="margin-bottom:70px;">Wishlist Details</h2>
+@Html.Partial("~/Views/Shared/_NavBar.cshtml")
+
+<h2 style="margin-left:25px;margin-bottom:70px;">Wishlist Details</h2>
 @if (TempData["message"] != null)
 {
     <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
@@ -34,14 +36,13 @@
 
 
 
-
-        <a href="@Url.Action("Index", "FeaturedItem", new { id = Model.ProductID[i] })">
+        <a href="@Url.Action("Index", "ItemDetails", new { id = Model.ProductID[i] })">
             <h4 class="d-none"> @Model.ProductID[i]</h4>
         </a>
 
         <div class="row col-10">
-            <a href="@Url.Action("Index", "FeaturedItem", new { id = Model.ProductID[i] })">
-                <h4 class="ml-5 font-weight-bold"> @Model.ProductName[i]</h4>
+            <a href="@Url.Action("Index", "ItemDetails", new { id = Model.ProductID[i] })">
+                <h4 class="ml-5 font-weight-bold">@(i + 1). @Model.ProductName[i]</h4>
                 @*<h4 class="font-weight-bold"> @Model.WishListID[i]</h4>*@
 
             </a>
@@ -52,12 +53,12 @@
 
         </div>
 
-        
+
         <br />
-        <h4  class="d-none"> @Model.WishListID[i]</h4>
+        <h4 class="d-none"> @Model.WishListID[i]</h4>
         //@Html.HiddenFor(@Model.WishListID[i])
 
-        
+
 
 
         <br />
@@ -65,6 +66,7 @@
 
     }
 </div>
+@Html.Partial("~/Views/Shared/_Footer.cshtml")
 
 
 @section Scripts {
