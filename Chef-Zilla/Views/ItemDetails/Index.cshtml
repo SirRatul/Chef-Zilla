@@ -10,6 +10,7 @@
     {
         totalRating = totalRating + Model.Ratings[i];
     }
+    
     var averageRating = Math.Ceiling(Convert.ToDouble(totalRating) / Convert.ToDouble(Model.ReviewId.Count));
 }
 <br>
@@ -152,8 +153,7 @@
                         <input type="submit" name="command" value="Add To Cart" class="buttonCss" />
 
                         <br />
-                        @*Link to go to cart view*@
-                        <a href="@Url.Action("ViewCart", "Cart")" class="btn btn-warning text-black ">View Cart</a>
+                        
 
                         @*<button class="buttonCss">Add To Cart</button>*@
                     </div>
@@ -190,36 +190,27 @@
              
 
         </div>
-                <div class="col-md-4 mt-5">
-                    
+        <div class="col-md-4 mt-5">
 
-                    @using (Html.BeginForm("Create", "WishList", FormMethod.Post))
-                    {
-                        <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
 
-                        <input type="text" class="d-none" name="UserId" id="userId" value="@User.Identity.GetUserId()" readonly="readonly" />
+            @using (Html.BeginForm("Create", "WishList", FormMethod.Post))
+            {
+                <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
 
-                        <button type="submit" class="buttonCss">Add to Wish List</button>
+                <input type="text" class="d-none" name="UserId" id="userId" value="@User.Identity.GetUserId()" readonly="readonly" />
+                <br />
+                <br />
+                <button type="submit" class="buttonCss">Add to Wish List</button>
 
-                    }
+            }
 
-                    <br />
-                    <br />
 
-                    <a href="@Url.Action("Details", "WishList")" class="btn btn-warning text-black ">View Wish List</a>
-
-                    
-                </div>
+        </div>
 
             </div>
     </div>
 <div class="container-fluid">
 
-   
-
-    <div class="row col-md-12 justify-content-center">
-        <a href="@Url.Action("ViewOrderList", "Order")" class="btn btn-warning text-black ">View Order List</a>
-    </div>
 
 
 
@@ -231,7 +222,15 @@
 
     <div class="row mt-5 text-center">
         <div class="col-12">
-            <h1 class="font-weight-bold ">@averageRating/5</h1>
+            @if (averageRating > 0)
+            {
+                <h1 class="font-weight-bold ">@averageRating/5</h1>
+            }
+            else
+            {
+                <h1 class="font-weight-bold ">0/5</h1>
+            }
+
         </div>
     </div>
 

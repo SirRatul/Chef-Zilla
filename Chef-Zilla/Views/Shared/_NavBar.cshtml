@@ -15,12 +15,35 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="@Url.Action("Details", "WishList")">WishList</a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link nav text-dark" href="#">Menu</a>
+                <a class="nav-link nav text-dark" href="@Url.Action("ViewOrderList", "Order")">
+                    My Orders
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav text-dark" href="#">Gift Cards</a>
+                <a class="nav-link nav text-dark" href="@Url.Action("Index", "GeneralItem")">Menu</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link nav text-dark" href="@Url.Action("Index", "FoodPlan")">Food Plan</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav text-dark" href="@Url.Action("ViewCart", "Cart")">
+                    <img src="~/Images/Icon awesome-shopping-cart.png" style="width: 30px" />
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav text-dark" href="@Url.Action("Create", "Box")">
+                    <img src="~/Images/Icon awesome-box-open.png" style="width: 30px" />
+                </a>
+            </li>
+
+
+
+
+
             @if (Request.IsAuthenticated)
             {
                 if (User.IsInRole("Admin"))
@@ -35,11 +58,11 @@
                     {
                         @Html.AntiForgeryToken()
 
+                        @*<li class="nav-item">
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>*@
                         <li class="nav-item">
-                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+                            <a class="btn loginButton" href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
                         </li>
                     }
                 }

@@ -195,6 +195,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\FeaturedItemController.cs" />
     <Compile Include="Controllers\FoodPlanController.cs" />
+    <Compile Include="Controllers\GeneralItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemDetailsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -496,11 +497,13 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\6459.jpg" />
+    <Content Include="Images\bkash.png" />
     <Content Include="Images\box.png" />
     <Content Include="Images\burger-3199088_1920.jpg" />
     <Content Include="Images\burger.png" />
     <Content Include="Images\Cake.jpg" />
     <Content Include="Images\calenderD.png" />
+    <Content Include="Images\COD.png" />
     <Content Include="Images\Cook Icon.png" />
     <Content Include="Images\Delivery icon.png" />
     <Content Include="Images\Food Box 2.png" />
@@ -520,6 +523,8 @@
     <Content Include="Images\Group 41.png" />
     <Content Include="Images\Group 42.png" />
     <Content Include="Images\Group 43.png" />
+    <Content Include="Images\Icon awesome-box-open.png" />
+    <Content Include="Images\Icon awesome-shopping-cart.png" />
     <Content Include="Images\login.png" />
     <Content Include="Images\Logo.png" />
     <Content Include="Images\madeleine-5374560_1920.jpg" />
@@ -2702,6 +2707,8 @@
     <Content Include="Views\Order\ViewOrderList.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\OrderListDetails.cshtml" />
+    <Content Include="Views\GeneralItem\Index.cshtml" />
+    <Content Include="Views\Order\ViewOrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

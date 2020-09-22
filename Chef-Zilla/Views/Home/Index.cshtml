@@ -98,36 +98,35 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-                        <img style="width: 100%; border-radius: 20px" src="~/Images/burger-3199088_1920.jpg" alt="">
+                        <img style="width: 100%; border-radius: 20px" src="@Url.Content(Model[@Model.Count-1].ProductImage)" alt="">
                     </div>
                     <div class="col-md-12 mt-2">
-                        <h6 class="font-weight-bold">Beef Seekh Kabab</h6>
-                        <p>Price: 150 BDT</p>
+                        <h6 class="font-weight-bold">@Model[@Model.Count-1].ProductName</h6>
+                        <p>Price: @Model[@Model.Count - 1].ProductPrice BDT</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <img style="width: 100%; border-radius: 20px" src="~/Images/skewer-3370443_1920.jpg" alt="">
+                        <img style="width: 100%; border-radius: 20px" src="@Url.Content(Model[@Model.Count-2].ProductImage)" alt="">
                         <div class="mt-2">
-                            <h6 class="font-weight-bold">Burger Meat Bread</h6>
-                            <p>Price: 200 BDT</p>
+                            <h6 class="font-weight-bold">@Model[@Model.Count - 2].ProductName</h6>
+                            <p>Price: @Model[@Model.Count - 2].ProductPrice BDT</p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img style="width: 100%; border-radius: 20px" src="~/Images/grilled-chicken-1334632_1920.jpg" alt="">
+                        <img style="width: 100%; border-radius: 20px" src="@Url.Content(Model[@Model.Count-3].ProductImage)" alt="">
                         <div class="mt-2">
-                            <h6 class="font-weight-bold">Grilled Chicken with Salad</h6>
-                            <p>Price: 120 BDT</p>
+                            <h6 class="font-weight-bold">@Model[@Model.Count - 3].ProductName</h6>
+                            <p>Price: @Model[@Model.Count - 3].ProductPrice BDT</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-
-                <img class="ABChocolate" src="~/Images/madeleine-5374560_1920.jpg" alt="">
+                <img class="ABChocolate" src="@Url.Content(Model[@Model.Count-4].ProductImage)" alt="">
                 <div class="mt-2">
-                    <h6 class="font-weight-bold">American Black Chocolate</h6>
-                    <p>Price: 200 BDT</p>
+                    <h6 class="font-weight-bold">@Model[@Model.Count - 4].ProductName</h6>
+                    <p>Price: @Model[@Model.Count - 4].ProductPrice BDT</p>
                 </div>
             </div>
         </div>

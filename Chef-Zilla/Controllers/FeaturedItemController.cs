@@ -33,7 +33,6 @@ namespace Chef_Zilla.Controllers
             List<Product> products;
             if (!string.IsNullOrEmpty(product))
             {
-                //products = _context.Products.Where(m => m.ProductName.StartsWith(product) && m.ProductType == "Featured").ToList();
                 products = _context.Products.Where(m => m.ProductName.Contains(product) && m.ProductType == "Featured").ToList();
             }
             else
