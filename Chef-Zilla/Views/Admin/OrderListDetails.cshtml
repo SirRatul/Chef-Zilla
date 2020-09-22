@@ -1,29 +1,10 @@
 ﻿@model Chef_Zilla.ViewModels.AdminOrderDetailsViewModels
 
 @{
-    ViewBag.Title = "OrderListDetails";
-}
-
-<h2>OrderListDetails</h2>
-
-<p>@Model.OrderId</p>
-<p>@Model.UserName</p>
-@for (int i = 0; i < @Model.ProductId.Count; i++)
-{
-
-    <p>@Model.ProductName[i]</p>
-    <p>@Model.ProductQuantity[i]</p>
-    <p>@Model.ProductTotalPrice[i]</p>
+    ViewBag.Title = "Order Details";
 }
 
 
-<p>@Model.finalTotalPrice</p>
-<p>@Model.dateTime</p>
-<p>@Model.status</p>
-<p>@Model.type</p>
-<p>@Model.Address</p>
-<p>@Model.phn</p>
-<p>@Model.Email</p>
 <div class="container mt-5">
     <div class="row ml-5 ">
 
@@ -86,7 +67,7 @@
             <h5 class="font-weight-bold te">Total: @Model.finalTotalPrice</h5>
         </div>
         <div class="col-md-3 offset-md-9 col-12 text-center">
-            <h5 class="font-weight-bold">Payment Status: COD</h5>
+            <h5 class="font-weight-bold">Payment Status: COD</h5>f
         </div>
     </div>
 
@@ -187,7 +168,6 @@
         <div class="row col-md-12">
             @using (Html.BeginForm("OrderStatusUpdate", "Admin", FormMethod.Post))
             {
-                <h5 class="font-weight-bold ml-3">Your status:</h5>
 
                 @*<ul class="orderStatus2">
                     <li class="statusOrder2 active" data-value="pending">pending</li>
@@ -216,20 +196,20 @@
                         <li class="orderLIST listWhite"data-value="shipped">shipped</li>
                         <li class="orderLIST listWhite"data-value="delivered">delivered</li>
                     </ul>
-                    <input name="status" id="statusValue" />
+                    <input name="status" class="d-none" id="statusValue" />
 
                 </div>
 
                 
 
-                <input name="orderID" value="@Model.OrderId" />
+                <input name="orderID" class="d-none" value="@Model.OrderId" />
 
                 <div class="row col-md-12 justify-content-center">
                     @*<a href="@Url.Action("OrderListDetails", "Admin", new { id = Model.OrderId })" className="btn btn-success">
                     <input type="submit" value="Submit" class="buttonCss" />
                 </a>*@
 
-                    <input type="submit" value="Submit" class="buttonCss" />
+                    <input type="submit" value="Update" class="buttonCss" />
 
 
                     @*<a href="@Url.Action("Index", "Review")">
@@ -260,11 +240,6 @@
         <br>
         <br>
 
-        <div class="row text-center mt-5">
-            <div class="col-12">
-                <button class="buttonCss ">Update</button>
-            </div>
-        </div>
     </div>
 
     <br>
