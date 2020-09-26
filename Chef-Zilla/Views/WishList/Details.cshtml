@@ -35,7 +35,6 @@
 
 
 
-
         <a href="@Url.Action("Index", "ItemDetails", new { id = Model.ProductID[i] })">
             <h4 class="d-none"> @Model.ProductID[i]</h4>
         </a>
@@ -43,13 +42,13 @@
         <div class="row col-10">
             <a href="@Url.Action("Index", "ItemDetails", new { id = Model.ProductID[i] })">
                 <h4 class="ml-5 font-weight-bold">@(i + 1). @Model.ProductName[i]</h4>
-                @*<h4 class="font-weight-bold"> @Model.WishListID[i]</h4>*@
+                
 
             </a>
             <br />
-            <a href="@Url.Action("Delete", "WishList",new { wId = @Model.WishListID[i]})" style="color:red; text-decoration:none; margin-top:3px; margin-left:5px;">
-                <span aria-hidden="true">&times;</span>
-            </a>
+            <a href="@Url.Action("Delete", "WishList",new { wId = @Model.WishListID[i]})" style="color:red; text-decoration:none; margin-top:5px; margin-left:10px;">
+                <i class="fas fa-times-circle text-danger"></i>
+           </a>
 
         </div>
 
