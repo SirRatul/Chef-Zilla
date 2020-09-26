@@ -36,7 +36,7 @@
 
 <div class="row col-12 justify-content-center">
 
-    <div class="row col-8 justify-content-center">
+    <div class="row col-10 justify-content-center">
         <table class="table table-borderless">
             <thead>
                 <tr>
@@ -67,8 +67,8 @@
 
 
                 <div style="">
-                    <a href="@Url.Action("Delete", "Cart", new { cId = @Model.CartID[i] })" style="color:red; margin-top:3px; margin-left:5px;">
-                        <span aria-hidden="true">&times;</span>
+                    <a href="@Url.Action("Delete", "Cart", new { cId = @Model.CartID[i] })" style="color:red; margin-top:10px;">
+                        <i class="fas fa-times-circle text-danger"></i>
                     </a>
                 </div>
 
@@ -78,13 +78,11 @@
                 <div class="row col-5 ml-3">
                     <a href="@Url.Action("Index", "FeaturedItem", new { id = Model.ProductID[i] })">
                         <h4 class="ml-5 font-weight-bold"> @Model.ProductName[i]</h4>
-
-
                     </a>
 
 
                 </div>
-                <div class="row col-3" style="margin-left:5px;">
+                <div class="row col-3 justify-content-center" style="margin-left:5px;">
 
                     <h4 class="ml-5 font-weight-bold"> @Model.ProductQuantity[i]</h4>
 
@@ -94,7 +92,7 @@
                 </div>
 
 
-                <div class="row col-3" style="margin-left:10px;">
+                <div class="row col-3 justify-content-center" style="margin-left:10px;">
                     <h4 class="ml-5 font-weight-bold"> @Model.TotalPrice[i]</h4>
                 </div>
                 @{totalProductPrice = totalProductPrice + Model.TotalPrice[i];
