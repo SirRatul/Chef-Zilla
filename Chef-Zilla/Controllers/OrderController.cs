@@ -346,8 +346,8 @@ namespace Chef_Zilla.Controllers
             var totalPrice = _context.Orders.Where(m => m.OrderId == id).Select(m => m.finalTotalPrice).ToList();
             adminOrderDetailsViewModels.finalTotalPrice = totalPrice[0];
 
-            var status = _context.Orders.Where(m => m.OrderId == id).Select(m => m.status).ToList();
-            adminOrderDetailsViewModels.status = status[0];
+            var status = _context.Orders.Where(m => m.OrderId == id).Select(m => m.status).FirstOrDefault();
+            adminOrderDetailsViewModels.status = status;
 
             foreach (var item in orderUserId)
             {

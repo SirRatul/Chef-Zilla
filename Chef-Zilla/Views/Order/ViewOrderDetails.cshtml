@@ -4,6 +4,32 @@
     ViewBag.Title = "Order Details";
 }
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
+
+@{
+    var orderStatusNumber = 0;
+    if (Model.status == "pending")
+    {
+        orderStatusNumber = 0;
+    }
+    if (Model.status == "confirmed")
+    {
+        orderStatusNumber = 1;
+    }
+    if (Model.status == "picked")
+    {
+        orderStatusNumber = 2;
+    }
+    if (Model.status == "shipped")
+    {
+        orderStatusNumber = 3;
+    }
+    if (Model.status == "delivered")
+    {
+        orderStatusNumber = 4;
+    }
+}
+
+
 <br />
 <br />
 <br />
@@ -169,73 +195,20 @@
         -->
 
         <div class="row col-md-12">
-            @using (Html.BeginForm("OrderStatusUpdate", "Admin", FormMethod.Post))
-            {
-                <h5 class="font-weight-bold ml-3">Your status:</h5>
+           
 
-                @*<ul class="orderStatus2">
-                        <li class="statusOrder2 active" data-value="pending">pending</li>
-                        <li class="statusOrder2 active" data-value="confirmed">confirmed</li>
-                        <li class="statusOrder2 active" data-value="picked">picked</li>
-                        <li class="statusOrder2 active" data-value="shipped">shipped</li>
-                        <li class="statusOrder2 active" data-value="delivered">delivered</li>
-                    </ul>
-                    <input name="status" id="statusValue2" />*@
+            <div class="col-12">
 
+                <ul class="orderStatusUl">
+                    <li class="orderLIST listPink" data-value="pending">pending</li>
+                    <li class="orderLIST @(orderStatusNumber >= 1 ? "listPink" : "listWhite")" data-value="confirmed">confirmed</li>
+                    <li class="orderLIST @(orderStatusNumber >= 2 ? "listPink" : "listWhite")" data-value="picked">picked</li>
+                    <li class="orderLIST @(orderStatusNumber >= 3 ? "listPink" : "listWhite")" data-value="shipped">shipped</li>
+                    <li class="orderLIST @(orderStatusNumber == 4 ? "listPink" : "listWhite")" data-value="delivered">delivered</li>
+                </ul>
+                <input name="status" class="d-none" id="statusValue" />
 
-                @*<span style="color:#FFDF00; margin-left:20px;">
-                        <i class="statusOrder far fa-star" data-value="1" aria-hidden="true"></i>
-                        <i class="statusOrder far fa-star" data-value="2" aria-hidden="true"></i>
-                        <i class="statusOrder far fa-star" data-value="3" aria-hidden="true"></i>
-                        <i class="statusOrder far fa-star" data-value="4" aria-hidden="true"></i>
-                        <i class="statusOrder far fa-star" data-value="5" aria-hidden="true"></i>
-                    </span>*@
-
-                <div class="col-12">
-
-                    <ul class="orderStatusUl">
-                        <li class="orderLIST listPink" data-value="pending">pending</li>
-                        <li class="orderLIST listWhite" data-value="confirmed">confirmed</li>
-                        <li class="orderLIST listWhite" data-value="picked">picked</li>
-                        <li class="orderLIST listWhite" data-value="shipped">shipped</li>
-                        <li class="orderLIST listWhite" data-value="delivered">delivered</li>
-                    </ul>
-                    @*<input name="status" id="statusValue" />*@
-
-                </div>
-
-
-
-                @*<input name="orderID" value="@Model.OrderId" />*@
-
-                <div class="row col-md-12 justify-content-center">
-                    @*<a href="@Url.Action("OrderListDetails", "Admin", new { id = Model.OrderId })" className="btn btn-success">
-                            <input type="submit" value="Submit" class="buttonCss" />
-                        </a>*@
-
-                    @*<input type="submit" value="Submit" class="buttonCss" />*@
-
-
-                    @*<a href="@Url.Action("Index", "Review")">
-                            <input type="submit" value="Submit" class="buttonCss" />
-
-                        </a>*@
-
-                </div>
-            }
-
-            @*<div class="col-12">
-
-                    <ul class="orderStatusUl">
-                        <li class="listPink">pending</li>
-                        <li class="listPink">confirmed</li>
-                        <li class="listPink">picked</li>
-                        <li class="listWhite">shipped</li>
-                        <li class="listWhite">delivered</li>
-                    </ul>
-
-
-                </div>*@
+            </div>
 
 
         </div>
@@ -244,67 +217,16 @@
         <br>
         <br>
 
-        @*<div class="row text-center mt-5">
-                <div class="col-12">
-                    <button class="buttonCss ">Update</button>
-                </div>
-            </div>*@
+       
     </div>
 
     <br>
     <br>
     <br>
     <br>
-    @*@Html.Partial("~/Views/Shared/_Footer.cshtml")*@
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
 
     @section Scripts {
-        <script>
-            $(".orderLIST").hover(function () {
-
-                $(".orderLIST").addClass("listWhite").removeClass("listPink");
-                $(this).addClass("listPink").removeClass("listWhite");
-                $(this).prevAll(".orderLIST").addClass("listPink").removeClass("listWhite");
-            });
-
-            $(".orderLIST").click(function () {
-                //debugger;
-                var orderStatusValue = $(this).attr("data-value");
-
-                $("#statusValue").val(orderStatusValue);
-            });
-            /////////////////////////
-
-            $(".statusOrder").hover(function () {
-
-                $(".statusOrder").addClass("far").removeClass("fas");
-                $(this).addClass("fas").removeClass("far");
-                $(this).prevAll(".statusOrder").addClass("fas").removeClass("far");
-            });
-
-            $(".statusOrder").click(function () {
-                //debugger;
-                var starValue = $(this).attr("data-value");
-
-                $("#statusValue").val(starValue);
-            });
-
-            /////////////////////////////////////////
-
-            $(".statusOrder2").hover(function () {
-
-                $(".statusOrder2").addClass("statusOrder2").removeClass("active");
-                $(this).addClass("active").removeClass("statusOrder2");
-                $(this).prevAll(".statusOrder2").addClass("active").removeClass("statusOrder2");
-            });
-
-            $(".statusOrder2").click(function () {
-                //debugger;
-                var starValue = $(this).attr("data-value");
-
-                $("#statusValue2").val(starValue);
-            });
-
-        </script>
 
         @Styles.Render("~/OrderDetails/css")
     }

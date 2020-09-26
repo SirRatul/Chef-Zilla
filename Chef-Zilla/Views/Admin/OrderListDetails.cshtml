@@ -4,6 +4,30 @@
     ViewBag.Title = "Order Details";
 }
 
+@{ 
+    var orderStatusNumber = 0;
+    if(Model.status == "pending")
+    {
+        orderStatusNumber = 0;
+    }
+    if(Model.status == "confirmed")
+    {
+        orderStatusNumber = 1;
+    }
+    if(Model.status == "picked")
+    {
+        orderStatusNumber = 2;
+    }
+    if(Model.status == "shipped")
+    {
+        orderStatusNumber = 3;
+    }
+    if(Model.status == "delivered")
+    {
+        orderStatusNumber = 4;
+    }
+}
+
 
 <div class="container mt-5">
     <div class="row ml-5 ">
@@ -67,7 +91,7 @@
             <h5 class="font-weight-bold te">Total: @Model.finalTotalPrice</h5>
         </div>
         <div class="col-md-3 offset-md-9 col-12 text-center">
-            <h5 class="font-weight-bold">Payment Status: COD</h5>f
+            <h5 class="font-weight-bold">Payment Status: COD</h5>
         </div>
     </div>
 
@@ -145,93 +169,44 @@
     </div>
 
     <div class="row mt-5 text-center">
-        <!--
-                    <div class="col-sm-12 col-md-2 offset-md-1 mt-5">
-                        <span class="statusCircle img-fluid ">Pending</span>
-                        <span class="line d-none"></span>
-                    </div>
-
-                    <div class="col-sm-12 col-md-2 mt-5">
-                        <span class="statusCircle img-fluid">Confirmed</span>
-                    </div>
-                    <div class="col-sm-12 col-md-2 mt-5">
-                        <span class="statusCircle img-fluid">Picked</span>
-                    </div>
-                    <div class="col-sm-12 col-md-2 mt-5">
-                        <span class="statusCircleDisable img-fluid">Shipped</span>
-                    </div>
-                    <div class="col-sm-12 col-md-2 mt-5">
-                        <span class="statusCircleDisable img-fluid">Delivered</span>
-                    </div>
-        -->
+        
 
         <div class="row col-md-12">
             @using (Html.BeginForm("OrderStatusUpdate", "Admin", FormMethod.Post))
             {
 
-                @*<ul class="orderStatus2">
-                    <li class="statusOrder2 active" data-value="pending">pending</li>
-                    <li class="statusOrder2 active" data-value="confirmed">confirmed</li>
-                    <li class="statusOrder2 active" data-value="picked">picked</li>
-                    <li class="statusOrder2 active" data-value="shipped">shipped</li>
-                    <li class="statusOrder2 active" data-value="delivered">delivered</li>
-                </ul>
-                <input name="status" id="statusValue2" />*@
+           
 
-
-                @*<span style="color:#FFDF00; margin-left:20px;">
-                    <i class="statusOrder far fa-star" data-value="1" aria-hidden="true"></i>
-                    <i class="statusOrder far fa-star" data-value="2" aria-hidden="true"></i>
-                    <i class="statusOrder far fa-star" data-value="3" aria-hidden="true"></i>
-                    <i class="statusOrder far fa-star" data-value="4" aria-hidden="true"></i>
-                    <i class="statusOrder far fa-star" data-value="5" aria-hidden="true"></i>
-                </span>*@
 
                 <div class="col-12">
 
                     <ul class="orderStatusUl">
                         <li class="orderLIST listPink" data-value="pending">pending</li>
-                        <li class="orderLIST listWhite"data-value="confirmed">confirmed</li>
-                        <li class="orderLIST listWhite"data-value="picked">picked</li>
-                        <li class="orderLIST listWhite"data-value="shipped">shipped</li>
-                        <li class="orderLIST listWhite"data-value="delivered">delivered</li>
+                        <li class="orderLIST @(orderStatusNumber >= 1 ? "listPink" : "listWhite")" data-value="confirmed">confirmed</li>
+                        <li class="orderLIST @(orderStatusNumber >= 2 ? "listPink" : "listWhite")" data-value="picked">picked</li>
+                        <li class="orderLIST @(orderStatusNumber >= 3 ? "listPink" : "listWhite")" data-value="shipped">shipped</li>
+                        <li class="orderLIST @(orderStatusNumber == 4 ? "listPink" : "listWhite")" data-value="delivered">delivered</li>
                     </ul>
                     <input name="status" class="d-none" id="statusValue" />
 
                 </div>
 
-                
+
 
                 <input name="orderID" class="d-none" value="@Model.OrderId" />
 
                 <div class="row col-md-12 justify-content-center">
-                    @*<a href="@Url.Action("OrderListDetails", "Admin", new { id = Model.OrderId })" className="btn btn-success">
-                    <input type="submit" value="Submit" class="buttonCss" />
-                </a>*@
+                    
 
                     <input type="submit" value="Update" class="buttonCss" />
 
 
-                    @*<a href="@Url.Action("Index", "Review")">
-                    <input type="submit" value="Submit" class="buttonCss" />
-
-                </a>*@
+                   
 
                 </div>
             }
 
-            @*<div class="col-12">
 
-                <ul class="orderStatusUl">
-                    <li class="listPink">pending</li>
-                    <li class="listPink">confirmed</li>
-                    <li class="listPink">picked</li>
-                    <li class="listWhite">shipped</li>
-                    <li class="listWhite">delivered</li>
-                </ul>
-
-
-            </div>*@
 
 
         </div>
@@ -247,9 +222,17 @@
     <br>
     <br>
 
+    
+
     @section Scripts {
         <script>
+           
+            
+        
+
+
             $(".orderLIST").hover(function () {
+                
 
                 $(".orderLIST").addClass("listWhite").removeClass("listPink");
                 $(this).addClass("listPink").removeClass("listWhite");
@@ -262,37 +245,14 @@
 
                 $("#statusValue").val(orderStatusValue);
             });
-            /////////////////////////
+            //----------
 
-            $(".statusOrder").hover(function () {
 
-                $(".statusOrder").addClass("far").removeClass("fas");
-                $(this).addClass("fas").removeClass("far");
-                $(this).prevAll(".statusOrder").addClass("fas").removeClass("far");
-            });
 
-            $(".statusOrder").click(function () {
-                //debugger;
-                var starValue = $(this).attr("data-value");
 
-                $("#statusValue").val(starValue);
-            });
 
-               /////////////////////////////////////////
 
-            $(".statusOrder2").hover(function () {
-
-                $(".statusOrder2").addClass("statusOrder2").removeClass("active");
-                $(this).addClass("active").removeClass("statusOrder2");
-                $(this).prevAll(".statusOrder2").addClass("active").removeClass("statusOrder2");
-            });
-
-            $(".statusOrder2").click(function () {
-                //debugger;
-                var starValue = $(this).attr("data-value");
-
-                $("#statusValue2").val(starValue);
-            });
+    
 
         </script>
 
