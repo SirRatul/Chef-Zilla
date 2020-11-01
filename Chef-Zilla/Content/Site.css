@@ -24,8 +24,8 @@ textarea {
 }
 
 .nav-item {
-    font-size: 15px;
-    margin-left: 50px;
+    font-size: 20px;
+    margin-left: 35px;
 }
 
 .slider {
@@ -37,14 +37,146 @@ textarea {
     height: 100%;
 }
 
+.indexfirstpic {
+    width: 100%;
+    height: 25vw;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.indexsecondpic {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.indexthirdpic {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.indexfourthpic {
+    width: 100%;
+    height: 45vw;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 17vw;
+    object-fit: cover;
+}
+
+.item-img {
+    width: 100%;
+    height: 40vw;
+    object-fit: cover;
+}
+
 .loginButton {
     border: 1px solid black;
     font-size: 20px;
     padding: 5px 15px 5px 15px;
 }
 
+.validation-summary-errors > ul > li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination .page-item {
+    font-size: 1rem;
+    color: #b30000;
+    margin-left: 20px;
+    border: 1.5px solid grey;
+}
+
+.pagination > li > a {
+    color: #b30000;
+    margin-left: 20px;
+    border: 1.5px solid grey;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+table.table thead th {
+    border: 2px solid;
+}
+
+table.table th,
+table.table td {
+    border: 2px solid grey;
+    /* padding-top: 1.1rem; */
+    /* padding-bottom: 1rem; */
+}
+
+table.table th,
+table.table td,
+li {
+    font-size: 20px;
+    color: grey
+    /* padding-top: 1.1rem; */
+    /* padding-bottom: 1rem; */
+}
+
+
+.formInput {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1.2px solid #b3b3b3;
+}
+
+.grey-color {
+    color: #B0B89E !important;
+}
+
+.green-color {
+    color: #9AD117 !important;
+}
+
+.orderDetails:hover {
+    cursor: pointer !important;
+}
+
+input[type=checkbox]:checked + label.days {
+    background: #C5D4C4 !important;
+}
+
+input:focus {
+    box-shadow: none !important;
+}
+
+.buttonCssBlue {
+    color: white !important;
+    background-color: #000237 !important;
+    padding: 5px 25px 5px 25px !important;
+    border: none !important;
+}
+
 h1 {
     color: #b30000;
+}
+
+h4 {
+    color: #b30000;
+}
+
+h3 {
+    color: #b30000;
+}
+
+h5 {
+    color: #b30000;
+}
+
+.box {
+    border: 1px solid grey;
 }
 
 .color {
@@ -59,10 +191,23 @@ h2 {
     color: #b30000;
 }
 
-.ABChocolate {
-    width: 100%;
-    height: 92%;
-    border-radius: 20px
+.days {
+    border: 1px solid grey !important;
+    border-radius: 50% !important;
+    padding: 15px !important;
+    color: #b30000 !important;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.box2 {
+    display: flex;
+    align-items: center;
+    border: none;
 }
 
 .bg {
@@ -84,6 +229,13 @@ h2 {
     border: none;
 }
 
+.buttonCssBlue {
+    color: white;
+    background-color: darkblue;
+    padding: 5px 25px 5px 25px;
+    border: none;
+}
+
 .foodImage {
     position: relative;
     left: 0px;
@@ -96,8 +248,43 @@ h2 {
     margin-left: 15px;
 }
 
+.line {
+    border-left: 6px solid green;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+    transform: rotate(90deg);
+}
+
 .registerPhoto {
     width: 75%;
+}
+
+.statusCircle {
+    border: 1px solid grey;
+    border-radius: 50%;
+    width: 120px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: text-bottom;
+    font-weight: 700;
+    background-color: #e0abb8;
+}
+
+.statusCircleDisable {
+    border: 1px solid grey;
+    border-radius: 50%;
+    width: 120px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: text-bottom;
+    font-weight: 700;
 }
 
 .formInput {
@@ -110,10 +297,21 @@ h2 {
     color: #b30000;
 }
 
+
+
+
+
 @media only screen and (max-width : 1220px) {
     .nav-item {
         font-size: 20px;
-        margin-left: 90px;
+        margin-left: 35px;
+    }
+
+    .indexfourthpic {
+        width: 100%;
+        height: 48vw;
+        object-fit: cover;
+        border-radius: 20px;
     }
 
     .loginButton {
@@ -133,10 +331,11 @@ h2 {
         font-size: 30px;
     }
 
-    .ABChocolate {
+    .indexfourthpic {
         width: 100%;
-        height: 88%;
-        border-radius: 20px
+        height: 48vw;
+        object-fit: cover;
+        border-radius: 20px;
     }
 
     .foodImage {
@@ -144,63 +343,132 @@ h2 {
     }
 }
 
-.validation-summary-errors > ul > li {
-    list-style-type: none;
+
+
+
+
+
+@media only screen and (max-width : 575px) {
+    h2 {
+        font-size: 25px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+
+
+    .foodImage {
+        margin-top: 120px;
+    }
+
+    .days {
+        border: 1px solid grey;
+        border-radius: 50%;
+        padding: 8px;
+        color: #b30000;
+    }
+}
+
+.sidebar {
     margin: 0;
     padding: 0;
+    width: 200px;
+    background-color: #FBEEEE;
+    /*position: fixed;
+    height: 100%;*/
+    overflow: auto;
 }
 
-.pagination .page-item {
-    font-size: 1rem;
-    color: #b30000;
-    margin-left: 20px;
-    border: 1.5px solid grey;
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
 }
 
-table.table thead th {
-    border: 2px solid;
+.sidebar div.active {
+    background-color: #E2DDDD;
+    color: white;
 }
 
-table.table th, table.table td {
-    border: 2px solid grey;
-    /* padding-top: 1.1rem; */
-    /* padding-bottom: 1rem; */
+.sidebar div:hover:not(.active) {
+    background-color: #E2DDDD;
+    color: white;
 }
 
-table.table th, table.table td, li {
-    font-size: 20px;
-    color: grey
-    /* padding-top: 1.1rem; */
-    /* padding-bottom: 1rem; */
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
 }
 
-.pagination > li > a {
-    color: #b30000;
-    margin-left: 20px;
-    border: 1.5px solid grey;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
+ul.orderStatusUl {
+    text-align: justify;
+    position: relative;
+    overflow: hidden;
 }
 
-.days {
+ul.orderStatusUl:before {
+    content: '';
+    width: 100%;
     border: 1px solid grey !important;
-    border-radius: 50% !important;
-    padding: 15px !important;
-    color: #b30000 !important;
+    position: absolute;
+    top: 4em;
+    margin-top: -2px;
+    z-index: 0;
 }
 
-input[type=checkbox]:checked + label.days {
-    background: #C5D4C4!important;
+.listWhite {
+    width: 5em;
+    height: 5em;
+    text-align: center;
+    border: 1px solid grey;
+    line-height: 5em;
+    border-radius: 50%;
+    background: white;
+    margin: 0 1em;
+    display: inline-block;
+    color: black;
+    font-weight: bold;
+    position: relative !important;
+    z-index: 0 !important;
 }
 
-input:focus {
-    box-shadow: none!important;
+.listPink {
+    width: 5em;
+    height: 5em;
+    text-align: center;
+    border: 1px solid grey;
+    line-height: 5em;
+    border-radius: 50%;
+    background: #e0abb8;
+    margin: 0 1em;
+    display: inline-block;
+    color: black;
+    font-weight: bold;
+    position: relative !important;
+    z-index: 0 !important;
 }
 
-.buttonCssBlue {
-    color: white !important;
-    background-color: #000237 !important;
-    padding: 5px 25px 5px 25px !important;
-    border: none !important;
+ul.orderStatusUl:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
 }
+
+.deliveryDateClass {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1.2px solid #b3b3b3;
+    background: transparent !important;
+}
+
+/*.specialDate a {
+    background-color: #6F0 !important;
+}*/
+
+/*.ui-datepicker .specialDate a {
+    background: #6F0 !important;
+}*/

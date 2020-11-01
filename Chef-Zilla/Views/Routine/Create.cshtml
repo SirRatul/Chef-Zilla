@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Routine Create";
 }
-
 @{
     List<Box> BoxList = (List<Box>)(Session["BoxList"]);
     List<int> TotalPriceList = (List<int>)(Session["TotalPriceList"]);
@@ -39,13 +38,10 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row mt-4">
             <div class=" md-form col-md-3 offset-md-2 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="routineName" class="form-control">*@
                 @Html.EditorFor(model => model.RoutineName, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3;" } })
                 @Html.ValidationMessageFor(model => model.RoutineName, "", new { @class = "text-danger" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="routineName">Routine Name</label>*@
                 @Html.LabelFor(model => model.RoutineName, htmlAttributes: new { @class = "control-label ml-2 routineLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
             </div>
-
             <div class="col-md-3 offset-md-1 col-8 offset-2">
                 <select class="form-control custom-select" name="BoxID" id="BoxID" style="border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: 400">
                     @for (int i = 0; i < BoxList.Count; i++)
@@ -53,28 +49,11 @@
                         <option value="@BoxList[i].BoxID" selected="@BoxList[i].BoxID.Equals(@BoxSelectID)">@BoxList[i].BoxName</option>
                     }
                 </select>
-                <!-- Example split danger button -->
-                @*<div style="border-bottom: 1.2px solid #b3b3b3;" class="btn-group">
-                        <button style="width: 150px; box-shadow: none; padding: 0 !important; color: #b30000; font-weight: 500;" type="button" class="btn">Select Food box</button>
-                        <button style="box-shadow: none; color: #b30000; padding-left: 50px;" type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </div>*@
             </div>
             <div class="col-md-3"></div>
         </div>
         <div class="row mt-4">
             <div class=" md-form col-md-3 offset-md-2 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="routinetype" class="form-control">
-                    <label style="color: #b30000; font-weight: 400" class="ml-4" for="routinetype">routine type</label>*@
-                @*@Html.LabelFor(model => model.RoutineType, htmlAttributes: new { @class = "control-label" })*@
                 @Html.DropDownListFor(model => model.RoutineType, new List<SelectListItem>
                 {
                     new SelectListItem() {Text = "Daily", Value = "Daily"},
@@ -83,13 +62,9 @@
                 }, "Routine Type", new { @class = "form-control custom-select", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: 400" })
                 @Html.ValidationMessageFor(model => model.RoutineType, "", new { @class = "text-danger" })
             </div>
-
             <div class="md-form col-md-3 offset-md-1 col-8 offset-2" id="deliveryMonthDiv">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="deliverySchedule" class="form-control">*@
-                @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control date", @readonly = "readonly", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; background: transparent" } })
-                @*@Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })*@
+                @Html.TextBoxFor(model => model.DeliveryDate, new { htmlAttributes = new { @readonly = "readonly"} })
                 @Html.LabelFor(model => model.DeliveryDate, htmlAttributes: new { @class = "control-label ml-2 deliveryDateLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="deliverySchedule">Delivery Schedule</label>*@
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -133,18 +108,14 @@
 
         <div class="row mt-4">
             <div class=" md-form col-md-3 offset-md-2 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="customerName" class="form-control">*@
                 @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; background: transparent" } })
                 @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="customerName">Customer Name</label>*@
                 @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label ml-2 customerNameLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
             </div>
 
             <div class=" md-form col-md-3 offset-md-1 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="customerEmail" class="form-control">*@
                 @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; background: transparent" } })
                 @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="customerEmail">Customer Email</label>*@
                 @Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "control-label ml-2 customerEmailLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
             </div>
             <div class="col-md-3"></div>
@@ -152,29 +123,21 @@
 
         <div class="row mt-4">
             <div class=" md-form col-md-3 offset-md-2 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="customerphone" class="form-control">*@
                 @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; background: transparent" } })
                 @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="customerphone">customer phone</label>*@
                 @Html.LabelFor(model => model.CustomerPhone, htmlAttributes: new { @class = "control-label ml-2 customerPhoneLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
             </div>
-
             <div class=" md-form col-md-3 offset-md-1 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="address" class="form-control">*@
                 @Html.EditorFor(model => model.DeliveryAddress, new { htmlAttributes = new { @class = "form-control", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3;" } })
                 @Html.ValidationMessageFor(model => model.DeliveryAddress, "", new { @class = "text-danger" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="address">Delivery Address</label>*@
                 @Html.LabelFor(model => model.DeliveryAddress, htmlAttributes: new { @class = "control-label ml-2 deliveryAddressLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
             </div>
             <div class="col-md-3"></div>
         </div>
-
         <div class="row mt-4">
             <div class=" md-form col-md-3 offset-md-2 col-8 offset-2">
-                @*<input style="border-bottom: 1.2px solid #b3b3b3; " type="text" id="totalPrice" class="form-control">*@
                 @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; background: transparent" } })
                 @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
-                @*<label style="color: #b30000; font-weight: 400" class="ml-4" for="totalPrice">Total Price</label>*@
                 @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label ml-2 totalPriceLabel position-absolute", @style = "color: #b30000; font-weight: 400; left: 25px; top: 5px" })
             </div>
         </div>
@@ -184,312 +147,190 @@
         }
         <div class="row text-center mt-5">
             <div class="col-md-12">
-                <button type="submit" class="buttonCss">Create</button>
+                <button type="submit" id="submitButton" class="buttonCss">Create</button>
             </div>
         </div>
     }
 </div>
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
-@*@using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>RoutineCreateViewModel</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.RoutineName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RoutineName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RoutineName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <select class="form-control custom-select" name="BoxID" id="BoxID" style="border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold">-->
-                    @for (int i = 0; i < BoxList.Count; i++)
-                    {
-                        <option value="@BoxList[i].BoxID" selected="@BoxList[i].BoxID.Equals(@BoxSelectID)">@BoxList[i].BoxName</option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.RoutineType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.RoutineType, new List<SelectListItem>
-                    {
-                        new SelectListItem() {Text = "Daily", Value = "Daily"},
-                        new SelectListItem() {Text = "Weekly", Value = "Weekly"},
-                        new SelectListItem() {Text = "Monthly", Value = "Monthly"}
-                    }, "Routine Type", new { @class = "form-control custom-select", @style = "border: none; border-radius: 0px; border-bottom: 1.2px solid #b3b3b3; color: #b30000; font-weight: bold" })
-                    @Html.ValidationMessageFor(model => model.RoutineType, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group" id="deliveryWeekDiv">
-                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday">
-                <label class="days" for="Saturday">Sa</label>
-                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday">
-                <label class="days" for="Sunday">Su</label>
-                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday">
-                <label class="days" for="Monday">Mo</label>
-                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday">
-                <label class="days" for="Tuesday">Tu</label>
-                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday">
-                <label class="days" for="Wednesday">We</label>
-                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday">
-                <label class="days" for="Thursday">Th</label>
-                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday">
-                <label class="days" for="Friday">Fr</label>
-            </div>
-
-            <div class="form-group" id="deliveryMonthDiv">
-                @Html.LabelFor(model => model.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control date", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DeliveryAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DeliveryAddress, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DeliveryAddress, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @for (int i = 0; i < TotalPriceList.Count; i++)
-            {
-                <input type="text" class="d-none" id="TotalPriceList@(i)" value="@TotalPriceList[i]">
-            }
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }*@
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjquerryUi")
     <script>
-        $(document).ready(function() {
-            $("#RoutineName").focus(function() {
-                $(".routineLabel").animate({ "top": '-25px' }, 100);
-            });
+            $(document).ready(function () {
+                $("#DeliveryDate").addClass("form-control deliveryDateClass");
+                document.getElementById('DeliveryDate').readOnly = true;
 
-            $("#DeliveryDate").focus(function() {
-                $(".deliveryDateLabel").animate({ "top": '-25px' }, 100);
-            });
+                var dates = new Array();
 
-            $("#CustomerName").focus(function () {
-                $(".customerNameLabel").animate({ "top": '-25px' }, 100);
-            });
+                $("#BoxID").change(function (e) {
+                    document.getElementById("TotalPrice").value = document.getElementById("TotalPriceList" + e.target.selectedIndex).value;
+                });
 
-            $("#CustomerEmail").focus(function () {
-                $(".customerEmailLabel").animate({ "top": '-25px' }, 100);
-            });
+                $("#RoutineType").change(function () {
+                    var e = document.getElementById("RoutineType");
+                    if (e.options[e.selectedIndex].value === "Daily") {
+                        document.getElementById("deliveryWeekDiv").classList.add('d-none');
+                        document.getElementById("deliveryMonthDiv").classList.add('d-none');
+                    } else if (e.options[e.selectedIndex].value === "Weekly") {
+                        document.getElementById("deliveryWeekDiv").classList.remove('d-none');
+                        document.getElementById("deliveryMonthDiv").classList.add('d-none');
+                    } else if (e.options[e.selectedIndex].value === "Monthly") {
+                        document.getElementById("deliveryMonthDiv").classList.remove('d-none');
+                        document.getElementById("deliveryWeekDiv").classList.add('d-none');
+                    } else {
+                        document.getElementById("deliveryWeekDiv").classList.add('d-none');
+                        document.getElementById("deliveryMonthDiv").classList.add('d-none');
+                    }
+                });
 
-            $("#CustomerPhone").focus(function () {
-                $(".customerPhoneLabel").animate({ "top": '-25px' }, 100);
-            });
-
-            $("#DeliveryAddress").focus(function () {
-                $(".deliveryAddressLabel").animate({ "top": '-25px' }, 100);
-            });
-
-            $("#TotalPrice").focus(function () {
-                $(".totalPriceLabel").animate({ "top": '-25px' }, 100);
-            });
-
-            $('#RoutineName').blur(function() {
-                if (!$(this).val()) {
-                    $(".routineLabel").animate({ "top": '5px' }, 100);
+                function addDate(date) {
+                    if (jQuery.inArray(date, dates) < 0) {
+                        dates.push(date);
+                        console.log(dates);
+                        document.getElementById("DeliveryDate").value = dates;
+                    }
                 }
-            });
 
-            $('#DeliveryDate').blur(function() {
-                if (!$(this).val()) {
-                    $(".deliveryDateLabel").animate({ "top": '5px' }, 100);
-                }
-            });
-
-            $('#CustomerName').blur(function () {
-                if (!$(this).val()) {
-                    $(".customerNameLabel").animate({ "top": '5px' }, 100);
-                }
-            });
-
-            $('#CustomerEmail').blur(function () {
-                if (!$(this).val()) {
-                    $(".customerEmailLabel").animate({ "top": '5px' }, 100);
-                }
-            });
-
-            $('#CustomerPhone').blur(function () {
-                if (!$(this).val()) {
-                    $(".customerPhoneLabel").animate({ "top": '5px' }, 100);
-                }
-            });
-
-            $('#DeliveryAddress').blur(function () {
-                if (!$(this).val()) {
-                    $(".deliveryAddressLabel").animate({ "top": '5px' }, 100);
-                }
-            });
-
-            $('#TotalPrice').blur(function () {
-                if (!$(this).val()) {
-                    $(".totalPriceLabel").animate({ "top": '5px' }, 100);
-                }
-            });
-
-            if (document.getElementById("RoutineName").value) {
-                $(".routineLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            if (document.getElementById("DeliveryDate").value) {
-                $(".deliveryDateLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            if (document.getElementById("CustomerName").value) {
-                $(".customerNameLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            if (document.getElementById("CustomerEmail").value) {
-                $(".customerEmailLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            if (document.getElementById("CustomerPhone").value) {
-                $(".customerPhoneLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            if (document.getElementById("DeliveryAddress").value) {
-                $(".deliveryAddressLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            if (document.getElementById("TotalPrice").value) {
-                $(".totalPriceLabel").animate({ "top": '-25px' }, 100);
-            }
-
-            var dates = new Array();
-
-            $("#BoxID").change(function(e) {
-                document.getElementById("TotalPrice").value = document.getElementById("TotalPriceList" + e.target.selectedIndex).value;
-            });
-
-            $("#RoutineType").change(function() {
-                var e = document.getElementById("RoutineType");
-                if (e.options[e.selectedIndex].value === "Daily") {
-                    document.getElementById("deliveryWeekDiv").classList.add('d-none');
-                    document.getElementById("deliveryMonthDiv").classList.add('d-none');
-                } else if (e.options[e.selectedIndex].value === "Weekly") {
-                    document.getElementById("deliveryWeekDiv").classList.remove('d-none');
-                    document.getElementById("deliveryMonthDiv").classList.add('d-none');
-                } else if (e.options[e.selectedIndex].value === "Monthly") {
-                    document.getElementById("deliveryMonthDiv").classList.remove('d-none');
-                    document.getElementById("deliveryWeekDiv").classList.add('d-none');
-                } else {
-                    document.getElementById("deliveryWeekDiv").classList.add('d-none');
-                    document.getElementById("deliveryMonthDiv").classList.add('d-none');
-                }
-            });
-
-            function addDate(date) {
-                if (jQuery.inArray(date, dates) < 0) {
-                    dates.push(date);
+                function removeDate(index) {
+                    dates.splice(index, 1);
                     console.log(dates);
                     document.getElementById("DeliveryDate").value = dates;
                 }
-            }
 
-            function removeDate(index) {
-                dates.splice(index, 1);
-                console.log(dates);
-                document.getElementById("DeliveryDate").value = dates;
-            }
-
-            // Adds a date if we don't have it yet, else remove it
-            function addOrRemoveDate(date) {
-                var index = jQuery.inArray(date, dates);
-                if (index >= 0)
-                    removeDate(index);
-                else
-                    addDate(date);
-            }
-
-            // Takes a 1-digit number and inserts a zero before it
-            function padNumber(number) {
-                var ret = new String(number);
-                if (ret.length == 1)
-                    ret = "0" + ret;
-                return ret;
-            }
-
-            $('.date').datepicker({
-                @*multidate: true,
-                format: 'dd-mm-yyyy'*@
-                stepMonths: 0,
-                onSelect: function(dateText, inst) {
-                    addOrRemoveDate(dateText);
-                },
-                beforeShowDay: function(date) {
-                    var year = date.getFullYear();
-                    // months and days are inserted into the array in the form, e.g "01/01/2009", but here the format is "1/1/2009"
-                    var month = padNumber(date.getMonth() + 1);
-                    var day = padNumber(date.getDate());
-                    // This depends on the datepicker's date format
-                    var dateString = month + "/" + day + "/" + year;
-
-                    var gotDate = jQuery.inArray(dateString, dates);
-                    if (gotDate >= 0) {
-                        // Enable date so it can be deselected. Set style to be highlighted
-                        return [true, "ui-state-highlight"];
-                    }
-                    // Dates not in the array are left enabled, but with no extra style
-                    return [true, ""];
+                function addOrRemoveDate(date) {
+                    var index = jQuery.inArray(date, dates);
+                    if (index >= 0)
+                        removeDate(index);
+                    else
+                        addDate(date);
                 }
-            });
-        })
+
+                function padNumber(number) {
+                    var ret = new String(number);
+                    if (ret.length == 1)
+                        ret = "0" + ret;
+                    return ret;
+                }
+
+                $('#DeliveryDate').datepicker({
+                    dateFormat: 'mm/dd/yy',
+                    stepMonths: 0,
+                    onSelect: function(dateText, inst) {
+                        addOrRemoveDate(dateText);
+                    },
+                    beforeShowDay: function (date) {
+                        var year = date.getFullYear();
+                        var month = padNumber(date.getMonth() + 1);
+                        var day = padNumber(date.getDate());
+
+                        var dateString = month + "/" + day + "/" + year;
+                        var gotDate = jQuery.inArray(dateString, dates);
+                        if (gotDate >= 0) {
+                            return [true, "ui-state-highlight"];
+                        }
+                        return [true, ""];
+                    }
+                });
+
+                $("#RoutineName").focus(function() {
+                    $(".routineLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $("#DeliveryDate").focus(function() {
+                    $(".deliveryDateLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $("#CustomerName").focus(function() {
+                    $(".customerNameLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $("#CustomerEmail").focus(function() {
+                    $(".customerEmailLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $("#CustomerPhone").focus(function() {
+                    $(".customerPhoneLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $("#DeliveryAddress").focus(function() {
+                    $(".deliveryAddressLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $("#TotalPrice").focus(function() {
+                    $(".totalPriceLabel").animate({ "top": '-25px' }, 100);
+                });
+
+                $('#RoutineName').blur(function() {
+                    if (!$(this).val()) {
+                        $(".routineLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                $('#DeliveryDate').blur(function() {
+                    if (!$(this).val()) {
+                        $(".deliveryDateLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                $('#CustomerName').blur(function() {
+                    if (!$(this).val()) {
+                        $(".customerNameLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                $('#CustomerEmail').blur(function() {
+                    if (!$(this).val()) {
+                        $(".customerEmailLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                $('#CustomerPhone').blur(function() {
+                    if (!$(this).val()) {
+                        $(".customerPhoneLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                $('#DeliveryAddress').blur(function() {
+                    if (!$(this).val()) {
+                        $(".deliveryAddressLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                $('#TotalPrice').blur(function() {
+                    if (!$(this).val()) {
+                        $(".totalPriceLabel").animate({ "top": '5px' }, 100);
+                    }
+                });
+
+                if (document.getElementById("RoutineName").value) {
+                    $(".routineLabel").animate({ "top": '-25px' }, 100);
+                }
+
+                if (document.getElementById("DeliveryDate").value) {
+                    $(".deliveryDateLabel").animate({ "top": '-25px' }, 100);
+                }
+
+                if (document.getElementById("CustomerName").value) {
+                    $(".customerNameLabel").animate({ "top": '-25px' }, 100);
+                }
+
+                if (document.getElementById("CustomerEmail").value) {
+                    $(".customerEmailLabel").animate({ "top": '-25px' }, 100);
+                }
+
+                if (document.getElementById("CustomerPhone").value) {
+                    $(".customerPhoneLabel").animate({ "top": '-25px' }, 100);
+                }
+
+                if (document.getElementById("DeliveryAddress").value) {
+                    $(".deliveryAddressLabel").animate({ "top": '-25px' }, 100);
+                }
+
+                if (document.getElementById("TotalPrice").value) {
+                    $(".totalPriceLabel").animate({ "top": '-25px' }, 100);
+                }
+            })
     </script>
-    @*@Styles.Render("~/Animation/css")*@
     @Scripts.Render("~/bundles/jqueryval")
 }

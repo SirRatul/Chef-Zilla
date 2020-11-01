@@ -93,7 +93,6 @@
             <a href="@Url.Action("DeleteBox", "Box", new {@boxId = @Model.BoxID})" class="btn buttonCss text-white">
                 Delete Box
             </a>
-            @*<button class="buttonCss ">Delete Box</button>*@
         </div>
 
         <div class="col-6 mt-5">
@@ -116,7 +115,6 @@
                 <input type="text" class="d-none" name="boxId" value="@Model.BoxID" readonly="readonly" />
                 <button type="submit" class="buttonCss">Add To Food Plan</button>
             }
-            @*<button class="buttonCss ">Add to Food Plan</button>*@
         </div>
     </div>
 </div>
@@ -125,41 +123,6 @@
 <br>
 <br>
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
-@*<p>Box Name: @Model.BoxName</p>
-    @for (int i = 0; i < Model.ProductID.Count; i++)
-    {
-        <a href="@Url.Action("RemoveProductFromBox", "Box", new {productId = Model.ProductID[i], boxId = Model.BoxID})" className="btn btn-danger">
-            <i class="fas fa-times-circle text-danger"></i>
-        </a>
-        <a href="@Url.Action("ItemDetails", "Box", new {@boxId = @Model.BoxID, @productId = @Model.ProductID[i]})">
-            @Model.ProductName[i]
-        </a>
-        <p>@Model.ProductQuantity[i]</p>
-        <p>@Model.TotalPrice[i]</p>
-    }
-    <a href="@Url.Action("DeleteBox", "Box", new {@boxId = @Model.BoxID})">
-        Delete
-    </a>
-    @using (Html.BeginForm("RedirectToCreateRoutine", "FoodPlan", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
-        {
-            <div class="row">
-                <div class="col-12 mb-2">
-                    <div class="alert alert-warning alert-dismissible show" role="alert">
-                        @Html.ValidationSummary(true, "")
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        }
-        <input type="text" class="d-none" name="boxId" value="@Model.BoxID" readonly="readonly" />
-        <button type="submit" class="buttonCss">Add To Food Plan</button>
-    }*@
-
 @section Scripts {
     <script>
         $(document).ready(function () {

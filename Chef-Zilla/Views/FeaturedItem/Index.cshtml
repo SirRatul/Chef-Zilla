@@ -3,17 +3,12 @@
 @{
     ViewBag.Title = "Featured Item";
 }
-
 @using PagedList.Mvc;
 @using PagedList;
-
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
-
 <br>
 <br>
 <br>
-
-
 <div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-10 offset-md-1 ">
@@ -28,64 +23,50 @@
             @using (Html.BeginForm("Search", "FeaturedItem", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <div class="input-group-text bg-white border-0">
-                        <button type="submit" className="btn" style="border: none;
-        background-color: #b30000; padding: 7px;"><i class="fas fa-search text-light"></i></button>
+                <div class="input-group mb-3">
+                    <input type="text" id="search" name="product" class="form-control" aria-label="Text input with checkbox" style="border: 0; outline: 0; background: transparent; border-bottom: 1.2px solid #b3b3b3;" placeholder="Search Item">
+                    @*<label style="color: #b30000; left: 10px; top: 5px" class="position-absolute searchLabel" for="search">Search Item </label>*@
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-white border-0">
+                            <button type="submit" className="btn" style="border: none;">
+                                <i class="fas fa-search text-danger"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <input type="text" id="search" name="product" class="form-control" aria-label="Text input with checkbox" style="border: 0; outline: 0; background: transparent; border-bottom: 1.2px solid #b3b3b3;">
-                <label style="color: #b30000; left: 10px; top: 5px" class="ml-5 position-absolute searchLabel" for="search">Search Item </label>
-            </div>
-                @*<input style="border: 0; outline: 0; background: transparent; border-bottom: 1.2px solid #b3b3b3;" name="product" type="text" id="search" class="form-control">
-                <label style="color: #b30000; left: 10px; top: 5px" class="ml-5 position-absolute searchLabel" for="search">Search Item </label>
-                <button type="submit" className="btn"><i class="fas fa-search"></i></button>*@
             }
-            
         </div>
     </div>
 </div>
-
-
 <div class="container my-5">
-
     <div class="row">
         <div class="col-12 text-center">
             <h1 class="font-weight-bold">Featured Items</h1>
         </div>
     </div>
-
     <div class="row">
-        @*<h2>@Model</h2>*@
         @for (var i = 0; i < @Model.Count; i++)
         {
             <div class="col-md-4 mt-5">
-                <div class="card" style="border: 1px solid grey">
-                    <a href="@Url.Action("Index", "ItemDetails", new { id = @Model[i].ProductID })">
-                        <img class="card-img-top" src="@Url.Content(Model[i].ProductImage)" alt="Card image cap">
-                    </a>
-                    <a href="@Url.Action("Index", "ItemDetails", new { id = @Model[i].ProductID })">
+                <a href="@Url.Action("Index", "ItemDetails", new { id = @Model[i].ProductID })" class="text-decoration-none">
+                    <div class="card" style="border: 1px solid grey">
+                        <img class="card-img-top " src="@Url.Content(Model[i].ProductImage)" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">@Model[i].ProductName</h5>
                             <p class="color font-weight-bold">BDT: @Model[i].ProductPrice</p>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
         }
     </div>
-
     <div class="row justify-content-center mt-5">
         <nav aria-label="...">
             @Html.PagedListPager(Model, page => Url.Action("Index", "FeaturedItem", new { page, search = Request.QueryString["search"] }))
         </nav>
     </div>
 </div>
-
-
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
-
 @section Scripts {
     <script>
         $(document).ready(function () {

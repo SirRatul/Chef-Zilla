@@ -1,9 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "FinalOrder";
 }
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
-
 <div class="container mt-5">
     <div class="row ml-5 ">
         <div class="col-12 text-center">
@@ -14,9 +12,7 @@
         <br>
         <br>
     </div>
-
     <div class="row">
-
         <div class="col-md-6 mt-5">
             <div class="container-fluid">
                 <div class="row">
@@ -24,60 +20,47 @@
                         <h6 class="color font-weight-bold">Select Payment Method</h6>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-6">
                         <img style="width: 80%" src="~/Images/bkash.png" alt="">
                     </div>
-
                     <div class="col-6">
                         <img style="width: 80%" src="~/Images/COD.png" alt="">
                     </div>
                 </div>
-
             </div>
         </div>
-
-
         <div class="col-md-5 offset-md-1 border p-3 mt-5">
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <h6 class="color font-weight-bold text-center">Order Summery</h6>
                     </div>
-                </div><br><br>
-
+                </div>
+                <br>
+                <br>
                 <div class="row">
                     <div class="col-7 offset-2">
                         <p style="font-size: 14px;" class="color">Sub-Total (@Model.ProductID.Count items including shipping)</p>
                     </div>
-
                     <div class="col-3">
                         <p style="font-size: 14px;" class="color">@Model.FinalTotalPrice TK</p>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-7 offset-2">
                         <h5 class="font-weight-bold">Total Amount</h5>
                     </div>
-
                     <div class="col-3">
                         <h5 class="font-weight-bold">@Model.FinalTotalPrice TK</h5>
                     </div>
-
                 </div>
-
             </div>
         </div>
-
-
     </div>
     <br>
     <br>
     <br>
-
     <div class="row text-center mt-5">
         <div class="col-12">
             @using (Html.BeginForm("AddOrder", "Order", FormMethod.Post))
@@ -123,26 +106,16 @@
                 <input type="text" class="form-control d-none" id="dateTime" name="dateTime" value="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" placeholder="@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")" />
 
                 <div class="row col-md-12 justify-content-center">
+                    <input type="submit" value="Proceed" class="btn buttonCss" />
 
-                    <a href="@Url.Action("AddOrder", "Order")">
-                        @*<input type="submit" value="Proceed" class="buttonCss" />*@
+                    @*<a href="@Url.Action("AddOrder", "Order")">
                         <button type="submit" class="buttonCss ">Proceed</button>
-
-                    </a>
-
+                    </a>*@
                 </div>
-
-
             }
-
         </div>
     </div>
-
 </div>
-
-
-
-
 <br>
 <br>
 <br>

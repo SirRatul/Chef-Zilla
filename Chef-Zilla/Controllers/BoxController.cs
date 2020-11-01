@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 namespace Chef_Zilla.Controllers
 {
     [Authorize]
+    [OutputCache(NoStore = true, Duration = 0)]
     public class BoxController : Controller
     {
         // GET: Box
@@ -44,10 +45,6 @@ namespace Chef_Zilla.Controllers
                 .Select(x => x.ProductQuantity).ToList();
             var totalPrice = _context.BoxProducts.Where(x => x.BoxID == id)
                 .Select(x => x.TotalPrice).ToList();
-            var extraIngredientId = _context.BoxExtraItems.Where(x => x.BoxID == id)
-                .Select(x => x.ExtraIngredientID).ToList();
-            var extraIngredientQuantity = _context.BoxExtraItems.Where(x => x.BoxID == id)
-                .Select(x => x.ExtraIngredientQuantity).ToList();
 
             boxDetailsViewModel.BoxID = id;
             boxDetailsViewModel.BoxName = singleBox.BoxName;
@@ -307,10 +304,7 @@ namespace Chef_Zilla.Controllers
                 Session["extraIngredientQuantity"] = ExtraIngredientQuantity;
                 ModelState.AddModelError("", "Box Created Successfully.");
             }
-
             return View();
         }
     }
-
-    
 }

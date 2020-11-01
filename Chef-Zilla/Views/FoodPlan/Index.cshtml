@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "My Food Plan";
 }
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
@@ -47,7 +46,6 @@
         <a href="@Url.Action("Create", "Box")" class="btn buttonCss mx-auto mt-4 text-white">
             Build My Box
         </a>
-        @*<button class="buttonCss mx-auto mt-4">Build My Box</button>*@
     </div>
 </div>
 <div class="container">
@@ -83,7 +81,6 @@
                     <input type="text" class="d-none" name="boxId" value="@Model.Boxes[i].BoxID" readonly="readonly" />
                     <button type="submit" class="buttonCss mx-auto mt-4">Add To Food Plan</button>
                 }
-                @*<button class="buttonCss mx-auto mt-4">Add to food plan</button>*@
             </div>
         }
     </div>
@@ -112,40 +109,6 @@
     </div>
 </div>
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
-@*@for (var i = 0; i < @Model.Boxes.Count; i++)
-    {
-        <a href="@Url.Action("Details", "Box", new {id = @Model.Boxes[i].BoxID})">
-            @Model.Boxes[i].BoxName
-        </a>
-        using (Html.BeginForm("RedirectToCreateRoutine", "FoodPlan", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
-            {
-                <div class="row">
-                    <div class="col-12 mb-2">
-                        <div class="alert alert-warning alert-dismissible show" role="alert">
-                            @Html.ValidationSummary(true, "")
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            }
-            <input type="text" class="d-none" name="boxId" value="@Model.Boxes[i].BoxID" readonly="readonly" />
-            <button type="submit" class="buttonCss">Add To Food Plan</button>
-        }
-    }
-
-    @for (var i = 0; i < @Model.RoutineID.Count; i++)
-    {
-        <p>@Model.RoutineID[i]</p>
-        <p>@Model.RoutineName[i]</p>
-        <p>@Model.RoutineType[i]</p>
-        <p>@Model.BoxName[i]</p>
-    }*@
-
 @section Scripts {
     <script>
     $(document).ready(function () {

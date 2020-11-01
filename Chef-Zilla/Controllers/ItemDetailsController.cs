@@ -192,6 +192,12 @@ namespace Chef_Zilla.Controllers
 
                 var userId = User.Identity.GetUserId();
 
+                if (userId == null)
+                {
+                    TempData["message"] = "You have to login to add this product in cart";
+                    return RedirectToAction("Index", new RouteValueDictionary(new { controller = "ItemDetails", id = productId }));
+                }
+
                 cart.UserId = userId;
                 cart.ProductID = productId;
                 cart.ProductName = productName;

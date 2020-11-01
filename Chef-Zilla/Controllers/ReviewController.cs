@@ -13,32 +13,28 @@ namespace Chef_Zilla.Controllers
     public class ReviewController : Controller
     {
 
-        private ApplicationDbContext _context;        //variable to access database
+        private ApplicationDbContext _context;
 
-        //constructor for database work
         public ReviewController()
         {
             _context = new ApplicationDbContext();
         }
 
-        // GET: Review
         [HttpPost]
         public ActionResult Index(string reviewText, int Ratings, int productId)
         {
+            var userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                TempData["message"] = "You have to login to review this product";
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "ItemDetails", id = productId }));
+            }
 
             Review review = new Review();
-            ReviewViewModel reviewViewModel = new ReviewViewModel();
 
             string dateTime = DateTime.Now.ToString("dd/MM/yyyy hh:mm tt");
 
-
-
-            var userId = User.Identity.GetUserId();
-
-            List<int> FProductId = new List<int>();
             var findOrderId = _context.Orders.Where(m => m.UserId == userId).Select(x=>x.OrderId).ToList();
-            //FProductId = findOrderId[0];
-            //int findOrderID2 = _context.Orders.SingleOrDefault(m => m.UserId == userId).Select(x => x.OrderId);
 
             bool productDetected = false;
             if(findOrderId.Count>0)
@@ -48,17 +44,17 @@ namespace Chef_Zilla.Controllers
                     var findProductId = _context.OrderProducts.Where(m => m.OrderId == item).Select(x => x.ProductID).ToList();
                     if(findProductId.Count > 0)
                     {
-                        productDetected = true;
-                        break;
+                        foreach (var item1 in findProductId)
+                        {
+                            if (item1 == productId)
+                            {
+                                productDetected = true;
+                                break;
+                            }
+                        }
+
                     }
                 }
-                /*for (int i = 0; i < findOrderId.Count; i++)
-                {
-                    var findProductId = _context.OrderProducts.Where(m => m.OrderId == findOrderId[i]).Select(x => x.ProductID).ToList();
-
-                    productDetected = true;
-
-                }*/
             }
 
             if(!productDetected)
@@ -69,7 +65,6 @@ namespace Chef_Zilla.Controllers
             if(productDetected)
             {
                 TempData["message"] = "Your review has been added successfully";
-                
 
                 review.UserId = userId;
                 review.Ratings = Ratings;
@@ -81,11 +76,6 @@ namespace Chef_Zilla.Controllers
             _context.Reviews.Add(review);
             _context.SaveChanges();
 
-            //var findProductId = _context.OrderProducts.Where(m => m.OrderId == Convert.ToInt32( findOrderId)).Select(x => x.ProductID).ToList();
-
-
-
-            //return View(review);
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "ItemDetails", id = productId }));
         }
     }

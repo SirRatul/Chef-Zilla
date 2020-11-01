@@ -1,0 +1,306 @@
+﻿@{
+    ViewBag.Title = "Routine Details";
+    var today = DateTime.Today;
+    string[] deliveryDate = @Model.UpcomingDeliveryDate.Split(':');
+    var deliveryDay = deliveryDate[1].Substring(1, 2);
+}
+@if (TempData["message"] != null)
+{
+    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@TempData["message"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br>
+<br>
+<br>
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-12">
+            <img class="ml-n4" style="width: 80%;" src="~/Images/Group 42.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row mt-3">
+        <div class="col-md-11 offset-md-1">
+            <p class="color" style="font-size: 22px; font-weight:400;">Routine name: @Model.RoutineName</p>
+            <p class="color mt-3" style="font-size: 15px; font-weight:400;">Food box: @Model.BoxName</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Routine Type: @Model.RoutineType</p>
+            @if (Model.RoutineType != "Daily")
+            {
+                <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Delivery Days:</p>
+            }
+            @if (Model.RoutineType == "Weekly")
+            {
+                <div class="container-fluid">
+                    <div class="row mt-4">
+                        <div class="col-1">
+                            @if (Model.DeliveryDay.Contains("Saturday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday" checked="checked" disabled="disabled">
+                                <label class="days" for="Saturday">Sa</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Saturday" name="DeliveryDay" value="Saturday" disabled="disabled">
+                                <label class="days" for="Saturday">Sa</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Sunday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday" checked="checked" disabled="disabled">
+                                <label class="days" for="Sunday">Su</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Sunday" name="DeliveryDay" value="Sunday" disabled="disabled">
+                                <label class="days" for="Sunday">Su</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Monday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday" checked="checked" disabled="disabled">
+                                <label class="days" for="Monday">Mo</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Monday" name="DeliveryDay" value="Monday" disabled="disabled">
+                                <label class="days" for="Monday">Mo</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Tuesday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday" checked="checked" disabled="disabled">
+                                <label class="days" for="Tuesday">Tu</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Tuesday" name="DeliveryDay" value="Tuesday" disabled="disabled">
+                                <label class="days" for="Tuesday">Tu</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Wednesday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday" checked="checked" disabled="disabled">
+                                <label class="days" for="Wednesday">We</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Wednesday" name="DeliveryDay" value="Wednesday" disabled="disabled">
+                                <label class="days" for="Wednesday">We</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Thursday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday" checked="checked" disabled="disabled">
+                                <label class="days" for="Thursday">Th</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Thursday" name="DeliveryDay" value="Thursday" disabled="disabled">
+                                <label class="days" for="Thursday">Th</label>
+                            }
+                        </div>
+                        <div class="col-1 ml-3">
+                            @if (Model.DeliveryDay.Contains("Friday"))
+                            {
+                                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday" checked="checked" disabled="disabled">
+                                <label class="days" for="Friday">Fr</label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="d-none" id="Friday" name="DeliveryDay" value="Friday" disabled="disabled">
+                                <label class="days" for="Friday">Fr</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.RoutineType == "Monthly")
+            {
+                <input class="d-none" id="DeliveryDate" type="text" value="@Model.DeliveryDate" />
+                <div id="datepicker-container" style="display: none;">
+                    <div id="select-delivery-date-input"> </div>
+                </div>
+            }
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row mt-5">
+        <div class="col-md-11 offset-md-1">
+            <p class="color" style="font-size: 22px; font-weight:bold;">Invoice Information</p>
+            <p class="color mt-3" style="font-size: 15px; font-weight:400;">@Model.CustomerName</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Email: @Model.CustomerEmail</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Phone: @Model.CustomerPhone</p>
+            <p class="color mt-n2" style="font-size: 15px; font-weight:400;">Address: @Model.DeliveryAddress</p>
+        </div>
+    </div>
+</div>
+@{
+    if (!(string.IsNullOrEmpty(Model.DeliveredDate)))
+    {
+        string[] deliveredDate = Model.DeliveredDate.Split(',');
+        List<DateTime> DeliveredDate = new List<DateTime>();
+        foreach (var item in deliveredDate)
+        {
+            DeliveredDate.Add(DateTime.Parse(item));
+        }
+        <div class="container mt-5">
+            <div class="row mt-3">
+                <div class="col-md-11 offset-md-1">
+                    <p class="color" style="font-size: 22px; font-weight:bold;">Delivery completed</p>
+                </div>
+                <div class="col-md-11 offset-md-1">
+                    <div class="container-fluid">
+                        <div class="row">
+                            @foreach (var item in DeliveredDate)
+                            {
+                            <div class="col-md-4 mt-5">
+                                <img style="width: 90%;" src="~/Images/Group 29.png" alt="">
+                                <p class="color mt-3" style="font-weight: 400">@item.ToString("dddd: dd MMMM yyyy")</p>
+                                <p class="mt-n3 ml-5" style="font-weight: bold; color: #b3b300;">Delivered</p>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container mt-5">
+            <div class="row mt-3">
+                <div class="col-md-11 offset-md-1">
+                    <p class="color" style="font-size: 22px; font-weight:bold;">Delivery completed</p>
+                </div>
+                <div class="col-md-11 offset-md-1">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 text-center mt-5">
+                                <p class="mt-n3" style="font-weight: bold; color: #b3b300;">This Routine has not delivered yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<div class="container mt-5">
+    <div class="row mt-3">
+        <div class="col-md-12 text-center">
+            <p class="color" style="font-size: 22px; font-weight:bold;">Order Status</p>
+        </div>
+        <div class="col-md-11 offset-md-1">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        @if (deliveryDay.Contains(today.Day.ToString()))
+                        {
+                            using (Html.BeginForm("RoutineOrderStatusUpdate", "Admin", FormMethod.Post))
+                            {
+                                <div class="col-12 text-center">
+                                    <ul class="orderStatusUl">
+                                        <li class="orderLIST listPink" data-value="pending">pending</li>
+                                        <li class="orderLIST @(Model.RoutineStatus == "delivered" ? "listPink" : "listWhite")" data-value="delivered">delivered</li>
+                                    </ul>
+                                    <input name="status" class="d-none" id="statusValue"/>
+                                    <input name="routineOrderID" class="d-none" value="@Model.RoutineID"/>
+                                    <input type="submit" value="Update" class="buttonCss"/>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <ul class="orderStatusUl">
+                                    <li class="listPink">pending</li>
+                                    <li class="listWhite">delivered</li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 text-center">
+
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjquerryUi")
+    <script>
+        $(document).ready(function () {
+            $(".orderLIST").hover(function () {
+                $(".orderLIST").addClass("listWhite").removeClass("listPink");
+                $(this).addClass("listPink").removeClass("listWhite");
+                $(this).prevAll(".orderLIST").addClass("listPink").removeClass("listWhite");
+            });
+            $(".orderLIST").click(function () {
+                var orderStatusValue = $(this).attr("data-value");
+                $("#statusValue").val(orderStatusValue);
+            });
+            var dates = document.getElementById("DeliveryDate").value;
+            function padNumber(number) {
+                var ret = new String(number);
+                if (ret.length == 1)
+                    ret = "0" + ret;
+                return ret;
+            }
+            $("#datepicker-container").show();
+            $('#select-delivery-date-input').datepicker({
+                dateFormat: 'mm/dd/yy',
+                stepMonths: 0,
+                onSelect: function(selectedDate){
+                    console.log(selectedDate);
+                },
+                beforeShowDay: function (date) {
+                    var day = padNumber(date.getDate());
+                    console.log(day);
+                    var gotDate = dates.includes(day);
+                    console.log(gotDate);
+                    console.log(dates.includes(day));
+                    if (gotDate) {
+                        return [true, "ui-state-highlight"];
+                    }
+                    return [true, ""];
+                }
+            });
+            $("#select-delivery-date-input").datepicker("disable");
+            if ("@TempData["message"]" != null) {
+                $('#infoValidationSummary').modal('show');
+            }
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/OrderDetails/css")
+}

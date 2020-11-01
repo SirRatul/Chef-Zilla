@@ -1,76 +1,80 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "OrderList";
 }
-
-<h2>OrderList</h2>
-
-@*<table id="example2" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Order No</th>
-            <th>Type</th>
-            <th>Customer</th>
-            <th>Order Time</th>
-            <th>Price</th>
-            <th>Order Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (var i = 0; i < Model.OrderId.Count; i++)
-        {
-            <tr>
-                <td>@Model.OrderId[i]</td>
-                <td>@Model.Type[i]</td>
-                <td>@Model.UserName[i]</td>
-                <td>@Model.dateTime[i]</td>
-                <td>@Model.finalTotalPrice[i]</td>
-                <td>@Model.status[i]</td>
-                <td>
-                    <a className="btn btn-success">
-                        <i class="fas fa-eye text-success"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
-<div class="container">
+<div class="container-fluid my-3">
+    @if (TempData["message"] != null)
+    {
+        <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>@TempData["message"]</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="row">
-        <table style="border: 1px solid grey;" class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Order No.</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Order Time</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Order Status</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Model.OrderId.Count; i++)
-                {
-                <tr class="table-danger">
-                    <th scope="row">@Model.OrderId[i]</th>
-                    <td>@Model.Type[i]</td>
-                    <td>@Model.UserName[i]</td>
-                    <td>@Model.dateTime[i]</td>
-                    <td>@Model.finalTotalPrice[i]</td>
-                    <td>@Model.status[i]</td>
-                    <td class="text-center text-danger ">
-                        <a href="@Url.Action("OrderListDetails", "Admin", new { id = Model.OrderId[i] })" className="btn btn-success">
-                            <i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    
-                    
-                </tr>
-                }
+        <div class="col-12">
+            <table id="example2" style="border: 1px solid grey;" class="table">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th scope="col">Order No.</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Order Time</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Order Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = Model.OrderId.Count - 1; i >= 0; i--)
+                    {
+                        <tr class="@(i%2 == 0 ? "table-danger" : "") text-center">
+                            <th scope="row">@Model.OrderId[i]</th>
+                            <td>@Model.Type[i]</td>
+                            <td>@Model.UserName[i]</td>
+                            <td>@Model.dateTime[i]</td>
+                            <td>@Model.finalTotalPrice[i]</td>
+                            <td>@Model.status[i]</td>
+                            <td class="text-center text-danger">
+                                <a href="@Url.Action("OrderListDetails", "Admin", new {id = Model.OrderId[i]})" class="text-danger">
+                                    <i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
-
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "order": []
+            });
+            if ("@TempData["message"]" != null) {
+                $('#infoValidationSummary').modal('show');
+            }
+        });
+    </script>
+}

@@ -103,6 +103,11 @@ namespace Chef_Zilla.Controllers
                     {
                         return RedirectToAction("Dashboard", "Admin");
                     }
+
+                    if (returnUrl == null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout"); 

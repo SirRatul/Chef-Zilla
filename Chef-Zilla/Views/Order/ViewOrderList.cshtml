@@ -3,45 +3,190 @@
     ViewBag.Title = "Order List";
 }
 @Html.Partial("~/Views/Shared/_NavBar.cshtml")
-<br />
-<br />
-<br />
-<br />
-<div class="container">
-    <div class="row">
-        <table style="border: 1px solid grey;" class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Order No.</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Order Time</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Order Status</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
+@{
+    var orderStatusNumber = 0;
+    if (Model.OrderId.Count > 0)
+    {
+        if (Model.FullOrderInformation[Model.clickIndex].status == "pending")
+        {
+            orderStatusNumber = 0;
+        }
+        if (Model.FullOrderInformation[Model.clickIndex].status == "confirmed")
+        {
+            orderStatusNumber = 1;
+        }
+        if (Model.FullOrderInformation[Model.clickIndex].status == "picked")
+        {
+            orderStatusNumber = 2;
+        }
+        if (Model.FullOrderInformation[Model.clickIndex].status == "shipped")
+        {
+            orderStatusNumber = 3;
+        }
+        if (Model.FullOrderInformation[Model.clickIndex].status == "delivered")
+        {
+            orderStatusNumber = 4;
+        }
+    }
+}
+<div class="container-fluid">
+    @if (Model.OrderId.Count > 0)
+    {
+        <div class="row">
+            <div class="col-3 sidebar">
                 @for (var i = 0; i < Model.OrderId.Count; i++)
                 {
-                    <tr class="table-danger">
-                        <th scope="row">@Model.OrderId[i]</th>
-                        <td>@Model.Type[i]</td>
-                        <td>@Model.dateTime[i]</td>
-                        <td>@Model.finalTotalPrice[i]</td>
-                        <td>@Model.status[i]</td>
-                        <td class="text-center text-danger ">
-                            <a href="@Url.Action("ViewOrderDetails", "Order", new { id = Model.OrderId[i] })" className="btn btn-success">
-                                <i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <div class="p-4 @(Model.clickIndex == i ? "active" : "")" onClick="onChangeTest(@(i))">
+                        <h5>Order ID: @Model.OrderId[i]</h5>
+                        <p class="color">@Model.dateTime[i]</p>
+                        <button class="pendingButton bg-success text-white">@Model.status[i]</button>
+                    </div>
+                    <form class="d-none">
+                        <input type="text" id="clickIndex" name="clickIndex" value="@(i)" />
+                        <button id="clickButton@(i)" type="submit">Submit</button>
+                    </form>
                 }
-            </tbody>
-        </table>
-    </div>
+            </div>
+            <div class="col-9">
+                <div class="container mt-5 ">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="font-weight-bold ">Order ID: @Model.FullOrderInformation[Model.clickIndex].OrderId</h4>
+                            <h4 class="font-weight-bold ">Order Type: @Model.FullOrderInformation[Model.clickIndex].type</h4>
+                            <h4 class="font-weight-bold ">Order Time: @Model.FullOrderInformation[Model.clickIndex].dateTime</h4>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-4">
+                            <h5 class="font-weight-bold">Item Name</h5>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-4">
+                            <h5 class="font-weight-bold text-center">Quantity</h5>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-4">
+                            <h5 class="font-weight-bold text-center">Price</h5>
+                        </div>
+                    </div>
+                    @for (int i = 0; i < @Model.FullOrderInformation[Model.clickIndex].ProductId.Count; i++)
+                    {
+                        <div class="row mt-5">
+                            <div class="col-4">
+                                <a href="@Url.Action("ItemDetails", "Order", new {@orderId = @Model.FullOrderInformation[Model.clickIndex].OrderId, @productId = @Model.FullOrderInformation[Model.clickIndex].ProductId[i]})">
+                                    <span style="color: grey; font-weight: 400;">@Model.FullOrderInformation[Model.clickIndex].ProductName[i]</span>
+                                </a>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h5 style="color: grey; font-weight: 400;">@Model.FullOrderInformation[Model.clickIndex].ProductQuantity[i]</h5>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h5 style="color: grey; font-weight: 400;">@Model.FullOrderInformation[Model.clickIndex].ProductTotalPrice[i]</h5>
+                            </div>
+                        </div>
+                    }
+                    <div class="row mt-5">
+                        <div class="col-md-3 offset-md-9 col-12 text-center">
+                            <h5 class="font-weight-bold te">Total: @Model.FullOrderInformation[Model.clickIndex].finalTotalPrice Taka(With Delivery Charge)</h5>
+                        </div>
+                        <div class="col-md-3 offset-md-9 col-12 text-center">
+                            <h5 class="font-weight-bold">Payment Status: COD</h5>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-12 mt-5">
+                            <div class="container">
+                                <div class="row text-center">
+                                    <div class="col-12">
+                                        <h4>Bills To</h4>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 700;">@Model.FullOrderInformation[Model.clickIndex].UserName</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 500; color: dimgray">Address: @Model.FullOrderInformation[Model.clickIndex].Address</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 500; color: dimgray"> Phone: @Model.FullOrderInformation[Model.clickIndex].phn</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 500; color: dimgray"> Email: @Model.FullOrderInformation[Model.clickIndex].Email</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 offset-md-3 mt-5">
+                            <div class="container">
+                                <div class="row text-center">
+                                    <div class="col-12">
+                                        <h4>Order From</h4>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 700;">Chef-Zilla Official store</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 500; color: dimgray">Address: Modhubag , Dhaka, 1230</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 500; color: dimgray"> Phone: 017521424853</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="font-weight: 500; color: dimgray"> Email: Support.cafe-zilla@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-10 offset-2  text-center">
+                            <h4 class="font-weight-bold">Order Status</h4>
+                        </div>
+                    </div>
+                    <div class="row mt-5 text-center">
+                        <div class="col-12">
+                            <ul class="orderStatusUl">
+                                <li class="orderLIST listPink">pending</li>
+                                @if (Model.OrderId.Count > 0)
+                                {
+                                    <li class="orderLIST @(orderStatusNumber >= 1 ? "listPink" : "listWhite")">confirmed</li>
+                                    <li class="orderLIST @(orderStatusNumber >= 2 ? "listPink" : "listWhite")">picked</li>
+                                    <li class="orderLIST @(orderStatusNumber >= 3 ? "listPink" : "listWhite")">shipped</li>
+                                    <li class="orderLIST @(orderStatusNumber == 4 ? "listPink" : "listWhite")">delivered</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <p class="h4 text-center">You have no order.</p>
+            </div>
+        </div>
+    }
 </div>
-<br />
-<br />
-<br />
-<br />
+<br>
+<br>
+<br>
+<br>
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
+@section Scripts {
+    <script>
+        function onChangeTest(Id) {
+            document.getElementById('clickButton' + (Id)).form.submit();
+        }
+    </script>
+}

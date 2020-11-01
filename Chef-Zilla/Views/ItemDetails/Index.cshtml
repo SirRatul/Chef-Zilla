@@ -22,7 +22,7 @@
         <div class="col-md-6">
             <div class="container-fluid">
                 <div class="row">
-                    <img style="width: 100%;" src="@Url.Content(Model.ProductImage)" alt="">
+                    <img class="item-img" style="width: 100%;" src="@Url.Content(Model.ProductImage)" alt="">
                 </div>
                 @if (TempData["message"] != null)
                 {
@@ -142,23 +142,14 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-8 mt-5">
-            @* code for add to cart*@
             @using (Html.BeginForm("AddBox", "ItemDetails", FormMethod.Post))
             {
                 <div class="row">
-
                     <div class="col-md-6 mt-5">
-
-
                         <input type="submit" name="command" value="Add To Cart" class="buttonCss" />
-
                         <br />
-                        
-
-                        @*<button class="buttonCss">Add To Cart</button>*@
                     </div>
                     <div class="col-md-6 mt-5">
-
                         @Html.AntiForgeryToken()
                         @if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
                         {
@@ -185,35 +176,21 @@
                         <input type="submit" name="command" value="Add To Box" class="buttonCss" />
                     </div>
                 </div>
-             }
-
-             
-
+            }
         </div>
         <div class="col-md-4 mt-5">
-
-
             @using (Html.BeginForm("Create", "WishList", FormMethod.Post))
             {
                 <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
-
                 <input type="text" class="d-none" name="UserId" id="userId" value="@User.Identity.GetUserId()" readonly="readonly" />
                 <br />
                 <br />
                 <button type="submit" class="buttonCss">Add to Wish List</button>
-
             }
-
-
         </div>
-
-            </div>
     </div>
+</div>
 <div class="container-fluid">
-
-
-
-
     <div class="row mt-5 text-center">
         <div class="col-12">
             <h5 class="font-weight-bold">Rating and Reviews of @Model.ProductName</h5>
@@ -230,118 +207,88 @@
             {
                 <h1 class="font-weight-bold ">0/5</h1>
             }
-
         </div>
     </div>
 
     <div class="row mt-5 text-center">
-        <div class="col-6 offset-3" style="color:#FFDF00; font-size:35px;">
-            @for (var i = 0; i < averageRating; i++)
+        <div class="col-6 offset-3">
+            @if (averageRating > 0)
             {
-                <i class=" fas fa-star" aria-hidden="true"></i>
+                for (var i = 0; i < averageRating; i++)
+                {
+                    <i class="fas fa-star green-color" style="font-size: 3.3vw;" aria-hidden="true"></i>
+                }
+                for (var i = 0; i < 5 - averageRating; i++)
+                {
+                    <i class="fas fa-star grey-color" style="font-size: 3.3vw;" aria-hidden="true"></i>
+                }
             }
-            @for (var i = 0; i < 5 - averageRating; i++)
+            else
             {
-                <i class=" far fa-star" aria-hidden="true"></i>
+                for (var i = 0; i < 5; i++)
+                {
+                    <i class="fas fa-star grey-color" style="font-size: 3.3vw;" aria-hidden="true"></i>
+                }
             }
-           
         </div>
     </div>
 
     <div class="row mt-5 mx-5">
-        <div class="col-12 text-center">
-            <h3 class="font-weight-bold">Product Reviews</h3>
+        <div class="col-12">
+            <h5 class="font-weight-bold">Product Reviews</h5>
         </div>
     </div>
-
     
-
-    <br />
-    <br />
-    <br />
-
-
-    <div class="row col-md-12">
-
-        @*comment Form*@
-
-        @using (Html.BeginForm("Index", "Review", FormMethod.Post))
-        {
-            <div class="row col-md-12">
-
-                <h5 class="font-weight-bold ml-3 mt-2">Your Rating:</h5>
+    @using (Html.BeginForm("Index", "Review", FormMethod.Post))
+    {
+        <div class="row mx-5">
+            <div class="col-md-3 col-xl-2 col-sm-5 mt-5">
+                <h5 class="font-weight-bold d-inline mr-4">Your Rating:</h5>
+            </div>
+            <div class="col-md-9 col-xl-10 col-sm-7 mt-5">
                 <span style="color:#FFDF00; margin-left:20px; margin-bottom:5px; font-size:25px;">
-                    <i class="ratingStar far fa-star" data-value="1" aria-hidden="true"></i>
-                    <i class="ratingStar far fa-star" data-value="2" aria-hidden="true"></i>
-                    <i class="ratingStar far fa-star" data-value="3" aria-hidden="true"></i>
-                    <i class="ratingStar far fa-star" data-value="4" aria-hidden="true"></i>
-                    <i class="ratingStar far fa-star" data-value="5" aria-hidden="true"></i>
+                    <i class="ratingStar fas fa-star grey-color" style="font-size: 3.3vw;" data-value="1" aria-hidden="true"></i>
+                    <i class="ratingStar fas fa-star grey-color" style="font-size: 3.3vw;" data-value="2" aria-hidden="true"></i>
+                    <i class="ratingStar fas fa-star grey-color" style="font-size: 3.3vw;" data-value="3" aria-hidden="true"></i>
+                    <i class="ratingStar fas fa-star grey-color" style="font-size: 3.3vw;" data-value="4" aria-hidden="true"></i>
+                    <i class="ratingStar fas fa-star grey-color" style="font-size: 3.3vw;" data-value="5" aria-hidden="true"></i>
                 </span>
-
                 <input class="d-none" name="Ratings" id="ratingsValue" />
-                <br />
-                <input class="ml-5 d-none" name="productId" id="productId" value="@Model.ProductID" />
-
-                
-
-
-
-                <div class="col-md-12">
-                    <h5 class="font-weight-bold">Product Reviews:</h5>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <textarea class="form-control" name="reviewText" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="row col-md-12 text-center justify-content-center">
-                    <a href="@Url.Action("Index", "Review")">
-                        <input type="submit" value="Submit" class="buttonCss" />
-
-                    </a>
-                </div>
-
+                <input class="ml-5 d-none" name="productId" id="productId" value="@Model.ProductID"/>
+            </div>
+        </div>
+        <div class="row m-5">
+            <div class="col-12">
+                <h5 class="font-weight-bold">Product Reviews:</h5>
             </div>
 
+            <div class="col-12">
+                <div class="form-group">
+                    <textarea class="form-control" name="reviewText" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </div>
 
-        }
-
-    </div>
-
-
-
-
-    
-
-    </div>
+            <div class="col-md-12 mt-5 text-center">
+                <input type="submit" value="Submit" class="buttonCss" />
+            </div>
+        </div>
+    }
 </div>
-
-
-
 <div class="container-fluid">
-
     @for (var i = 0; i < Model.ReviewId.Count; i++)
     {
-        
-
         <div class="row ml-5">
             <div class="col-md-12">
-                
-                <div class="float-left" style="color:#FFDF00; font-size:20px;">
+                <div class="float-left">
                     @for (var j = 0; j < Model.Ratings[i]; j++)
                     {
-                        <i class=" fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star green-color" style="font-size: 3.3vw;" aria-hidden="true"></i>
                     }
                     @for (var k = 0; k < 5 - Model.Ratings[i]; k++)
                     {
-                        <i class=" far fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star grey-color" style="font-size: 3.3vw;" aria-hidden="true"></i>
                     }
                 </div>
-                
-
-
             </div>
             <div class="col-md-12 mt-3">
                 <h5>By @Model.ReviewerUserName[i]</h5>
@@ -360,68 +307,26 @@
 <br>
 <br>
 <br>
-@*<div class="col-12">
-        <div class="col-4">
-            <div class="text-center my-5">
-                <button class="buttonCss">Add To Cart</button>
-            </div>
-        </div>
-        <div class="col-4">
-            @using (Html.BeginForm("AddBox", "ItemDetails", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
-                {
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <div class="alert alert-warning alert-dismissible show" role="alert">
-                                @Html.ValidationSummary(true, "")
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                }
-                <input type="text" class="d-none" name="productId" value="@Model.ProductID" readonly="readonly" />
-                <input type="text" class="d-none" name="productName" value="@Model.ProductName" readonly="readonly" />
-                <input type="text" class="d-none" name="productQuantity" value="1" readonly="readonly" />
-                <input type="text" class="d-none" name="productPrice" value="@Model.ProductPrice" readonly="readonly" />
-                for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
-                {
-                    <input type="text" class="d-none" name="extraIngredientId" value="@Model.ExtraIngredientId[i]" readonly="readonly" />
-                    @Html.CheckBox("extraIngredientNumber", new { @value = @Model.ExtraIngredientId[i] + " 1", @class = "d-none" })
-                }
-                <div class="text-center my-5">
-                    <button type="submit" class="buttonCss">Add To Box</button>
-                </div>
-            }
-        </div>
-    </div>*@
 @Html.Partial("~/Views/Shared/_Footer.cshtml")
 @section Scripts {
     <script>
-        $(".ratingStar").hover(function () {
+        $(document).ready(function () {
+            $(".ratingStar").hover(function () {
 
-            $(".ratingStar").addClass("far").removeClass("fas");
-            $(this).addClass("fas").removeClass("far");
-            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
-        });
+                $(".ratingStar").addClass("grey-color").removeClass("green-color");
+                $(this).addClass("green-color").removeClass("grey-color");
+                $(this).prevAll(".ratingStar").addClass("green-color").removeClass("grey-color");
+            });
 
-        $(".ratingStar").click(function () {
-            //debugger;
-            var starValue = $(this).attr("data-value"); 
-
-            $("#ratingsValue").val(starValue);
-        });
-
-        $(document).ready(function() {
+            $(".ratingStar").click(function () {
+                var starValue = $(this).attr("data-value"); 
+                $("#ratingsValue").val(starValue);
+            });
             var extraIngredientNumber = document.getElementById("extraIngredientNumber").value;
             for (let i = 0; i < extraIngredientNumber; i++) {
                 document.getElementById('extraIngredient' + (i + 1)).addEventListener('change',
                     (event) => {
                         if (event.target.checked) {
-                            @*alert('1st for checked');*@
                             document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(document.getElementById("extraIngredientQuantity" + (i + 1)).value) * parseInt(document.getElementById("extraIngredientPrice" + (i + 1)).value));
                             document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
                             document.getElementsByName("productPrice")[0].value = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
@@ -438,11 +343,7 @@
                                 document.getElementsByName("extraIngredientNumber")[i * 2].checked = event.target.checked;
                                 document.getElementsByName("extraIngredientNumber")[i * 2].value = extraIngredientId + " " + quantityNumber;
                             }
-                            @*console.log("Extra Ingredient Quantity of Item " + (i + 1) + " = " + document.getElementById("extraIngredientQuantity" + (i + 1)).value);*@
-                            @*console.log("Extra Ingredient Price Of Item " + (i + 1) + "= " + document.getElementById("extraIngredientPrice" + (i + 1)).value);*@
                         } else {
-                            @*alert('1st for not checked');*@
-                            @*console.log('I:' + (i+1));*@
                             document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) - (parseInt(document.getElementById("extraIngredientQuantity" + (i + 1)).value) * parseInt(document.getElementById("extraIngredientPrice" + (i + 1)).value));
                             document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
                             document.getElementsByName("productPrice")[0].value = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
@@ -453,15 +354,11 @@
                             } else {
                                 document.getElementsByName("extraIngredientNumber")[i * 2].checked = false;
                             }
-                            @*console.log("Uncheck Extra Ingredient Quantity of Item " + (i + 1) + " = " + document.getElementById("extraIngredientQuantity" + (i + 1)).value);*@
-                            @*console.log("Uncheck Extra Ingredient Price Of Item " + (i + 1) + "= " + document.getElementById("extraIngredientPrice" + (i + 1)).value);*@
                         }
                     });
             }
             document.getElementById("quantity").addEventListener('input',
                 function(e) {
-                    @*console.log('Actual Value Without Extra Price:' + (parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)));*@
-                    @*console.log('Extra Price:' + parseInt(document.getElementById("extraIngredientPriceUpdate").value));*@
                     document.getElementById("totalPrice").innerHTML = ((parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
                     document.getElementsByName("productPrice")[0].value = ((parseInt(e.target.value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
                     document.getElementsByName("productQuantity")[0].value = e.target.value;
@@ -469,9 +366,7 @@
         });
 
         function onChangeTest(textbox, Identification, Id) {
-            @*alert("Value is " + textbox.value + "\n" + "Old Value is " + textbox.oldvalue + "\n" + "Identification is " + Identification + "\n" + "Id is " + Id);*@
             if (document.getElementById('extraIngredient' + (Identification)).checked) {
-                @*alert("2nd for checked");*@
                 document.getElementById("extraIngredientPriceUpdate").value = parseInt(document.getElementById("extraIngredientPriceUpdate").value) + (parseInt(textbox.value) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value)) - (parseInt(textbox.oldvalue) * parseInt(document.getElementById("extraIngredientPrice" + (Identification)).value));
                 document.getElementById("totalPrice").innerHTML = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value))) + " BDT";
                 document.getElementsByName("productPrice")[0].value = ((parseInt(document.getElementById("quantity").value) * parseInt(document.getElementById("actualPrice").innerHTML)) + (parseInt(document.getElementById("extraIngredientPriceUpdate").value)));
@@ -485,7 +380,6 @@
                     document.getElementsByName("extraIngredientNumber")[(Identification - 1) * 2].value = Id + " " + textbox.value;
                 }
             } else {
-                @*alert("2nd for not checked");*@
                 document.getElementById("extraIngredientQuantity" + (Identification)).value = textbox.value;
             }
         }

@@ -324,6 +324,10 @@
     <Compile Include="Migrations\202009201507293_addToOrderProducts.designer.cs">
       <DependentUpon>202009201507293_addToOrderProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010051328471_orderStatusColumnAddedInRoutineScheduleTable.cs" />
+    <Compile Include="Migrations\202010051328471_orderStatusColumnAddedInRoutineScheduleTable.designer.cs">
+      <DependentUpon>202010051328471_orderStatusColumnAddedInRoutineScheduleTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Box.cs" />
@@ -346,8 +350,11 @@
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AdminDashBoardViewModel.cs" />
     <Compile Include="ViewModels\AdminOrderDetailsViewModels.cs" />
     <Compile Include="ViewModels\AdminOrderListViewModel.cs" />
+    <Compile Include="ViewModels\AdminRoutineListViewModel.cs" />
+    <Compile Include="ViewModels\AdminRoutineOrderListViewModel.cs" />
     <Compile Include="ViewModels\BoxCreateViewModel.cs" />
     <Compile Include="ViewModels\BoxDetailsViewModel.cs" />
     <Compile Include="ViewModels\BoxItemViewModel.cs" />
@@ -497,6 +504,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\6459.jpg" />
+    <Content Include="Images\avatar.png" />
     <Content Include="Images\bkash.png" />
     <Content Include="Images\box.png" />
     <Content Include="Images\burger-3199088_1920.jpg" />
@@ -506,6 +514,7 @@
     <Content Include="Images\COD.png" />
     <Content Include="Images\Cook Icon.png" />
     <Content Include="Images\Delivery icon.png" />
+    <Content Include="Images\fav_icon.jpg" />
     <Content Include="Images\Food Box 2.png" />
     <Content Include="Images\Food Box.png" />
     <Content Include="Images\Food Diagram.png" />
@@ -523,6 +532,8 @@
     <Content Include="Images\Group 41.png" />
     <Content Include="Images\Group 42.png" />
     <Content Include="Images\Group 43.png" />
+    <Content Include="Images\Group 56.png" />
+    <Content Include="Images\Group 57.png" />
     <Content Include="Images\Icon awesome-box-open.png" />
     <Content Include="Images\Icon awesome-shopping-cart.png" />
     <Content Include="Images\login.png" />
@@ -2700,15 +2711,17 @@
     <Content Include="Views\Routine\Details.cshtml" />
     <Content Include="Views\WishList\Details.cshtml" />
     <Content Include="Views\Cart\ViewCart.cshtml" />
-    <Content Include="Views\Order\View.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\FinalOrder.cshtml" />
-    <Content Include="Views\Order\AddOrder.cshtml" />
     <Content Include="Views\Order\ViewOrderList.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\OrderListDetails.cshtml" />
     <Content Include="Views\GeneralItem\Index.cshtml" />
-    <Content Include="Views\Order\ViewOrderDetails.cshtml" />
+    <Content Include="Views\Admin\RoutineOrderList.cshtml" />
+    <Content Include="Views\Order\ItemDetails.cshtml" />
+    <Content Include="Views\Cart\ItemDetails.cshtml" />
+    <Content Include="Views\Admin\RoutineOrderDetails.cshtml" />
+    <Content Include="Views\Admin\AllUser.cshtml" />
+    <Content Include="Views\Admin\AllRoutine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2810,6 +2823,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009201507293_addToOrderProducts.resx">
       <DependentUpon>202009201507293_addToOrderProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010051328471_orderStatusColumnAddedInRoutineScheduleTable.resx">
+      <DependentUpon>202010051328471_orderStatusColumnAddedInRoutineScheduleTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

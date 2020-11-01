@@ -1,23 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AllProduct";
 }
-
-<h2>AllProduct</h2>
-
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-12 mx-auto">
-                <h1>DataTables</h1>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
+    <div class="container-fluid my-3">
         <div class="row">
             <div class="col-12">
                 @if (TempData["message"] != null)
@@ -41,38 +25,37 @@
                         </div>
                     </div>
                 }
-                <div class="card">
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Serial No</th>
-                                    <th>Product Type</th>
-                                    <th>Product Name</th>
-                                    <th>Prepare Time</th>
-                                    <th>Product Price</th>
-                                    <th>Action</th>
+                <div>
+                    <div>
+                        <table id="example2" style="border: 1px solid grey;" class="table">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th scope="col">Serial No</th>
+                                    <th scope="col">Product Type</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Prepare Time</th>
+                                    <th scope="col">Product Price</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @for (var i = 0; i < @Model.Count; i++)
                                 {
-                                    <tr>
-                                        <td>@(i + 1)</td>
+                                    <tr class="@(i%2 == 0 ? "table-danger" : "") text-center">
+                                        <th scope="row">@(i + 1)</th>
                                         <td>@Model[i].ProductType</td>
                                         <td>@Model[i].ProductName</td>
                                         <td>@Model[i].PrepareTime</td>
                                         <td>@Model[i].ProductPrice</td>
-                                        <td>
-                                            <a href="@Url.Action("ViewProduct", "Admin", new { id = Model[i].ProductID })" className="btn btn-success">
-                                                <i class="fas fa-eye text-success"></i>
+                                        <td class="text-center text-danger">
+                                            <a href="@Url.Action("EditProduct", "Admin", new { id = Model[i].ProductID })" class="text-danger">
+                                                <i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i>
                                             </a>
-                                            <a href="@Url.Action("EditProduct", "Admin", new { id = Model[i].ProductID })" className="btn-primary">
-                                                <i class="fas fa-edit"></i>
+                                            <a href="@Url.Action("ViewProduct", "Admin", new {id = Model[i].ProductID})" class="text-danger">
+                                                <i class="fa fa-eye font-weight-bold ml-3" aria-hidden="true"></i>
                                             </a>
-                                            <a href="@Url.Action("DeleteProduct", "Admin", new { id = Model[i].ProductID })" className="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">
-                                                <i class="fas fa-times-circle text-danger"></i>
+                                            <a href="@Url.Action("DeleteProduct", "Admin", new {id = Model[i].ProductID})" class="text-danger" onclick="return confirm('Are you sure you want to delete this product?');">
+                                                <i class="fa fa-trash font-weight-bold ml-3" aria-hidden="true"></i> 
                                             </a>
                                         </td>
                                     </tr>
@@ -81,16 +64,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
-</section>
-
 @section Scripts {
     <script>
         $(document).ready(function () {

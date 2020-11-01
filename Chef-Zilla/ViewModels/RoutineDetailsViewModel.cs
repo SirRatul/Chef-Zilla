@@ -18,5 +18,7 @@ namespace Chef_Zilla.ViewModels
         public string CustomerEmail { get; set; }
         public string CustomerPhone { get; set; }
         public string DeliveryAddress { get; set; }
+        public string UpcomingDeliveryDate { get; set; }
+        public string DeliveredDate { get; set; }
     }
 }

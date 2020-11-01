@@ -4,43 +4,37 @@
     ViewBag.Title = "Order Details";
 }
 
-@{ 
+@{
     var orderStatusNumber = 0;
-    if(Model.status == "pending")
+    if (Model.status == "pending")
     {
         orderStatusNumber = 0;
     }
-    if(Model.status == "confirmed")
+    if (Model.status == "confirmed")
     {
         orderStatusNumber = 1;
     }
-    if(Model.status == "picked")
+    if (Model.status == "picked")
     {
         orderStatusNumber = 2;
     }
-    if(Model.status == "shipped")
+    if (Model.status == "shipped")
     {
         orderStatusNumber = 3;
     }
-    if(Model.status == "delivered")
+    if (Model.status == "delivered")
     {
         orderStatusNumber = 4;
     }
 }
-
-
-<div class="container mt-5">
+<div class="container">
     <div class="row ml-5 ">
-
-        <div class="col-12">
+        <div class="col-12 mt-5">
             <h4 class="font-weight-bold ">Order ID: @Model.OrderId</h4>
             <h4 class="font-weight-bold ">Order Type: @Model.type</h4>
             <h4 class="font-weight-bold ">Order Time: @Model.dateTime</h4>
         </div>
-
-
     </div>
-
     <div class="row ml-5 mt-5">
         <div class="col-4">
             <h5 class="font-weight-bold">Item Name</h5>
@@ -52,14 +46,13 @@
             <h5 class="font-weight-bold text-center">Price</h5>
         </div>
     </div>
-
-
     @for (int i = 0; i < @Model.ProductId.Count; i++)
     {
         <div class="row ml-5 mt-5">
             <div class="col-4">
-                <i style="color: indianred;" class="fas fa-times mr-2"></i>
-                <span style="color: grey; font-weight: 400;">@Model.ProductName[i]</span>
+                <a href="@Url.Action("ItemDetails", "Order", new {@orderId = @Model.OrderId, @productId = @Model.ProductId[i]})">
+                    <span style="color: grey; font-weight: 400;">@Model.ProductName[i]</span>
+                </a>
             </div>
             <div class="col-4 text-center">
                 <h5 style="color: grey;font-weight: 400;">@Model.ProductQuantity[i]</h5>
@@ -67,44 +60,19 @@
             <div class="col-4 text-center">
                 <h5 style="color: grey;font-weight: 400;">@Model.ProductTotalPrice[i]</h5>
             </div>
-
-
         </div>
     }
-
-    
-    <div class="row ml-5 mt-5">
-        <div class="col-4">
-            <i style="color: indianred;" class="fas fa-times mr-2"></i>
-            <span style="color: grey; font-weight: 400;">Beef Burger</span>
-        </div>
-        <div class="col-4 text-center">
-            <h5 style="color: grey;font-weight: 400;">1</h5>
-        </div>
-        <div class="col-4 text-center">
-            <h5 style="color: grey;font-weight: 400;">90</h5>
-        </div>
-    </div>
-
     <div class="row mt-5">
         <div class="col-md-3 offset-md-9 col-12 text-center">
-            <h5 class="font-weight-bold te">Total: @Model.finalTotalPrice</h5>
+            <h5 class="font-weight-bold te">Total: @Model.finalTotalPrice Taka(With Delivery Charge)</h5>
         </div>
         <div class="col-md-3 offset-md-9 col-12 text-center">
             <h5 class="font-weight-bold">Payment Status: COD</h5>
         </div>
     </div>
-
 </div>
-
-
-
-
 <br>
 <br>
-
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 mt-5">
@@ -113,7 +81,6 @@
                     <div class="col-12">
                         <h4>Bills To</h4>
                     </div>
-
                     <div class="col-12">
                         <p style="font-weight: 700;">@Model.UserName</p>
                     </div>
@@ -129,15 +96,12 @@
                 </div>
             </div>
         </div>
-
-
         <div class="col-md-6 mt-5">
             <div class="container">
                 <div class="row text-center">
                     <div class="col-12">
                         <h4>Order From</h4>
                     </div>
-
                     <div class="col-12">
                         <p style="font-weight: 700;">Chef-Zilla Official store</p>
                     </div>
@@ -154,12 +118,9 @@
             </div>
         </div>
     </div>
-
 </div>
 <br>
 <br>
-
-
 <div class="container mt-5">
     <div class="row">
         <div class="col-12  text-center">
@@ -167,19 +128,11 @@
         </div>
 
     </div>
-
     <div class="row mt-5 text-center">
-        
-
-        <div class="row col-md-12">
+        <div class="col-12">
             @using (Html.BeginForm("OrderStatusUpdate", "Admin", FormMethod.Post))
             {
-
-           
-
-
                 <div class="col-12">
-
                     <ul class="orderStatusUl">
                         <li class="orderLIST listPink" data-value="pending">pending</li>
                         <li class="orderLIST @(orderStatusNumber >= 1 ? "listPink" : "listWhite")" data-value="confirmed">confirmed</li>
@@ -188,73 +141,31 @@
                         <li class="orderLIST @(orderStatusNumber == 4 ? "listPink" : "listWhite")" data-value="delivered">delivered</li>
                     </ul>
                     <input name="status" class="d-none" id="statusValue" />
-
                 </div>
-
-
-
                 <input name="orderID" class="d-none" value="@Model.OrderId" />
-
-                <div class="row col-md-12 justify-content-center">
-                    
-
-                    <input type="submit" value="Update" class="buttonCss" />
-
-
-                   
-
-                </div>
+                <input type="submit" value="Update" class="buttonCss" />
             }
-
-
-
-
         </div>
-
         <br>
         <br>
         <br>
-
     </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-    
-
-    @section Scripts {
-        <script>
-           
-            
-        
-
-
-            $(".orderLIST").hover(function () {
-                
-
-                $(".orderLIST").addClass("listWhite").removeClass("listPink");
-                $(this).addClass("listPink").removeClass("listWhite");
-                $(this).prevAll(".orderLIST").addClass("listPink").removeClass("listWhite");
-            });
-
-            $(".orderLIST").click(function () {
-                //debugger;
-                var orderStatusValue = $(this).attr("data-value");
-
-                $("#statusValue").val(orderStatusValue);
-            });
-            //----------
-
-
-
-
-
-
-    
-
-        </script>
-
-        @Styles.Render("~/OrderDetails/css")
-    }
+</div>
+<br>
+<br>
+<br>
+<br>
+@section Scripts {
+    <script>
+        $(".orderLIST").hover(function () {
+            $(".orderLIST").addClass("listWhite").removeClass("listPink");
+            $(this).addClass("listPink").removeClass("listWhite");
+            $(this).prevAll(".orderLIST").addClass("listPink").removeClass("listWhite");
+        });
+        $(".orderLIST").click(function () {
+            var orderStatusValue = $(this).attr("data-value");
+            $("#statusValue").val(orderStatusValue);
+        });
+    </script>
+    @Styles.Render("~/OrderDetails/css")
+}

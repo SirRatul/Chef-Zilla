@@ -13,5 +13,6 @@ namespace Chef_Zilla.Models
         public string DeliveryDate { get; set; }
         public int RoutineID { get; set; }
         public string DeliveredDate { get; set; }
+        public string OrderStatus { get; set; }
     }
 }

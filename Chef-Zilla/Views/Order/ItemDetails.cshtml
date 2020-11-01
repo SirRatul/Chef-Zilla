@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = @Model.ProductName;
+}
+<br>
+<br>
+<br>
+<br>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <div class="row">
+                    <img class="item-img" style="width: 100%;" src="@Url.Content(Model.ProductImage)" alt="">
+                </div>
+                @if (TempData["message"] != null)
+                {
+                    <div id="infoValidationSummary" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@TempData["message"]</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row mt-4">
+                    <div class="col-md-3 col-sm-3 col-3">
+                        <p style="font-size: 22px; color: grey; margin-left: -15px;">Quantity:</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-3">
+                        <input type="number" class="form-control" id="quantity" value="@Model.ProductQuantity" min="1" readonly="readonly">
+                    </div>
+                    <div class="col-md-7"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-size: 22px; color: grey; margin-left: -15px;">Package Include:</p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul>
+                            <li>Ingredients</li>
+                            <li>Detailed Recipe</li>
+                            <li>Serving Materials</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <h5 style=" color: grey; margin-left: -15px;">Price:</h5>
+                    </div>
+                    <div class="col-10">
+                        <h5 id="totalPrice">@Model.ProductPrice BDT</h5>
+                        <h5 class="d-none" id="actualPrice">@Model.ProductPrice</h5>
+                        <input type="hidden" id="extraIngredientPriceUpdate" value="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="font-weight-bold">@Model.ProductName</h2>
+            <p class="font-weight-bold text-muted my-4"> Ready In: @Model.PrepareTime</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 70%;">Ingredients</th>
+                        <th class="justify-content-center">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul style="list-style-type: none;">
+                                @for (var i = 0; i < @Model.IngredientName.Count; i++)
+                                {
+                                    <li>@Model.IngredientName[i]</li>
+
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none;">
+                                @for (var i = 0; i < @Model.IngredientQuantity.Count; i++)
+                                {
+                                    <li>@Model.IngredientQuantity[i]</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5>Extra Add:</h5>
+            <input type="hidden" id="extraIngredientNumber" value="@Model.ExtraIngredientName.Count">
+
+            @for (var i = 0; i < @Model.ExtraIngredientName.Count; i++)
+            {
+                var check = false;
+                int k = 0;
+                for (int j = 0; j < @Model.ExtraIngredientSelecetedID.Count; j++)
+                {
+                    if (@Model.ExtraIngredientSelecetedID[j] == @Model.ExtraIngredientId[i])
+                    {
+                        check = true;
+                        k = j;
+                        break;
+                    }
+                }
+                if (check)
+                {
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input-lg" type="checkbox" value="" id="extraIngredient@(i+1)" checked="checked" disabled="disabled">
+                                <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
+                                    @Model.ExtraIngredientName[i]
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <input type="number" class="form-control" id="extraIngredientQuantity@(i+1)" value="@Model.ExtraIngredientSelecetedQuantity[k]" min="1" readonly="readonly">
+                        </div>
+                        <div class="col-3">
+                            <h4>+@Model.ExtraIngredientPrice[i] BDT</h4>
+                            <input type="hidden" id="extraIngredientPrice@(i+1)" value="@Model.ExtraIngredientPrice[i]">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input-lg" type="checkbox" value="" id="extraIngredient@(i+1)" disabled="disabled">
+                                <label style="font-size: 20px; margin-left: 5px; color: grey" class="form-check-label" for="defaultCheck1">
+                                    @Model.ExtraIngredientName[i]
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <input type="number" class="form-control" id="extraIngredientQuantity@(i+1)" value="1" min="1" readonly="readonly">
+                        </div>
+                        <div class="col-3">
+                            <h4>+@Model.ExtraIngredientPrice[i] BDT</h4>
+                            <input type="hidden" id="extraIngredientPrice@(i+1)" value="@Model.ExtraIngredientPrice[i]">
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Styles.Render("~/Content/css")
+}
